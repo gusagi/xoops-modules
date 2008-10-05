@@ -1,6 +1,6 @@
 /**************************************************
  * 【 モジュール名 】WizXc
- * 【  バージョン  】0.23
+ * 【  バージョン  】0.24
  * 【   権 利 者   】Makoto Hashiguchi a.k.a. gusagi
  * 【   作 成 者   】Makoto Hashiguchi a.k.a. gusagi
  * 【  ライセンス  】GNU General Public License Version2 with the special exception
@@ -38,5 +38,5 @@ XOOPS_TRUST_PATH/modulesにアップロードして下さい。
 
 --------------
 
-2008年 2月 26日 作成
-2008年 6月 24日 更新
+2008年  2月 26日 作成
+2008年  9月 14日 更新
