@@ -41,6 +41,11 @@ if ( $scriptFileName === __FILE__ ) {
 $xcRoot =& XCube_Root::getSingleton();
 $wizMobile =& WizMobile::getSingleton();
 $configs = $this->getConfigs();
+if ( ! empty($configs['lookup']) && $configs['lookup']['wmc_value'] === '1' ) {
+    $lookup = true;
+} else {
+    $lookup = false;
+}
 $renderTarget =& $xcRoot->mContext->mModule->getRenderTarget();
 $frontDirname = str_replace( '_wizmobile_action', '', strtolower(get_class($this)) );
 $tplFile = $frontDirname . '_main_login.html';
@@ -51,19 +56,23 @@ if ( empty($configs['login']) || $configs['login']['wmc_value'] !== '1' ) {
     $wizMobile->denyAccessLoginPage();
 }
 
+$user = & Wizin_User::getSingleton();
+$user->checkClient( true );
+if ( ! $user->bIsMobile ) {
+	header( "Location: " . XOOPS_URL . '/user.php' );
+	exit();
+}
+
 // check login and redirect
 $method = getenv( 'REQUEST_METHOD' );
 if ( strtolower($method) === 'post' ) {
-    $language = empty( $GLOBALS['xoopsConfig']['language'] ) ? 'english' : $GLOBALS['xoopsConfig']['language'];
-    if( file_exists( XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/main.php' ) ) {
-        require_once XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/main.php';
-    }
+	if ( ! defined('_MD_LEGACY_ERROR_DBUPDATE_FAILED') ) {
+	    $language = empty( $GLOBALS['xoopsConfig']['language'] ) ? 'english' : $GLOBALS['xoopsConfig']['language'];
+	    if( file_exists( XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/main.php' ) ) {
+	        require_once XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/main.php';
+	    }
+	}
     $db =& XoopsDatabaseFactory::getDatabaseConnection();
-    if ( ! empty($configs['lookup']) && $configs['lookup']['wmc_value'] === '1' ) {
-        $lookup = true;
-    } else {
-        $lookup = false;
-    }
     $user = & Wizin_User::getSingleton();
     $user->checkClient( true );
     if ( $user->bIsMobile ) {
@@ -90,7 +99,6 @@ if ( strtolower($method) === 'post' ) {
             }
         }
     }
-    $user->checkClient( $lookup );
     if ( isset($xcUser) && is_object($xcUser) ) {
         XCube_DelegateUtils::call( 'Site.CheckLogin.Success', new XCube_Ref($xcUser) );
         $this->executeRedirect( XOOPS_URL, 1, XCube_Utils::formatMessage(_MD_LEGACY_MESSAGE_LOGIN_SUCCESS, $xcUser->get('uname')) );
@@ -101,9 +109,11 @@ if ( strtolower($method) === 'post' ) {
 }
 
 // include language file of user module
-$language = empty( $GLOBALS['xoopsConfig']['language'] ) ? 'english' : $GLOBALS['xoopsConfig']['language'];
-if( file_exists( XOOPS_ROOT_PATH . '/modules/user/language/' . $language . '/blocks.php' ) ) {
-    require_once XOOPS_ROOT_PATH . '/modules/user/language/' . $language . '/blocks.php';
+if ( ! defined('_MB_USER_USERNAME') ) {
+	$language = empty( $GLOBALS['xoopsConfig']['language'] ) ? 'english' : $GLOBALS['xoopsConfig']['language'];
+	if( file_exists( XOOPS_ROOT_PATH . '/modules/user/language/' . $language . '/blocks.php' ) ) {
+	    require_once XOOPS_ROOT_PATH . '/modules/user/language/' . $language . '/blocks.php';
+	}
 }
 
 // login check and get "user" module config
