@@ -4,7 +4,7 @@
 - Added doctype declaration.
 - Added protect logic for PC access.
 - Added mobile input function, and update 'main_login.html' template.
-- 'Wizin' updated from '0.27' to '0.29'.
+- 'Wizin' updated from '0.27' to '0.30'.
 ----------------------------------
 [2008-08-26 Ver 0.30 -> 0.31]
 - WizMobile
