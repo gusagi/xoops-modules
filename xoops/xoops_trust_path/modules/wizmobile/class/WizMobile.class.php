@@ -54,7 +54,6 @@ if ( ! class_exists('WizMobile') ) {
         function _require()
         {
             require_once XOOPS_TRUST_PATH . '/wizin/src/Wizin_User.class.php';
-            require_once XOOPS_TRUST_PATH . '/wizin/src/Wizin_Session.class.php';
             require_once XOOPS_TRUST_PATH . '/wizin/src/filter/Mobile.class.php';
             require_once XOOPS_TRUST_PATH . '/wizin/src/util/Web.class.php';
         }
@@ -141,12 +140,14 @@ if ( ! class_exists('WizMobile') ) {
                 if ( $user->sCarrier === 'othermobile' ) {
                     $user->bIsMobile = $otherMobile;
                 }
+                // add delegate
+                $xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'mobileTpl' ) ) ;
                 if ( $user->bIsMobile ) {
-                    // add delegate
-                    $xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'mobileTpl' ) ) ;
                     // set session ini
                     if ( ! $user->bCookie ) {
-                        Wizin_Session::overrideSessionIni( false );
+                        ini_set( 'session.use_cookies', "0" );
+                        ini_set( 'session.use_only_cookies', "0" );
+                        ini_set( 'session.use_trans_sid', "0" );
                     }
                     // call input filter
                     $this->_inputFilter();
@@ -420,26 +421,42 @@ if ( ! class_exists('WizMobile') ) {
             $xoopsTpl->assign( 'wizmobile_dirname', $frontDirName );
             $configs = $actionClass->getConfigs();
             $xoopsTpl->assign( 'wizmobile_configs', $configs );
+            if ( ! empty($configs['content_type']) && $configs['content_type']['wmc_value'] === '1' ) {
+                $contentType = 'application/xhtml+xml';
+                $headerTag = '<?xml version="1.0" encoding="' . $user->sCharset . '" ?>' . "\n";
+				$headerTag .= $user->sDoctype . "\n";
+				$headerTag .= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="jp" lang="jp">';
+            } else {
+                $contentType = 'text/html';
+                $headerTag = '<html>';
+            }
+            $xoopsTpl->assign( 'wizmobile_contentsType', $contentType );
+            $xoopsTpl->assign( 'wizmobile_headerTag', $headerTag );
         }
 
         function mobileTpl( & $xoopsTpl )
         {
             $wizMobile = & WizMobile::getSingleton();
             $user = & Wizin_User::getSingleton();
-            $xoopsTpl->register_postfilter( array($wizMobile, 'directRedirect') );
-            $xoopsTpl->register_postfilter( array($wizMobile, 'filterMainMenu') );
-            $xoopsTpl->compile_id .= '_' . $user->sCarrier;
-            $actionClass =& $wizMobile->getActionClass();
-            $configs = $actionClass->getConfigs();
-            if ( ! empty($configs['pager']) && $configs['pager']['wmc_value'] === '1' ) {
-                $pager = true;
+            if ( $user->bIsMobile ) {
+	            $xoopsTpl->register_postfilter( array($wizMobile, 'directRedirect') );
+	            $xoopsTpl->register_postfilter( array($wizMobile, 'filterMainMenu') );
+	            $xoopsTpl->compile_id .= '_' . $user->sCarrier;
+	            $actionClass =& $wizMobile->getActionClass();
+	            $configs = $actionClass->getConfigs();
+	            if ( ! empty($configs['pager']) && $configs['pager']['wmc_value'] === '1' ) {
+	                $pager = true;
+	            } else {
+	                $pager = false;
+	            }
+	            if ( $pager ) {
+	                $xoopsTpl->register_modifier( 'wiz_pager', array('Wizin_Filter_Mobile', 'filterMobilePager') );
+	            } else {
+	                $xoopsTpl->register_modifier( 'wiz_pager', array('WizMobile', 'dummyModifier') );
+	            }
+	            $xoopsTpl->register_function( 'wiz_mobileInput', array('WizMobile', 'funcMobileInputMode') );
             } else {
-                $pager = false;
-            }
-            if ( $pager ) {
-                $xoopsTpl->register_modifier( 'wiz_pager', array('Wizin_Filter_Mobile', 'filterMobilePager') );
-            } else {
-                $xoopsTpl->register_modifier( 'wiz_pager', array('WizMobile', 'dummyModifier') );
+	            $xoopsTpl->register_function( 'wiz_mobileInput', array('WizMobile', 'dummyFunction') );
             }
         }
 
@@ -476,6 +493,22 @@ if ( ! class_exists('WizMobile') ) {
                 }
             }
             $xoopsTpl->assign( 'block', $block );
+        }
+
+        function funcMobileInputMode( $params, &$smarty )
+        {
+			$user =& Wizin_User::getSingleton();
+			$mode = $params['mode'];
+			$inputMode = '';
+			if ( isset($user->aInputMode[$mode]) ) {
+				$inputMode = $user->aInputMode[$mode];
+			}
+			return $inputMode;
+        }
+
+        function dummyFunction( $params, &$smarty )
+        {
+			return '';
         }
     }
 }

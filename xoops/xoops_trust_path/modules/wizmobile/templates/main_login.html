@@ -7,4 +7,17 @@
 </div>
 <br />
 
-<{include file="db:user_block_login.html"}>
+<form action="<{$xoops_url}>/user.php" method="post" style="margin-top: 0px;">
+    <{$smarty.const._MB_USER_USERNAME}><br />
+    <input name="uname" id="<{$smarty.const.XOOPS_INPUT_DEFID_PREFIX}>block_uname" type="text" size="12" maxlength="25" <{wiz_mobileInput mode="alpha"}> /><br />
+    <{$smarty.const._MB_USER_PASSWORD}><br />
+    <input name="pass" id="<{$smarty.const.XOOPS_INPUT_DEFID_PREFIX}>block_pass" type="text"  size="12" maxlength="32" <{wiz_mobileInput mode="alpha"}> /><br/>
+    <{xoops_input type=hidden name=op value=login id="`$smarty.const.XOOPS_INPUT_DEFID_PREFIX`block_op"}>
+    <{xoops_input type=submit name=submit value=$smarty.const._MB_USER_LOGIN id="`$smarty.const.XOOPS_INPUT_DEFID_PREFIX`block_submit"}><br />
+</form>
+<a href="<{$xoops_url}>/lostpass.php"><{$smarty.const._MB_USER_LOSTPASS}></a>
+<br /><br />
+<{if $block.allow_register == '1'}>
+  <a href="<{$xoops_url}>/register.php"><{$smarty.const._MB_USER_USERREG}></a>
+<{/if}>
+
