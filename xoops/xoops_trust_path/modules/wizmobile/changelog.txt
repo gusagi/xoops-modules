@@ -1,13 +1,10 @@
 ----------------------------------
-[2008-10-02 Ver 0.31 -> 0.32]
-- WizMobile
-  - Function in "WizMobile_Action.class.php" was rearranged.
-- Wizin
-  - Fixed bug about include 'spyc' twice.
-  - Define 'WIZIN_CACHE_DIR' and 'WIZIN_PEAR_DIR', modified code about these constants.
-  - Modified some filter which rewrites the form tag.
-  - Added googlebot plugin.
-  - Fixed bugs about some wrong logic.
+[2008-11-13 Ver 0.31 -> 0.32]
+- Function in "WizMobile_Action.class.php" was rearranged.
+- Added doctype declaration.
+- Added protect logic for PC access.
+- Added mobile input function, and update 'main_login.html' template.
+- 'Wizin' updated from '0.27' to '0.29'.
 ----------------------------------
 [2008-08-26 Ver 0.30 -> 0.31]
 - WizMobile
