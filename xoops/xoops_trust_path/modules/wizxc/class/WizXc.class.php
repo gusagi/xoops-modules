@@ -62,7 +62,7 @@ if ( ! class_exists('WizXc') ) {
         function _define()
         {
             define( 'WIZIN_CACHE_DIR', XOOPS_TRUST_PATH . '/cache' );
-            define( 'WIZIN_PEAR_DIR', XOOPS_TRUST_PATH . '/PEAR' );
+            //define( 'WIZIN_PEAR_DIR', XOOPS_TRUST_PATH . '/PEAR' );
             $wizin =& Wizin::getSingleton();
             $parseUrl = parse_url( XOOPS_URL );
             if ( ! empty($parseUrl['path']) ) {
@@ -90,6 +90,8 @@ if ( ! class_exists('WizXc') ) {
             $xcRoot =& XCube_Root::getSingleton();
             $xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'registerModifier' ) ) ;
             $xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'registerFunction' ) ) ;
+            // Testing filter
+            //$xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'registerPrefilter' ) ) ;
         }
 
         function registerModifier( &$xoopsTpl )
@@ -101,6 +103,12 @@ if ( ! class_exists('WizXc') ) {
         {
             $xoopsTpl->register_function( 'wiz_gticket', array('WizXc_Util', 'getGTicketHtml') );
         }
+
+        function registerPrefilter( &$xoopsTpl )
+        {
+            $xoopsTpl->register_prefilter( array('WizXc_Util', 'replaceXclDelim') );
+        }
+
 
     }
 }
