@@ -147,5 +147,11 @@ if ( ! class_exists('WizXc_Util') ) {
             return $gTicket->getTicketHtml( $salt, $timeout, $area );
         }
 
+        function replaceXclDelim($tplSource, &$xoopsTpl )
+        {
+            $tplSource = str_replace( '<!--{', $xoopsTpl->left_delimiter, $tplSource );
+            $tplSource = str_replace( '}-->', $xoopsTpl->right_delimiter, $tplSource );
+            return $tplSource;
+        }
     }
 }
