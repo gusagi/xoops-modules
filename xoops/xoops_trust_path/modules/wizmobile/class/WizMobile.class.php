@@ -140,9 +140,9 @@ if ( ! class_exists('WizMobile') ) {
                 if ( $user->sCarrier === 'othermobile' ) {
                     $user->bIsMobile = $otherMobile;
                 }
-                // add delegate
-                $xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'mobileTpl' ) ) ;
                 if ( $user->bIsMobile ) {
+	                // add delegate
+	                $xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'mobileTpl' ) ) ;
                     // set session ini
                     if ( ! $user->bCookie ) {
                         ini_set( 'session.use_cookies', "0" );
@@ -425,7 +425,8 @@ if ( ! class_exists('WizMobile') ) {
                 $contentType = 'application/xhtml+xml';
                 $headerTag = '<?xml version="1.0" encoding="' . $user->sCharset . '" ?>' . "\n";
 				$headerTag .= $user->sDoctype . "\n";
-				$headerTag .= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="jp" lang="jp">';
+				$headerTag .= '<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="' . _LANGCODE .
+					'" lang="' . _LANGCODE . '">';
             } else {
                 $contentType = 'text/html';
                 $headerTag = '<html>';
@@ -438,25 +439,20 @@ if ( ! class_exists('WizMobile') ) {
         {
             $wizMobile = & WizMobile::getSingleton();
             $user = & Wizin_User::getSingleton();
-            if ( $user->bIsMobile ) {
-	            $xoopsTpl->register_postfilter( array($wizMobile, 'directRedirect') );
-	            $xoopsTpl->register_postfilter( array($wizMobile, 'filterMainMenu') );
-	            $xoopsTpl->compile_id .= '_' . $user->sCarrier;
-	            $actionClass =& $wizMobile->getActionClass();
-	            $configs = $actionClass->getConfigs();
-	            if ( ! empty($configs['pager']) && $configs['pager']['wmc_value'] === '1' ) {
-	                $pager = true;
-	            } else {
-	                $pager = false;
-	            }
-	            if ( $pager ) {
-	                $xoopsTpl->register_modifier( 'wiz_pager', array('Wizin_Filter_Mobile', 'filterMobilePager') );
-	            } else {
-	                $xoopsTpl->register_modifier( 'wiz_pager', array('WizMobile', 'dummyModifier') );
-	            }
-	            $xoopsTpl->register_function( 'wiz_mobileInput', array('WizMobile', 'funcMobileInputMode') );
+            $xoopsTpl->register_postfilter( array($wizMobile, 'directRedirect') );
+            $xoopsTpl->register_postfilter( array($wizMobile, 'filterMainMenu') );
+            $xoopsTpl->compile_id .= '_' . $user->sCarrier;
+            $actionClass =& $wizMobile->getActionClass();
+            $configs = $actionClass->getConfigs();
+            if ( ! empty($configs['pager']) && $configs['pager']['wmc_value'] === '1' ) {
+                $pager = true;
             } else {
-	            $xoopsTpl->register_function( 'wiz_mobileInput', array('WizMobile', 'dummyFunction') );
+                $pager = false;
+            }
+            if ( $pager ) {
+                $xoopsTpl->register_modifier( 'wiz_pager', array('Wizin_Filter_Mobile', 'filterMobilePager') );
+            } else {
+                $xoopsTpl->register_modifier( 'wiz_pager', array('WizMobile', 'dummyModifier') );
             }
         }
 
@@ -493,22 +489,6 @@ if ( ! class_exists('WizMobile') ) {
                 }
             }
             $xoopsTpl->assign( 'block', $block );
-        }
-
-        function funcMobileInputMode( $params, &$smarty )
-        {
-			$user =& Wizin_User::getSingleton();
-			$mode = $params['mode'];
-			$inputMode = '';
-			if ( isset($user->aInputMode[$mode]) ) {
-				$inputMode = $user->aInputMode[$mode];
-			}
-			return $inputMode;
-        }
-
-        function dummyFunction( $params, &$smarty )
-        {
-			return '';
         }
     }
 }
