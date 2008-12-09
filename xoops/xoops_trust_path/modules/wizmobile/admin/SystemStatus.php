@@ -98,9 +98,6 @@ if ( extension_loaded('gd') && file_exists($createDir) && is_dir($createDir) &&
 if ( class_exists('DOMDocument') && class_exists('SimpleXMLElement') &&
         method_exists('SimpleXMLElement','getName')) {
     $systemStatus['partitionPage']['result'] = Wizin_Util::constant( 'WIZMOBILE_LANG_ENABLE' );
-    if ( ! function_exists('tidy_repair_string') ) {
-        $systemStatus['partitionPage']['messages'][] = Wizin_Util::constant( 'WIZMOBILE_MSG_TIDY_NOT_EXISTS' );
-    }
 } else {
     $systemStatus['partitionPage']['result'] = Wizin_Util::constant( 'WIZMOBILE_LANG_DISABLE' );
     if ( ! class_exists('DOMDocument') ) {
