@@ -1,11 +1,12 @@
 ----------------------------------
-[2008-12-04 Ver 0.31 -> 0.32]
+[2008-12-11 Ver 0.31 -> 0.32]
 - Function in "WizMobile_Action.class.php" was rearranged.
 - Added doctype declaration.
 - Added protect logic for PC access.
 - Added mobile input function, and update 'main_login.html' template.
 - Replaced indent(from 4 space to 2 space) in template files.
-- 'Wizin' updated from '0.27' to '0.31'.
+- Added 'Default display block setting' setting in admin.php?act=BlockSetting.
+- 'Wizin' updated from '0.27' to '0.32'.
 ----------------------------------
 [2008-08-26 Ver 0.30 -> 0.31]
 - WizMobile
