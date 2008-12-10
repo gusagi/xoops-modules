@@ -36,6 +36,14 @@ if ( ! class_exists('WizMobile_Action') ) {
 
     class WizMobile_Action extends WizXc_Action
     {
+        function executeAdmin()
+        {
+            if ( empty($_REQUEST['act']) ) {
+                $_REQUEST['act'] = 'SystemStatus';
+            }
+            parent::executeAdmin();
+        }
+
         function _setup()
         {
             $this->_sModuleDir = XOOPS_TRUST_PATH . '/modules/wizmobile';

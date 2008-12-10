@@ -52,6 +52,7 @@ if ( strtolower($method) === 'post' ) {
             sprintf(Wizin_Util::constant('WIZMOBILE_ERR_TICKET_NOT_FOUND')) );
     }
     $db =& XoopsDatabaseFactory::getDatabaseConnection();
+    // update nondisplay block setting
     $blockTable = $db->prefix( $this->_sFrontDirName . '_block' );
     $newblocksTable = $db->prefix( 'newblocks' );
     $insertBlocks = array();
@@ -97,6 +98,63 @@ if ( strtolower($method) === 'post' ) {
                 sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_FAILED')) );
         }
     }
+    // update default display block setting
+    if ( isset($_REQUEST['default_bid']) ) {
+        var_dump( $_REQUEST['default_bid'] );
+        $configTable = $db->prefix( $this->_sFrontDirName . '_config' );
+        if ( $_REQUEST['default_bid'] === '' || ! in_array($_REQUEST['default_bid'], $existsBlocks) ) {
+            // record exists ?
+            $sql = "SELECT wmc_value FROM `$configTable` WHERE `wmc_delete_datetime` = '0000-00-00 00:00:00' " .
+                "AND `wmc_item` = 'default_bid' LIMIT 1;";
+            if ( $resource = $db->query($sql) ) {
+                if ( $result = $db->fetchArray($resource) ) {
+                    // delete record
+                    $sql = "UPDATE `$configTable` SET `wmc_value` = '', `wmc_update_datetime` = '$now' WHERE " .
+                        "`wmc_delete_datetime` = '0000-00-00 00:00:00' AND `wmc_item` = 'default_bid';";
+                    if ( ! $db->query($sql) ) {
+                        $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
+                            $this->_sFrontDirName . '/admin/admin.php?act=BlockSetting', 3,
+                            sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_FAILED')) );
+                    }
+                } else {
+                    // insert record
+                    $sql = "INSERT INTO `$configTable` (`wmc_item`, `wmc_value`, `wmc_init_datetime`, `wmc_update_datetime`) " .
+                        " VALUES ( 'default_bid', '', '$now', '$now' );";
+                    if ( ! $db->query($sql) ) {
+                        $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
+                            $this->_sFrontDirName . '/admin/admin.php?act=BlockSetting', 3,
+                            sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_FAILED')) );
+                    }
+                }
+            }
+        } else {
+            // record exists ?
+            $sql = "SELECT wmc_value FROM `$configTable` WHERE `wmc_delete_datetime` = '0000-00-00 00:00:00' AND " .
+                "`wmc_item` = 'default_bid' LIMIT 1;";
+            $defaultBid = intval( $_REQUEST['default_bid'] );
+            if ( $resource = $db->query($sql) ) {
+                if ( $result = $db->fetchArray($resource) ) {
+                    // update record
+                    $sql = "UPDATE `$configTable` SET `wmc_value` = '$defaultBid', `wmc_update_datetime` = '$now' " .
+                        " WHERE `wmc_delete_datetime` = '0000-00-00 00:00:00' AND `wmc_item` = 'default_bid';";
+                    if ( ! $db->query($sql) ) {
+                        $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
+                            $this->_sFrontDirName . '/admin/admin.php?act=BlockSetting', 3,
+                            sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_FAILED')) );
+                    }
+                } else {
+                    // insert record
+                    $sql = "INSERT INTO `$configTable` (`wmc_item`, `wmc_value`, `wmc_init_datetime`, `wmc_update_datetime`) " .
+                        " VALUES ( 'default_bid', '$defaultBid', '$now', '$now' );";
+                    if ( ! $db->query($sql) ) {
+                        $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
+                            $this->_sFrontDirName . '/admin/admin.php?act=BlockSetting', 3,
+                            sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_FAILED')) );
+                    }
+                }
+            }
+        }
+    }
     $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
         $this->_sFrontDirName . '/admin/admin.php?act=BlockSetting', 3,
         sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_SUCCESS')) );
@@ -105,6 +163,14 @@ if ( strtolower($method) === 'post' ) {
 // get block list
 $blocks = $this->getBlocks();
 $nonDisplayBlocks = $this->getNondisplayBlocks();
+
+// get default bid of config
+$configs = $this->getConfigs();
+if ( isset($configs['default_bid']) ) {
+    $defaultBid = $configs['default_bid']['wmc_value'];
+} else {
+    $defaultBid = '';
+}
 
 //
 // render admin view
@@ -115,6 +181,7 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 // display main templates
 $xoopsTpl->assign( 'blocks', $blocks );
 $xoopsTpl->assign( 'nonDisplayBlocks', $nonDisplayBlocks );
+$xoopsTpl->assign( 'defaultBid', $defaultBid );
 $xoopsTpl->display( $tplFile );
 
 // call footer

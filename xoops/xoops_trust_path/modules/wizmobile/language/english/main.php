@@ -110,6 +110,10 @@ Wizin_Util::define( 'WIZMOBILE_LANG_MODULE_NAME', 'Module name' );
 Wizin_Util::define( 'WIZMOBILE_LANG_DIRNAME', 'Directory' );
 Wizin_Util::define( 'WIZMOBILE_LANG_NON_DISPLAY', 'Non display' );
 
+// default display block setting
+Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_BLOCK', 'Default display block setting' );
+Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_BLOCK_DESC', 'Please choose a block to display,<br />when there are page contents and neither block choosing together' );
+
 // deny access module setting
 Wizin_Util::define( 'WIZMOBILE_LANG_DENY_ACCESS_MODULE_SETTING', 'Deny access module setting' );
 Wizin_Util::define( 'WIZMOBILE_LANG_DENY_ACCESS', 'Deny access' );

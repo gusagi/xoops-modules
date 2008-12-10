@@ -110,6 +110,10 @@ Wizin_Util::define( 'WIZMOBILE_LANG_MODULE_NAME', 'モジュール名' );
 Wizin_Util::define( 'WIZMOBILE_LANG_DIRNAME', 'ディレクトリ' );
 Wizin_Util::define( 'WIZMOBILE_LANG_NON_DISPLAY', '非表示' );
 
+// default display block setting
+Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_BLOCK', '標準表示ブロックの設定' );
+Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_BLOCK_DESC', 'ページコンテンツ、選択中のブロックの両方が存在しない場合に表示するブロックを選択して下さい' );
+
 // deny access module setting
 Wizin_Util::define( 'WIZMOBILE_LANG_DENY_ACCESS_MODULE_SETTING', 'アクセス除外モジュールの設定' );
 Wizin_Util::define( 'WIZMOBILE_LANG_DENY_ACCESS', '除外' );

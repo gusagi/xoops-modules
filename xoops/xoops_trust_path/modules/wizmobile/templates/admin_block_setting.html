@@ -1,6 +1,6 @@
-<h3><{"WIZMOBILE_LANG_NON_DISPLAY_BLOCK_SETTING"|wiz_constant}></h3>
 <div style="margin-left: 0.5em; padding: 1em;">
   <form action="admin.php" method="post">
+    <h3><{"WIZMOBILE_LANG_NON_DISPLAY_BLOCK_SETTING"|wiz_constant}></h3>
     <table class="outer" style="margin-bottom: 1em;">
       <tr class="head">
         <th style="width: 4em; text-align: center;"><{"WIZMOBILE_LANG_NON_DISPLAY"|wiz_constant}></th>
@@ -24,6 +24,23 @@
         </td>
       </tr>
       <{/foreach}>
+    </table>
+
+    <h3><{"WIZMOBILE_LANG_DEFAULT_BLOCK"|wiz_constant}></h3>
+    <table class="outer" style="margin-bottom: 1em; width: 600px;">
+      <tr class="odd">
+        <td>
+          <select name="default_bid" style="width: 300px;">
+            <option value=""><{"WIZMOBILE_LANG_NONE_SETTING"|wiz_constant}></option>
+            <{foreach name=fe_blocks item=itm_blocks key=key_blocks from=$blocks}>
+              <option value="<{$itm_blocks.bid}>" <{if $itm_blocks.bid == $defaultBid}>selected="selected"<{/if}> ><{$itm_blocks.title}></option>
+            <{/foreach}>
+          </select>
+        </td>
+      </tr>
+      <tr class="even">
+        <td colspan="2"><{"WIZMOBILE_LANG_DEFAULT_BLOCK_DESC"|wiz_constant}></th>
+      </tr>
     </table>
     <div style="text-align: center; width: 100%; margin: auto;">
       <input type="hidden" name="act" value="BlockSetting" />
