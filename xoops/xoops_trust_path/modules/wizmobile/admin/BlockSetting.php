@@ -100,7 +100,6 @@ if ( strtolower($method) === 'post' ) {
     }
     // update default display block setting
     if ( isset($_REQUEST['default_bid']) ) {
-        var_dump( $_REQUEST['default_bid'] );
         $configTable = $db->prefix( $this->_sFrontDirName . '_config' );
         if ( $_REQUEST['default_bid'] === '' || ! in_array($_REQUEST['default_bid'], $existsBlocks) ) {
             // record exists ?
