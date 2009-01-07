@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `{prefix}_{dirname}_login`;
-CREATE TABLE `{prefix}_{dirname}_login` (
+DROP TABLE IF EXISTS `{prefix}_{_dirname_}_login`;
+CREATE TABLE `{prefix}_{_dirname_}_login` (
     `wml_login_id` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT ,
     `wml_uid` MEDIUMINT UNSIGNED NOT NULL ,
     `wml_uniqid` VARCHAR( 32 ) NOT NULL,
@@ -8,11 +8,11 @@ CREATE TABLE `{prefix}_{dirname}_login` (
     `wml_delete_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
     PRIMARY KEY  (`wml_login_id`)
 ) Type=MyISAM;
-ALTER TABLE `{prefix}_{dirname}_login` ADD INDEX `wml_idx` ( `wml_uid` , `wml_uniqid` , `wml_delete_datetime` ) ;
+ALTER TABLE `{prefix}_{_dirname_}_login` ADD INDEX `wml_idx` ( `wml_uid` , `wml_uniqid` , `wml_delete_datetime` ) ;
 
 
-DROP TABLE IF EXISTS `{prefix}_{dirname}_config`;
-CREATE TABLE `{prefix}_{dirname}_config` (
+DROP TABLE IF EXISTS `{prefix}_{_dirname_}_config`;
+CREATE TABLE `{prefix}_{_dirname_}_config` (
     `wmc_config_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT ,
     `wmc_item` VARCHAR( 64 ) NOT NULL,
     `wmc_value` VARCHAR( 32 ) NOT NULL,
@@ -21,11 +21,11 @@ CREATE TABLE `{prefix}_{dirname}_config` (
     `wmc_delete_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
     PRIMARY KEY  (`wmc_config_id`)
 ) Type=MyISAM;
-ALTER TABLE `{prefix}_{dirname}_config` ADD INDEX `wmc_idx` ( `wmc_item`, `wmc_delete_datetime` ) ;
+ALTER TABLE `{prefix}_{_dirname_}_config` ADD INDEX `wmc_idx` ( `wmc_item`, `wmc_delete_datetime` ) ;
 
 
-DROP TABLE IF EXISTS `{prefix}_{dirname}_block`;
-CREATE TABLE `{prefix}_{dirname}_block` (
+DROP TABLE IF EXISTS `{prefix}_{_dirname_}_block`;
+CREATE TABLE `{prefix}_{_dirname_}_block` (
     `wmb_block_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT ,
     `wmb_bid` MEDIUMINT UNSIGNED NOT NULL ,
     `wmb_init_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -33,11 +33,11 @@ CREATE TABLE `{prefix}_{dirname}_block` (
     `wmb_delete_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
     PRIMARY KEY  (`wmb_block_id`)
 ) Type=MyISAM;
-ALTER TABLE `{prefix}_{dirname}_block` ADD INDEX `wmb_idx` ( `wmb_bid`, `wmb_delete_datetime` ) ;
+ALTER TABLE `{prefix}_{_dirname_}_block` ADD INDEX `wmb_idx` ( `wmb_bid`, `wmb_delete_datetime` ) ;
 
 
-DROP TABLE IF EXISTS `{prefix}_{dirname}_module`;
-CREATE TABLE `{prefix}_{dirname}_module` (
+DROP TABLE IF EXISTS `{prefix}_{_dirname_}_module`;
+CREATE TABLE `{prefix}_{_dirname_}_module` (
     `wmm_module_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT ,
     `wmm_mid` MEDIUMINT UNSIGNED NOT NULL ,
     `wmm_init_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
@@ -45,4 +45,4 @@ CREATE TABLE `{prefix}_{dirname}_module` (
     `wmm_delete_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
     PRIMARY KEY  (`wmm_module_id`)
 ) Type=MyISAM;
-ALTER TABLE `{prefix}_{dirname}_module` ADD INDEX `wmm_idx` ( `wmm_mid`, `wmm_delete_datetime` ) ;
+ALTER TABLE `{prefix}_{_dirname_}_module` ADD INDEX `wmm_idx` ( `wmm_mid`, `wmm_delete_datetime` ) ;
