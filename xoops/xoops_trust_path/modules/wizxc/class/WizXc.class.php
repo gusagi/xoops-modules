@@ -48,6 +48,8 @@ if ( ! class_exists('WizXc') ) {
             static $instance;
             if ( ! isset($instance) ) {
                 $instance = new WizXc();
+                // set PEAR path
+                set_include_path( get_include_path() . PATH_SEPARATOR . WIZIN_PEAR_DIR );
             }
             return $instance;
         }
@@ -78,7 +80,6 @@ if ( ! class_exists('WizXc') ) {
             }
         }
 
-
         function _setup()
         {
         	Wizin::getSingleton();
@@ -108,7 +109,5 @@ if ( ! class_exists('WizXc') ) {
         {
             $xoopsTpl->register_prefilter( array('WizXc_Util', 'replaceXclDelim') );
         }
-
-
     }
 }
