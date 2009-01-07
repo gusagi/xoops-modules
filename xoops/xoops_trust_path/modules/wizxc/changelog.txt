@@ -1,6 +1,7 @@
 ----------------------------------
 [2009-01-08 Ver 0.26]
 - Exchange encoding of 'readme_ja.txt'.
+- Added logic about set 'WIZIN_PEAR_DIR' in include path.
 ----------------------------------
 [2008-12-04 Ver 0.25]
 - Added function 'replaceXclDelim'.
