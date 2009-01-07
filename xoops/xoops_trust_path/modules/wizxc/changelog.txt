@@ -1,4 +1,7 @@
 ----------------------------------
+[2009-01-08 Ver 0.26]
+- Exchange encoding of 'readme_ja.txt'.
+----------------------------------
 [2008-12-04 Ver 0.25]
 - Added function 'replaceXclDelim'.
 - Added testing filter.
