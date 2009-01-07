@@ -66,12 +66,12 @@ Wizin_Util::define( 'WIZMOBILE_MSG_REGISTER_UNIQID', 'The terminal specific ID w
 Wizin_Util::define( 'WIZMOBILE_MSG_CANNOT_GET_UNIQID', 'It cannot get The terminal specific ID.<br />Please check whether it does not prohibit the terminal specific ID.' );
 
 // admin area / block setting
-Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_SUCCESS', 'Update of non display block setting completed.' );
-Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_FAILED', 'It failed in update of non display block setting.' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_SUCCESS', 'Update of block control setting completed.' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_FAILED', 'It failed in update of block control setting.' );
 
 // admin area / module setting
-Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_SUCCESS', 'Update of deny access module setting completed.' );
-Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_FAILED', 'It failed in update of deny access module setting.' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_SUCCESS', 'Update of module control setting completed.' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_FAILED', 'It failed in update module control setting.' );
 
 // admin area / general setting
 Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_GENERAL_SETTING_SUCCESS', 'Update of generality setting completed.' );

@@ -66,12 +66,12 @@ Wizin_Util::define( 'WIZMOBILE_MSG_REGISTER_UNIQID', '簡単ログインで利用する携帯
 Wizin_Util::define( 'WIZMOBILE_MSG_CANNOT_GET_UNIQID', '機種IDが取得出来ません<br />機種IDの送信を禁止していないか、確認して下さい' );
 
 // admin area / block setting
-Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_SUCCESS', '非表示ブロック設定の更新が完了しました' );
-Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_FAILED', '非表示ブロック設定の更新に失敗しました' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_SUCCESS', 'ブロック制御設定の更新が完了しました' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_FAILED', 'ブロック制御設定の更新に失敗しました' );
 
 // admin area / module setting
-Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_SUCCESS', 'アクセス除外モジュール設定の更新が完了しました' );
-Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_FAILED', 'アクセス除外モジュール設定の更新に失敗しました' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_SUCCESS', 'アクセス制御設定の更新が完了しました' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_FAILED', 'アクセス制御設定の更新に失敗しました' );
 
 // admin area / general setting
 Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_GENERAL_SETTING_SUCCESS', '一般設定の更新が完了しました' );
