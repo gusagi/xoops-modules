@@ -71,9 +71,11 @@ if( ! class_exists( 'Legacy_WizMobileRenderSystem' ) ) {
             // if $xoops_contents is empty, display default setting block.
             $configs = $wizMobileAction->getConfigs();
             $xoopsContents = $target->getAttribute( 'xoops_contents' );
+            $defaultBid = isset( $configs['default_bid'] ) ?
+                intval( $configs['default_bid']['wmc_value'] ): 0;
             if ( (! isset($xoopsContents) || $xoopsContents === '') &&
                     empty($_REQUEST['mobilebid']) ) {
-                if ( isset($configs['default_bid']) ) {
+                if ( $defaultBid !== 0 ) {
                     $_REQUEST['mobilebid'] = $configs['default_bid']['wmc_value'];
                 }
             }
@@ -86,7 +88,7 @@ if( ! class_exists( 'Legacy_WizMobileRenderSystem' ) ) {
                 foreach ( $legacy_BlockContents as $index => $blockArea ) {
                     foreach ( $blockArea as $key => $block ) {
                         $blockId = intval( $block['id'] );
-                        if ( ! in_array($blockId, $nondisplayBlocks) || $blockId === intval($configs['default_bid']) ) {
+                        if ( ! in_array($blockId, $nondisplayBlocks) || $blockId === $defaultBid ) {
                             if ( ! empty($_REQUEST['mobilebid']) && intval($_REQUEST['mobilebid']) === $blockId ) {
                                 $this->mXoopsTpl->assign( 'wizMobileBlockTitle', $block['title'] );
                                 $this->mXoopsTpl->assign( 'wizMobileBlockContents', $block['content'] );
