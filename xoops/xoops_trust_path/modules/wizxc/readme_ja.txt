@@ -1,42 +1,42 @@
 /**************************************************
- * �� �⥸�塼��̾ ��WizXc
- * ��  �С������  ��0.25
- * ��   �� �� ��   ��Makoto Hashiguchi a.k.a. gusagi
- * ��   �� �� ��   ��Makoto Hashiguchi a.k.a. gusagi
- * ��  �饤����  ��GNU General Public License Version2 with the special exception
- * �� �ۡ���ڡ��� ��http://www.gusagi.com/
- * �ڥ᡼�륢�ɥ쥹��gusagi@gusagi.com
- * ��   ư��Ķ�   ��XOOPS Cube Legacy 2.1.4�ʹ�
+ * 【 モジュール名 】WizXc
+ * 【  バージョン  】0.25
+ * 【   権 利 者   】Makoto Hashiguchi a.k.a. gusagi
+ * 【   作 成 者   】Makoto Hashiguchi a.k.a. gusagi
+ * 【  ライセンス  】GNU General Public License Version2 with the special exception
+ * 【 ホームページ 】http://www.gusagi.com/
+ * 【メールアドレス】gusagi@gusagi.com
+ * 【   動作環境   】XOOPS Cube Legacy 2.1.4以降
 **************************************************/
 
-�ڤϤ���ˡ�
-�ʤ������Υ⥸�塼�����Ѥ��뤳�Ȥǲ��餫�����꤬ȯ��������硢
-��ȯ�Ԥ���Ǥ���餤���ͤޤ���
-����������ޤ��󤬡����Ѥ˴ؤ��Ƥϼ�����Ǥ�Ȥ������ȤǤ��ꤤ�פ��ޤ���
+【はじめに】
+なお、このモジュールを使用することで何らかの問題が発生した場合、
+開発者は責任を負いかねます。
+申し訳ありませんが、使用に関しては自己責任ということでお願い致します。
 
-�ڳ��ס�
-�ե졼����"Wizin"��XOOPS Cube Legacy�����Ѥ��뤿�������ѥ⥸�塼��Ǥ���
-���󥹥ȡ�������פǤ�����XOOPS_TRUST_PATH/modules�˥��åץ����ɤ���ɬ�פ�����ޤ���
+【概要】
+フレームワーク"Wizin"をXOOPS Cube Legacyで利用するための中継用モジュールです。
+インストールは不要ですが、XOOPS_TRUST_PATH/modulesにアップロードする必要があります。
 
-�ڵ�ǽ��
-�ʲ��ε�ǽ��������Ƥ��ޤ���
+【機能】
+以下の機能を実装しています。
 ----
 
 
-��Ƴ����ˡ��
-XOOPS_TRUST_PATH/modules�˥��åץ����ɤ��Ʋ�������
+【導入方法】
+XOOPS_TRUST_PATH/modulesにアップロードして下さい。
 
-�����ջ����
-�ܥ⥸�塼�뼫�ΤΥ饤���󥹤�GPL2�Ǥ���������BSD�饤���󥹤�
-�ե졼����"Wizin"�˰�¸���Ƥ��ޤ���
+【注意事項】
+本モジュール自体のライセンスはGPL2ですが、修正BSDライセンスの
+フレームワーク"Wizin"に依存しています。
 
-�ں����ͽ���
-��̤��
+【今後の予定】
+・未定
 
-�ڼռ���
+【謝辞】
 
 
 --------------
 
-2008ǯ  2�� 26�� ����
-2008ǯ 12��  4�� ����
+2008年  2月 26日 作成
+2008年 12月  4日 更新
