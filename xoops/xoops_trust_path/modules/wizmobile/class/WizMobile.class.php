@@ -152,13 +152,14 @@ if ( ! class_exists('WizMobile') ) {
                     // call input filter
                     $this->_inputFilter();
                     // exchange view
-                    $this->_exchangeRenderSystem();
                     $this->_exchangeTheme();
                     $this->_exchangeTemplateSet();
                 } else {
                     ini_set( 'default_charset', _CHARSET );
                     header( 'Content-Type:text/html; charset=' . _CHARSET );
                 }
+                // exchange render system
+                $this->_exchangeRenderSystem();
             }
         }
 
@@ -166,8 +167,10 @@ if ( ! class_exists('WizMobile') ) {
         {
             $user = & Wizin_User::getSingleton();
             $filter =& Wizin_Filter_Mobile::getSingleton();
+            $params = array();
+            $filter->addInputFilter( array($filter, 'filterInputPictogramMobile'), $params );
             $params = array( $user->sEncoding );
-            $filter->addInputFilter( array( $filter, 'filterInputEncoding' ), $params );
+            $filter->addInputFilter( array($filter, 'filterInputEncoding'), $params );
             $filter->executeInputFilter();
         }
 
@@ -323,9 +326,29 @@ if ( ! class_exists('WizMobile') ) {
 
         function renderContents()
         {
+            $contents = ob_get_clean();
             $user = & Wizin_User::getSingleton();
             $filter =& Wizin_Filter_Mobile::getSingleton();
-            $contents = ob_get_clean();
+            if ($user->bIsMobile) {
+                $this->_filterMobile($filter, $contents);
+                $actionClass =& $this->getActionClass();
+                $configs = $actionClass->getConfigs();
+                if ( ! empty($configs['content_type']) && $configs['content_type']['wmc_value'] === '1' ) {
+                    $contentType = 'application/xhtml+xml';
+                } else {
+                    $contentType = 'text/html';
+                }
+                header( 'Content-Type:' . $contentType . '; charset=' . $user->sCharset );
+            } else {
+                $this->_filterUnknown($filter, $contents);
+            }
+            $filter->executeOutputFilter( $contents );
+            echo $contents;
+        }
+
+        function _filterMobile( & $filter, & $contents )
+        {
+            $user = & Wizin_User::getSingleton();
             if ( ! $user->bCookie ) {
                 $params = array( XOOPS_URL, WIZMOBILE_CURRENT_URI );
                 $filter->addOutputFilter( array( $filter, 'filterTransSid' ), $params );
@@ -334,17 +357,18 @@ if ( ! class_exists('WizMobile') ) {
             $filter->addOutputFilter( array($filter, 'filterOptimizeMobile'), $params );
             $params = array( $user->sEncoding, $user->sCharset );
             $filter->addOutputFilter( array($filter, 'filterOutputEncoding'), $params );
-            $filter->executeOutputFilter( $contents );
-
             $actionClass =& $this->getActionClass();
-            $configs = $actionClass->getConfigs();
-            if ( ! empty($configs['content_type']) && $configs['content_type']['wmc_value'] === '1' ) {
-                $contentType = 'application/xhtml+xml';
-            } else {
-                $contentType = 'text/html';
-            }
-            header( 'Content-Type:' . $contentType . '; charset=' . $user->sCharset );
-            echo $contents;
+            $frontDirName = str_replace( '_wizmobile_action', '', strtolower(get_class($actionClass)) );
+            $params = array( XOOPS_URL . '/modules/' . $frontDirName . '/images/emoticons' );
+            $filter->addOutputFilter( array($filter, 'filterOutputPictogramMobile'), $params );
+        }
+
+        function _filterUnknown( & $filter, & $contents )
+        {
+            $actionClass =& $this->getActionClass();
+            $frontDirName = str_replace( '_wizmobile_action', '', strtolower(get_class($actionClass)) );
+            $params = array( XOOPS_URL . '/modules/' . $frontDirName . '/images/emoticons' );
+            $filter->addOutputFilter( array($filter, 'filterOutputPictogramMobile'), $params );
         }
 
         function checkSessionFixation()
