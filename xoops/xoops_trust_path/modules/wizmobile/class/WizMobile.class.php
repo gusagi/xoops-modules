@@ -171,6 +171,8 @@ if ( ! class_exists('WizMobile') ) {
             $filter->addInputFilter( array($filter, 'filterInputPictogramMobile'), $params );
             $params = array( $user->sEncoding );
             $filter->addInputFilter( array($filter, 'filterInputEncoding'), $params );
+            $params = array();
+            $filter->addInputFilter( array($filter, 'filterInputMobile'), $params );
             $filter->executeInputFilter();
         }
 
