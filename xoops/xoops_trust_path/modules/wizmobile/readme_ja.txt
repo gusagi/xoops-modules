@@ -1,82 +1,82 @@
 /**************************************************
- * �� �⥸�塼��̾ ��WizMobile
- * ��  �С������  ��0.32
- * ��   �� �� ��   ��Makoto Hashiguchi a.k.a. gusagi
- * ��   �� �� ��   ��Makoto Hashiguchi a.k.a. gusagi
- * ��  �饤����  ��GNU General Public License Version2 with the special exception
- * �� �ۡ���ڡ��� ��http://www.gusagi.com/
- * �ڥ᡼�륢�ɥ쥹��gusagi@gusagi.com
- * ��   ư��Ķ�   ��XOOPS Cube Legacy 2.1.4�ʹ�
+ * 【 モジュール名 】WizMobile
+ * 【  バージョン  】0.40
+ * 【   権 利 者   】Makoto Hashiguchi a.k.a. gusagi
+ * 【   作 成 者   】Makoto Hashiguchi a.k.a. gusagi
+ * 【  ライセンス  】GNU General Public License Version2 with the special exception
+ * 【 ホームページ 】http://www.gusagi.com/
+ * 【メールアドレス】gusagi@gusagi.com
+ * 【   動作環境   】XOOPS Cube Legacy 2.1.4以降
 **************************************************/
 
-�ڤϤ���ˡ�
-�ʤ������Υ⥸�塼�����Ѥ��뤳�Ȥǲ��餫�����꤬ȯ��������硢
-��ȯ�Ԥ���Ǥ���餤���ͤޤ���
-����������ޤ��󤬡����Ѥ˴ؤ��Ƥϼ�����Ǥ�Ȥ������ȤǤ��ꤤ�פ��ޤ���
+【はじめに】
+なお、このモジュールを使用することで何らかの問題が発生した場合、
+開発者は責任を負いかねます。
+申し訳ありませんが、使用に関しては自己責任ということでお願い致します。
 
 
-�ڳ��ס�
-�⥸�塼��򥤥󥹥ȡ��뤹������ǡ�XOOPS Cube Legacy�ǹ��ۤ��������Ȥ�
-���ӤǤ����Ѳ�ǽ�ˤ���⥸�塼��Ǥ���
-�������Ǥϡ����ܤη��ӥ���ꥢ��Docomo��AU��SoftBank�ˤ��б����Ƥ��ޤ���
+【概要】
+モジュールをインストールするだけで、XOOPS Cube Legacyで構築したサイトを
+携帯でも利用可能にするモジュールです。
+現時点では、日本の携帯キャリア（Docomo、AU、SoftBank）に対応しています。
 
 
-�ڵ�ǽ��
-�ʲ��ε�ǽ��������Ƥ��ޤ���
+【機能】
+以下の機能を実装しています。
 ----
-��XOOPS Cube Legacy�ǹ��ۤ��������Ȥ���ӤǤ����Ѳ�ǽ
-�����ܤη��ӥ���ꥢ���Ȥˡ����Ϥ��륨�󥳡��ǥ��󥰤��Ѵ�
-���֥��å���ޤᡢPC�Ȥۤ�Ʊ�����Ƥ���ӤǤ�����ǽ��Java Script���оݳ���
+・XOOPS Cube Legacyで構築したサイトを携帯でも利用可能
+・日本の携帯キャリアごとに、出力するエンコーディングを変換
+・ブロックを含め、PCとほぼ同じ内容を携帯でも操作可能（Java Scriptは対象外）
 
 
-��Ƴ����ˡ��
-XOOPS_ROOT_PATH¦��html�۲���XOOPS_TRUST_PATH¦��xoops_trust_path�۲���
-���åץ����ɤ��Ʋ�������
-���åץ����ɸ�ϡ�XOOPS Cube�δ������̤���⥸�塼�륤�󥹥ȡ����¹Ԥ��Ʋ�������
-�⥸�塼��δ������̤ϡ��������Ǥ�¸�ߤ��ޤ���
-���󥹥ȡ��뤬��λ����������Ƴ����λ�Ȥʤ�ޤ���
+【導入方法】
+XOOPS_ROOT_PATH側にhtml配下を、XOOPS_TRUST_PATH側にxoops_trust_path配下を
+アップロードして下さい。
+アップロード後は、XOOPS Cubeの管理画面からモジュールインストールを実行して下さい。
+モジュールの管理画面は、現時点では存在しません。
+インストールが完了した時点で導入完了となります。
 
 
-��ɬ������ۡʢ��ۥ��Υǥ����ȥ�ӥ塼���������Ѥξ��ϡ�������������פǤ���
-Ʊ����site_custom.ini.php��XOOPS_ROOT_PATH/settings�˥��ԡ����Ʋ�������
-����site_custom.ini.php��¸�ߤ�����ϡ�[RenderSystems][Legacy]
-[Legacy_Controller][Legacy_WizMobileRenderSystem]�˴ؤ��뵭�Ҥ��ɵ����Ʋ�������
+【必須設定】（※ホダ塾ディストリビューションをご利用の場合は、この設定は不要です）
+同梱のsite_custom.ini.phpを、XOOPS_ROOT_PATH/settingsにコピーして下さい。
+既にsite_custom.ini.phpが存在する場合は、[RenderSystems][Legacy]
+[Legacy_Controller][Legacy_WizMobileRenderSystem]に関する記述を追記して下さい。
 
 
-��0.1�Ϥ�����ѹ�����
-site_custom.ini.php�����ꤷ�Ƥ������ܤδ��Ĥ���������̤����ꤹ��褦���ѹ����ޤ�����
-�ޤ����ʲ��ο���ǽ���ɲä��Ƥ��ޤ���
-����ñ��������
-�������Υꥵ����
-���ڡ���ʬ��
-�����Ӥ��饢����������������ɽ���ˤ���֥��å�������
+【0.1系からの変更点】
+site_custom.ini.phpで設定していた項目の幾つかを管理画面で設定するように変更しました。
+また、以下の新機能を追加しています。
+・簡単ログイン
+・画像のリサイズ
+・ページ分割
+・携帯からアクセスした場合に非表示にするブロックの設定
 
 
-��pico�����Ѥ����ء�
-GIJOE��Υ⥸�塼�롢pico�����Ѥ��Ƥ��ơ�".htaccess.rewrite_normal"�ˤ��URL�񤭴�����
-�ԤäƤ����硢pico�ˤ��URL�񤭴����ȡ�WizMobile�ˤ��֥��å�ɽ���ѥ�󥯤�
-���ͤ��Ƥ��ޤ���404 Not found�Υ��顼��ȯ�����Ƥ��ޤ��ޤ���
-������ǤϤ���ޤ�����Ʊ����".htaccess.pico.rewrite_normal"��".htaccess"�˥�͡��ष�ơ�
-pico�Ѥ�.htaccess�˾�񤭤��Ʋ�������
+【picoをご利用の方へ】
+GIJOE氏のモジュール、picoを利用していて、".htaccess.rewrite_normal"によるURL書き換えを
+行っている場合、picoによるURL書き換えと、WizMobileによるブロック表示用リンクが
+衝突してしまい、404 Not foundのエラーが発生してしまいます。
+お手数ではありますが、同梱の".htaccess.pico.rewrite_normal"を".htaccess"にリネームして、
+pico用の.htaccessに上書きして下さい。
 
 
-�����ջ����
-�ܥ⥸�塼�뼫�ΤΥ饤���󥹤�GPL2�Ǥ���������BSD�饤���󥹤�
-�ե졼����"Wizin"�˰�¸���Ƥ��ޤ���
+【注意事項】
+本モジュール自体のライセンスはGPL2ですが、修正BSDライセンスの
+フレームワーク"Wizin"に依存しています。
 
 
-�ں����ͽ���
-����ʸ���б�
+【今後の予定】
+・絵文字対応
 
 
-�ڼռ���
-���ܥ⥸�塼��Υ�������ϡ�Argon�᤬�������Ʋ������ޤ�����
-���ܥ⥸�塼������Ѥ��Ƥ���ơ��޲��ƥ�ץ졼�ȡ��¤Ӥ�G�����åȤ�GIJOE�᤬��ȯ������Τ�
-�����Ѥ��Ƥ��ޤ���
-�����ˤ��꤬�Ȥ��������ޤ���
+【謝辞】
+・本モジュールのアイコンは、Argon氏が作成して下さいました。
+・本モジュールで利用しているテーマ下テンプレート、並びにGチケットはGIJOE氏が開発したものを
+　利用しています。
+本当にありがとうございます。
 
 
 --------------
 
-2008ǯ  2�� 26�� ����
-2008ǯ 12�� 11�� ����
+2008年  2月 26日 作成
+2009年  1月 18日 更新

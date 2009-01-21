@@ -1,4 +1,14 @@
 ----------------------------------
+[2009-01-18 Ver 0.33 -> 0.40]
+- Fixed bug about sensitive upper-cese with module dirname.(thx naoto_is)
+- Updated constant message 'WIZMOBILE_MSG_UPDATE_***_SETTING_***'.
+- Added TextPictogram filter.(special thanks yudoufu!)
+- Added 'typecast' emoji images.(special thanks 'TypeCast' project!)
+----------------------------------
+[2009-01-18 Ver 0.32 -> 0.33]
+- Fixed bug about 'default_bid' notice message.(thx guest)
+- 'Wizin' updated from '0.32' to '0.35'.
+----------------------------------
 [2008-12-11 Ver 0.31 -> 0.32]
 - Function in "WizMobile_Action.class.php" was rearranged.
 - Added doctype declaration.
