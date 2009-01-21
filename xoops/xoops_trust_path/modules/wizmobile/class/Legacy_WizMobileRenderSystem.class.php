@@ -118,8 +118,9 @@ if( ! class_exists( 'Legacy_WizMobileRenderSystem' ) ) {
                 $xoopsModule =& $root->mContext->mXoopsModule;
                 if ( isset($xoopsModule) && is_object($xoopsModule) ) {
                     if ( $xoopsModule->getVar('hasmain') == 1 && $xoopsModule->getVar('weight') > 0 ) {
-                        $dirname = $xoopsModule->getVar( 'dirname' );
-                        $modname = $xoopsModule->getVar( 'name' );
+                        $dirname = $xoopsModule->getVar('dirname');
+                        $modname = $xoopsModule->getVar('name');
+                        // assign submenu(string.)
                         $subMenuContents .= '<a href="' . XOOPS_URL . '/modules/' . htmlspecialchars( $dirname, ENT_QUOTES ) .
                             '/">[' . htmlspecialchars( $modname, ENT_QUOTES ) . ']</a>&nbsp;';
                         $subLinks = $xoopsModule->subLink();
@@ -130,6 +131,15 @@ if( ! class_exists( 'Legacy_WizMobileRenderSystem' ) ) {
                             $subMenuContents .= '<a href="' . $subLink['url'] . '">' . $subLink['name'] . '</a>';
                         }
                         $this->mXoopsTpl->assign( 'wizMobileSubMenuContents', $subMenuContents );
+                        // assign submenu(not string.)
+                        $this->mXoopsTpl->assign('wizMobileModuleName', $modname);
+                        $this->mXoopsTpl->assign('wizMobileModuleLink', XOOPS_URL . '/modules/' . $dirname . '/');
+                        $subLinks = $xoopsModule->subLink();
+                        if (! empty($subLinks)) {
+                            $this->mXoopsTpl->assign('wizMobileModuleSubLinks', $subLinks);
+                        } else {
+                            $this->mXoopsTpl->assign('wizMobileModuleSubLinks', '');
+                        }
                     }
                 }
             }
