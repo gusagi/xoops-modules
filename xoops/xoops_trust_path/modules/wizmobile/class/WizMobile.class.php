@@ -221,8 +221,11 @@ if ( ! class_exists('WizMobile') ) {
             $xcRoot->mDelegateManager->add( 'LegacyThemeHandler.GetInstalledThemes',
                 'LegacyWizMobileRender_DelegateFunctions::getInstalledThemes',
                 XOOPS_TRUST_PATH . '/modules/wizmobile/class/DelegateFunctions.class.php' );
-            $renderSystem = $xcRoot->mContext->mBaseRenderSystemName;
-            $xcRoot->overrideSiteConfig( array($renderSystem => $xcRoot->mSiteConfig['Legacy_WizMobileRenderSystem']) );
+            // if access area is not admin area, exchange render system
+            if (! class_exists('Legacy_AdminControllerStrategy')) {
+                $renderSystem = $xcRoot->mContext->mBaseRenderSystemName;
+                $xcRoot->overrideSiteConfig( array($renderSystem => $xcRoot->mSiteConfig['Legacy_WizMobileRenderSystem']) );
+            }
         }
 
         function _exchangeTheme()
