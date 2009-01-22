@@ -1,9 +1,13 @@
 ----------------------------------
-[2009-01-18 Ver 0.33 -> 0.40]
+[2009-01-31 Ver 0.34 -> 0.40]
 - Fixed bug about sensitive upper-cese with module dirname.(thx naoto_is)
 - Updated constant message 'WIZMOBILE_MSG_UPDATE_***_SETTING_***'.
 - Added TextPictogram filter.(special thanks yudoufu!)
 - Added 'typecast' emoji images.(special thanks 'TypeCast' project!)
+----------------------------------
+[2009-01-22 Ver 0.33 -> 0.34]
+- Added input filter for mobile.(thx naao)
+- 'Wizin' updated from '0.35' to '0.36'.
 ----------------------------------
 [2009-01-18 Ver 0.32 -> 0.33]
 - Fixed bug about 'default_bid' notice message.(thx guest)
