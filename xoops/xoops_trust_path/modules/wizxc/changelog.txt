@@ -1,4 +1,7 @@
 ----------------------------------
+[2009-01-08 Ver 0.27]
+- Replace call function name, from 'Wizin_Util::getPrefix' to 'Wizin_Util::salt'.
+----------------------------------
 [2009-01-08 Ver 0.26]
 - Exchange encoding of 'readme_ja.txt'.
 - Added logic about set 'WIZIN_PEAR_DIR' in include path.
