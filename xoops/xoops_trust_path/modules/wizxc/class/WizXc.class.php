@@ -82,8 +82,8 @@ if ( ! class_exists('WizXc') ) {
 
         function _setup()
         {
-        	Wizin::getSingleton();
-            Wizin_Util::getPrefix( XOOPS_SALT );
+            Wizin::getSingleton();
+            Wizin_Util::salt( XOOPS_SALT );
         }
 
         function _init()
