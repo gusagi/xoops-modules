@@ -56,13 +56,16 @@ if ( ! class_exists('WizXc') ) {
 
         function _require()
         {
-            require_once XOOPS_TRUST_PATH . '/wizin/src/Wizin.class.php';
-            require_once dirname( __FILE__ ) . '/WizXc_Util.class.php';
-            require_once dirname( __FILE__ ) . '/gtickets.php';
+            require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/wizin/src/Wizin.class.php';
+            if (! defined('_LEGACY_PREVENT_LOAD_CORE_')) {
+                require_once dirname( __FILE__ ) . '/WizXc_Util.class.php';
+                require_once dirname( __FILE__ ) . '/gtickets.php';
+            }
         }
 
         function _define()
         {
+            define( 'WIZIN_URL', XOOPS_URL );
             define( 'WIZIN_CACHE_DIR', XOOPS_TRUST_PATH . '/cache' );
             //define( 'WIZIN_PEAR_DIR', XOOPS_TRUST_PATH . '/PEAR' );
             $wizin =& Wizin::getSingleton();
@@ -88,11 +91,13 @@ if ( ! class_exists('WizXc') ) {
 
         function _init()
         {
-            $xcRoot =& XCube_Root::getSingleton();
-            $xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'registerModifier' ) ) ;
-            $xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'registerFunction' ) ) ;
-            // Testing filter
-            //$xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'registerPrefilter' ) ) ;
+            if (! defined('_LEGACY_PREVENT_LOAD_CORE_')) {
+                $xcRoot =& XCube_Root::getSingleton();
+                $xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'registerModifier' ) ) ;
+                $xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'registerFunction' ) ) ;
+                // Testing filter
+                //$xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'registerPrefilter' ) ) ;
+            }
         }
 
         function registerModifier( &$xoopsTpl )
