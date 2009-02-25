@@ -32,7 +32,7 @@
  *
  */
 
-if ( ! class_exists('WizXc_Util') ) {
+if (! class_exists('WizXc_Util')) {
     require_once XOOPS_ROOT_PATH."/class/xoopsblock.php";
     require_once XOOPS_ROOT_PATH."/class/template.php";
 
@@ -46,69 +46,69 @@ if ( ! class_exists('WizXc_Util') ) {
             $_SESSION = array();
         }
 
-        function installD3Templates( $module, &$log, $templatesDir )
+        function installD3Templates($module, &$log, $templatesDir)
         {
             $tplHandler =& xoops_gethandler('tplfile');
-            $mid = $module->getVar( 'mid' );
-            $dirname = $module->getVar( 'dirname' );
+            $mid = $module->getVar('mid');
+            $dirname = $module->getVar('dirname');
 
-            if ( $handler = @ opendir($templatesDir . '/') ) {
-                while ( ($fileName = readdir($handler)) !== false ) {
-                    if ( strcmp(substr($fileName , 0 , 1), '.') === 0 ) {
+            if ($handler = @ opendir($templatesDir . '/')) {
+                while (($fileName = readdir($handler)) !== false) {
+                    if (strcmp(substr($fileName , 0 , 1), '.') === 0) {
                         continue ;
                     }
                     $filePath = $templatesDir . '/' . $fileName ;
-                    if ( is_file($filePath) && is_readable($filePath) ) {
+                    if (is_file($filePath) && is_readable($filePath)) {
 
                         //
                         // Create template file object, then store it.
                         //
                         $tplfile =& $tplHandler->create();
-                        $tplfile->setVar( 'tpl_refid', $mid );
-                        $tplfile->setVar( 'tpl_lastimported', 0 );
-                        $tplfile->setVar( 'tpl_lastmodified', time() );
-                        if ( preg_match("/\.css$/i", $fileName) ) {
-                            $tplfile->setVar( 'tpl_type', 'css' );
+                        $tplfile->setVar('tpl_refid', $mid);
+                        $tplfile->setVar('tpl_lastimported', 0);
+                        $tplfile->setVar('tpl_lastmodified', time());
+                        if (preg_match("/\.css$/i", $fileName)) {
+                            $tplfile->setVar('tpl_type', 'css');
                         } else {
-                            $tplfile->setVar( 'tpl_type', 'module' );
+                            $tplfile->setVar('tpl_type', 'module');
                         }
-                        $source = file( $filePath );
-                        $source = implode( '', $source );
-                        $tplfile->setVar( 'tpl_source', $source, true );
-                        $tplfile->setVar( 'tpl_module', $dirname );
-                        $tplfile->setVar( 'tpl_tplset', 'default' );
+                        $source = file($filePath);
+                        $source = implode('', $source);
+                        $tplfile->setVar('tpl_source', $source, true);
+                        $tplfile->setVar('tpl_module', $dirname);
+                        $tplfile->setVar('tpl_tplset', 'default');
                         $tplFileName = $dirname . '_' . $fileName;
-                        $tplfile->setVar( 'tpl_file', $tplFileName, true );
-                        $tplfile->setVar( 'tpl_desc', '', true );
+                        $tplfile->setVar('tpl_file', $tplFileName, true);
+                        $tplfile->setVar('tpl_desc', '', true);
 
-                        if ( $tplHandler->insert($tplfile) ) {
-                            $log->addReport( XCube_Utils::formatMessage(_AD_LEGACY_MESSAGE_TEMPLATE_INSTALLED, $fileName) );
+                        if ($tplHandler->insert($tplfile)) {
+                            $log->addReport(XCube_Utils::formatMessage(_AD_LEGACY_MESSAGE_TEMPLATE_INSTALLED, $fileName));
                         } else {
-                            $log->addError( XCube_Utils::formatMessage(_AD_LEGACY_ERROR_COULD_NOT_INSTALL_TEMPLATE, $fileName) );
+                            $log->addError(XCube_Utils::formatMessage(_AD_LEGACY_ERROR_COULD_NOT_INSTALL_TEMPLATE, $fileName));
                             return false;
                         }
                     }
                 }
             }
-            xoops_template_clear_module_cache( $mid );
+            xoops_template_clear_module_cache($mid);
         }
 
-        function createTableByFile( &$module, &$log, $filePath )
+        function createTableByFile(&$module, &$log, $filePath)
         {
             require_once XOOPS_MODULE_PATH . '/legacy/admin/class/Legacy_SQLScanner.class.php';
             $scanner =& new Legacy_SQLScanner();
-            $scanner->setDB_PREFIX( XOOPS_DB_PREFIX );
-            $scanner->setDirname( $module->get('dirname') );
-            if ( ! $scanner->loadFile($filePath) ) {
-                $log->addError( XCube_Utils::formatMessage(_AD_LEGACY_ERROR_SQL_FILE_NOT_FOUND, basename($filePath)) );
+            $scanner->setDB_PREFIX(XOOPS_DB_PREFIX);
+            $scanner->setDirname($module->get('dirname'));
+            if (! $scanner->loadFile($filePath)) {
+                $log->addError(XCube_Utils::formatMessage(_AD_LEGACY_ERROR_SQL_FILE_NOT_FOUND, basename($filePath)));
                 return false;
             }
             $scanner->parse();
             $sqls = $scanner->getSQL();
             $db =& XoopsDatabaseFactory::getDatabaseConnection();
-            foreach ( $sqls as $sql ) {
-                if ( ! $db->query($sql) ) {
-                    $log->addError( $db->error() );
+            foreach ($sqls as $sql) {
+                if (! $db->query($sql)) {
+                    $log->addError($db->error());
                     return;
                 }
             }
@@ -119,13 +119,13 @@ if ( ! class_exists('WizXc_Util') ) {
             //
             // clear compiled cache
             //
-            if ( $handler = opendir(XOOPS_COMPILE_PATH) ) {
-                while ( ($file = readdir($handler)) !== false ) {
-                    if ( $file === '.' || $file === '..' ) {
+            if ($handler = opendir(XOOPS_COMPILE_PATH)) {
+                while (($file = readdir($handler)) !== false) {
+                    if ($file === '.' || $file === '..') {
                         continue;
                     }
-                    if ( substr($file, -4) === '.php' ) {
-                        unlink( XOOPS_COMPILE_PATH . '/' . $file );
+                    if (substr($file, -4) === '.php') {
+                        unlink(XOOPS_COMPILE_PATH . '/' . $file);
                     }
                 }
                 closedir($handler);
@@ -138,19 +138,19 @@ if ( ! class_exists('WizXc_Util') ) {
             return $xoopsTpl;
         }
 
-        function getGTicketHtml( $params, &$xoopsTpl )
+        function getGTicketHtml($params, &$xoopsTpl)
         {
             $gTicket = new XoopsGTicket();
             $salt = isset($params['salt']) ? $params['salt'] : XOOPS_SALT;
             $timeout = isset($params['timeout']) ? $params['timeout'] : 1800;
             $area = isset($params['area']) ? $params['area'] : '';
-            return $gTicket->getTicketHtml( $salt, $timeout, $area );
+            return $gTicket->getTicketHtml($salt, $timeout, $area);
         }
 
-        function replaceXclDelim($tplSource, &$xoopsTpl )
+        function replaceXclDelim($tplSource, &$xoopsTpl)
         {
-            $tplSource = str_replace( '<!--{', $xoopsTpl->left_delimiter, $tplSource );
-            $tplSource = str_replace( '}-->', $xoopsTpl->right_delimiter, $tplSource );
+            $tplSource = str_replace('<!--{', $xoopsTpl->left_delimiter, $tplSource);
+            $tplSource = str_replace('}-->', $xoopsTpl->right_delimiter, $tplSource);
             return $tplSource;
         }
     }

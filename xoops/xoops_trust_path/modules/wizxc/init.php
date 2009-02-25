@@ -33,10 +33,10 @@
  *
  */
 
-$scriptFileName = getenv( 'SCRIPT_FILENAME' );
-if ( $scriptFileName === __FILE__ ) {
+$scriptFileName = getenv('SCRIPT_FILENAME');
+if ($scriptFileName === __FILE__) {
     exit();
 }
 
-require dirname( __FILE__ ) . '/class/WizXc.class.php';
+require dirname(__FILE__) . '/class/WizXc.class.php';
 $wizXc =& WizXc::getSingleton();

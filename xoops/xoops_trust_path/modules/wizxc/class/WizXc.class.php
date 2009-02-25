@@ -32,7 +32,7 @@
  *
  */
 
-if ( ! class_exists('WizXc') ) {
+if (! class_exists('WizXc')) {
     class WizXc
     {
         function WizXc()
@@ -46,10 +46,10 @@ if ( ! class_exists('WizXc') ) {
         function &getSingleton()
         {
             static $instance;
-            if ( ! isset($instance) ) {
+            if (! isset($instance)) {
                 $instance = new WizXc();
                 // set PEAR path
-                set_include_path( get_include_path() . PATH_SEPARATOR . WIZIN_PEAR_DIR );
+                set_include_path(get_include_path() . PATH_SEPARATOR . WIZIN_PEAR_DIR);
             }
             return $instance;
         }
@@ -58,61 +58,61 @@ if ( ! class_exists('WizXc') ) {
         {
             require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/wizin/src/Wizin.class.php';
             if (! defined('_LEGACY_PREVENT_LOAD_CORE_')) {
-                require_once dirname( __FILE__ ) . '/WizXc_Util.class.php';
-                require_once dirname( __FILE__ ) . '/gtickets.php';
+                require_once dirname(__FILE__) . '/WizXc_Util.class.php';
+                require_once dirname(__FILE__) . '/gtickets.php';
             }
         }
 
         function _define()
         {
-            define( 'WIZIN_URL', XOOPS_URL );
-            define( 'WIZIN_CACHE_DIR', XOOPS_TRUST_PATH . '/cache' );
-            //define( 'WIZIN_PEAR_DIR', XOOPS_TRUST_PATH . '/PEAR' );
+            define('WIZIN_URL', XOOPS_URL);
+            define('WIZIN_CACHE_DIR', XOOPS_TRUST_PATH . '/cache');
+            //define('WIZIN_PEAR_DIR', XOOPS_TRUST_PATH . '/PEAR');
             $wizin =& Wizin::getSingleton();
-            $parseUrl = parse_url( XOOPS_URL );
-            if ( ! empty($parseUrl['path']) ) {
-                define( 'WIZXC_CURRENT_URI', str_replace($parseUrl['path'], '', XOOPS_URL) . getenv('REQUEST_URI') );
+            $parseUrl = parse_url(XOOPS_URL);
+            if (! empty($parseUrl['path'])) {
+                define('WIZXC_CURRENT_URI', str_replace($parseUrl['path'], '', XOOPS_URL) . getenv('REQUEST_URI'));
             } else {
-                define( 'WIZXC_CURRENT_URI', XOOPS_URL . getenv('REQUEST_URI') );
+                define('WIZXC_CURRENT_URI', XOOPS_URL . getenv('REQUEST_URI'));
             }
-            $queryString = getenv( 'QUERY_STRING' );
-            if ( ! empty($queryString) ) {
-                define( 'WIZXC_URI_CONNECTOR', '&' );
+            $queryString = getenv('QUERY_STRING');
+            if (! empty($queryString)) {
+                define('WIZXC_URI_CONNECTOR', '&');
             } else {
-                define( 'WIZXC_URI_CONNECTOR', '?' );
+                define('WIZXC_URI_CONNECTOR', '?');
             }
         }
 
         function _setup()
         {
             Wizin::getSingleton();
-            Wizin_Util::salt( XOOPS_SALT );
+            Wizin_Util::salt(XOOPS_SALT);
         }
 
         function _init()
         {
             if (! defined('_LEGACY_PREVENT_LOAD_CORE_')) {
                 $xcRoot =& XCube_Root::getSingleton();
-                $xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'registerModifier' ) ) ;
-                $xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'registerFunction' ) ) ;
+                $xcRoot->mDelegateManager->add('XoopsTpl.New' , array($this , 'registerModifier')) ;
+                $xcRoot->mDelegateManager->add('XoopsTpl.New' , array($this , 'registerFunction')) ;
                 // Testing filter
-                //$xcRoot->mDelegateManager->add( 'XoopsTpl.New' , array( $this , 'registerPrefilter' ) ) ;
+                //$xcRoot->mDelegateManager->add('XoopsTpl.New' , array($this , 'registerPrefilter')) ;
             }
         }
 
-        function registerModifier( &$xoopsTpl )
+        function registerModifier(&$xoopsTpl)
         {
-            $xoopsTpl->register_modifier( 'wiz_constant', array('Wizin_Util', 'constant') );
+            $xoopsTpl->register_modifier('wiz_constant', array('Wizin_Util', 'constant'));
         }
 
-        function registerFunction( &$xoopsTpl )
+        function registerFunction(&$xoopsTpl)
         {
-            $xoopsTpl->register_function( 'wiz_gticket', array('WizXc_Util', 'getGTicketHtml') );
+            $xoopsTpl->register_function('wiz_gticket', array('WizXc_Util', 'getGTicketHtml'));
         }
 
-        function registerPrefilter( &$xoopsTpl )
+        function registerPrefilter(&$xoopsTpl)
         {
-            $xoopsTpl->register_prefilter( array('WizXc_Util', 'replaceXclDelim') );
+            $xoopsTpl->register_prefilter(array('WizXc_Util', 'replaceXclDelim'));
         }
     }
 }

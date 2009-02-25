@@ -30,9 +30,9 @@
  *
  */
 
-if ( ! class_exists('WizXc_Updater') ) {
+if (! class_exists('WizXc_Updater')) {
     require_once XOOPS_ROOT_PATH . '/modules/legacy/admin/class/ModuleUpdater.class.php';
-    require_once dirname( __FILE__ ) . '/WizXc_Util.class.php';
+    require_once dirname(__FILE__) . '/WizXc_Util.class.php';
 
     class WizXc_Updater extends Legacy_ModulePhasedUpgrader
     {
@@ -51,12 +51,12 @@ if ( ! class_exists('WizXc_Updater') ) {
         function _updateModuleTemplates()
         {
             parent::_updateModuleTemplates();
-            $myTrustDirFile = XOOPS_ROOT_PATH . '/modules/' . $this->_mTargetXoopsModule->getVar( 'dirname' ) . '/mytrustdirname.php';
-            if ( file_exists($myTrustDirFile) && is_readable($myTrustDirFile) ) {
+            $myTrustDirFile = XOOPS_ROOT_PATH . '/modules/' . $this->_mTargetXoopsModule->getVar('dirname') . '/mytrustdirname.php';
+            if (file_exists($myTrustDirFile) && is_readable($myTrustDirFile)) {
                 include $myTrustDirFile;
                 $templatesDir = XOOPS_TRUST_PATH . '/modules/' . $mytrustdirname . '/templates';
-                if ( file_exists($templatesDir) && is_dir($templatesDir) ) {
-                    WizXc_Util::installD3Templates( $this->_mTargetXoopsModule, $this->mLog, $templatesDir );
+                if (file_exists($templatesDir) && is_dir($templatesDir)) {
+                    WizXc_Util::installD3Templates($this->_mTargetXoopsModule, $this->mLog, $templatesDir);
                 }
             }
         }

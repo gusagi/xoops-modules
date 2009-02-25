@@ -30,7 +30,7 @@
  *
  */
 
-if ( ! class_exists('WizXc_Action') ) {
+if (! class_exists('WizXc_Action')) {
     class WizXc_Action extends Wizin_StdClass
     {
         function __construct()
@@ -60,15 +60,15 @@ if ( ! class_exists('WizXc_Action') ) {
 
         function execute()
         {
-            $act = ( ! empty($_REQUEST['act']) )? $_REQUEST['act']: 'index';
+            $act = (! empty($_REQUEST['act']))? $_REQUEST['act']: 'index';
             $path = $this->_sModuleDir;
-            if ( $this->_sMode === 'admin' ) {
+            if ($this->_sMode === 'admin') {
                 $path .= '/admin/';
             } else {
                 $path .= '/main/';
             }
             $actionFile = $path . $act . '.php';
-            if ( file_exists($actionFile) ) {
+            if (file_exists($actionFile)) {
                 require $actionFile;
             }
         }
