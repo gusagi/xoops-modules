@@ -96,15 +96,9 @@ if ( ! class_exists('WizMobile_Preload') ) {
                 if ( ! $user->bIsBot ) {
                     // check session
                     $wizMobile->checkMobileSession();
-                } else {
-                    // test code >>
-                    //$wizMobile->checkSessionFixation();
-                    // test code <<
                 }
-            } else {
-                // test code >>
-                //$wizMobile->checkSessionFixation();
-                // test code <<
+                // exchange theme
+                $wizMobile->overrideTheme();
             }
         }
     }

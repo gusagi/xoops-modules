@@ -1,0 +1,57 @@
+<div style="margin-left: 0.5em; padding: 1em;">
+  <form action="admin.php" method="post">
+    <h3><{"WIZMOBILE_LANG_DEFAULT_THEME"|wiz_constant}></h3>
+    <table class="outer" style="margin-bottom: 1em; width: 400px;">
+      <tr class="odd">
+        <td>
+          <select name="wmc_item[theme]">
+            <{foreach name=fe_themes item=itm_themes key=key_themes from=$mobileThemes}>
+              <option value="<{$itm_themes}>" style="min-width: 120px;" <{if $configs.theme.wmc_value == $itm_themes}>selected="selected"<{/if}> ><{$itm_themes}></option>
+            <{/foreach}>
+          </select>
+        </td>
+      </tr>
+      <tr class="even">
+        <td colspan="2"><{"WIZMOBILE_LANG_DEFAULT_THEME_DESC"|wiz_constant}></td>
+      </tr>
+    </table>
+
+    <h3><{"WIZMOBILE_LANG_DISPLAY_TARGET"|wiz_constant}></h3>
+    <table class="outer" style="margin-bottom: 1em; width: 500px;">
+      <tr>
+        <td>&nbsp;</td>
+        <{foreach name=fe_modules item=itm_modules key=key_modules from=$modules}>
+          <th style="background-color: #d3d3d3; color: #404040; width: 170px;">
+            <{$itm_modules.name}>
+          </th>
+        <{/foreach}>
+      </tr>
+      <{foreach name=fe_groups item=itm_groups key=key_groups from=$groups}>
+        <{strip}>
+        <tr class="<{cycle values="even,odd"}>">
+          <th style="background-color: #d3d3d3; color: #404040; width: 160px;"><{$itm_groups.name}></th>
+          <{foreach name=fe_modules item=itm_modules key=key_modules from=$modules}>
+            <td style="width: 170px;">
+              <select name="wmt_theme[<{$key_groups}>][<{$key_modules}>]">
+                <option value="" style="min-width: 120px;"><{"WIZMOBILE_LANG_NONE_SETTING"|wiz_constant}></option>
+                <{foreach name=fe_themes item=itm_themes key=key_themes from=$mobileThemes}>
+                  <option value="<{$itm_themes}>" style="min-width: 120px;" <{if $itm_themes ===$themes.$key_groups.$key_modules}>selected="selected"<{/if}> ><{$itm_themes}></option>
+                <{/foreach}>
+              </select>
+            </td>
+          <{/foreach}>
+        </tr>
+        <{/strip}>
+      <{/foreach}>
+      <tr>
+        <td colspan="3"><{"WIZMOBILE_LANG_DISPLAY_TARGET_DESC"|wiz_constant}></td>
+      </tr>
+    </table>
+
+    <div style="text-align: center; width: 100%; margin: auto;">
+      <input type="hidden" name="act" value="ThemeSetting" />
+      <{wiz_gticket area=$wizmobile_dirname}>
+      <input type="submit" value="<{"WIZMOBILE_LANG_UPDATE"|wiz_constant}>" />
+    </div>
+  </form>
+</div>
