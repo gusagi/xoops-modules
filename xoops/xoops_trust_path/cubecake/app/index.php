@@ -21,11 +21,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
-if (! file_exists(dirname(dirname(__FILE__)) .'/mainfile.php')) {
+if (! file_exists(dirname(dirname(dirname(__FILE__))) .'/mainfile.php')) {
     die('Please copy "app" directory into your "{XOOPS_ROOT_PATH}/modules" directory.');
 }
 
-require_once dirname(dirname(__FILE__)) .'/mainfile.php';
+require_once dirname(dirname(dirname(__FILE__))) .'/mainfile.php';
 require_once XOOPS_ROOT_PATH . "/header.php";
 
 define('DS', DIRECTORY_SEPARATOR);
@@ -36,7 +36,7 @@ define('ROOT', dirname(dirname(__FILE__)));
 define('APP_DIR', basename(dirname(__FILE__)));
 define('APP_PATH', ROOT . DS . APP_DIR . DS);
 define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
-define('TMP', XOOPS_ROOT_PATH . DS . 'cache' . DS);
+define('TMP', XOOPS_TRUST_PATH . DS . 'cache' . DS);
 
 ob_start();
 require WWW_ROOT.'webroot'.DS.'index.php';
