@@ -21,13 +21,17 @@
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
-if (! file_exists(dirname(dirname(__FILE__)) .'/mainfile.php')) {
+/*
+ * check and include mainfile.php(xoops configure file.)
+ */
+if (! file_exists(dirname(dirname(dirname(__FILE__))) .'/mainfile.php')) {
     die('Please copy "app" directory into your "{XOOPS_ROOT_PATH}/modules" directory.');
 }
+require_once dirname(dirname(dirname(__FILE__))) .'/mainfile.php';
 
-require_once dirname(dirname(__FILE__)) .'/mainfile.php';
-require_once XOOPS_ROOT_PATH . "/header.php";
-
+/*
+ * define constant for CakePHP
+ */
 define('DS', DIRECTORY_SEPARATOR);
 define('WEBROOT_DIR', basename(dirname(__FILE__)));
 define('WWW_ROOT', dirname(__FILE__) . DS);
@@ -36,35 +40,27 @@ define('ROOT', dirname(dirname(__FILE__)));
 define('APP_DIR', basename(dirname(__FILE__)));
 define('APP_PATH', ROOT . DS . APP_DIR . DS);
 define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
-define('TMP', XOOPS_ROOT_PATH . DS . 'cache' . DS);
+define('TMP', XOOPS_TRUST_PATH . DS . 'cache' . DS);
 
+/*
+ * inhibit output and get contents from CakePHP
+ */
+ob_clean();
 ob_start();
 require WWW_ROOT.'webroot'.DS.'index.php';
-$out = ob_get_contents();
+$contents = ob_get_contents();
 ob_end_clean();
 
-$root =& XCube_Root::getSingleton();
-$target =& $root->mContext->mModule->getRenderTarget();
-$target->setResult($out);
-$target->setAttribute('legacy_buffertype', null);
+/*
+ * render contents for XOOPS Cube Legacy
+ */
+$xcRoot =& XCube_Root::getSingleton();
+$renderTarget =& $xcRoot->mContext->mModule->getRenderTarget();
+$renderTarget->setTemplateName('legacy_dummy.html');
 
-$theme =& $root->mController->_mStrategy->getMainThemeObject();
-$renderSystem =& $root->getRenderSystem($theme->get('render_system'));
-$renderSystem->_commonPrepareRender();
-
-if (isset($GLOBALS['xoopsUserIsAdmin'])) {
-    $renderSystem->mXoopsTpl->assign('xoops_isadmin', $GLOBALS['xoopsUserIsAdmin']);
-}
-$renderSystem->mXoopsTpl->assign('xoops_block_header', '');
-$renderSystem->mXoopsTpl->assign('xoops_module_header', '');
-
-$theme =& $root->mController->_mStrategy->getMainThemeObject();
-$renderSystem =& $root->getRenderSystem($theme->get('render_system'));
-$renderSystem->_commonPrepareRender();
-
-if (isset($GLOBALS['xoopsUserIsAdmin'])) {
-    $renderSystem->mXoopsTpl->assign('xoops_isadmin', $GLOBALS['xoopsUserIsAdmin']);
-}
-$renderSystem->mXoopsTpl->assign('xoops_block_header', '');
-
+// call header script
+require_once XOOPS_ROOT_PATH . "/header.php";
+// assign contents
+$renderTarget->setAttribute('dummy_content', $contents);
+// call header script
 require_once XOOPS_ROOT_PATH . "/footer.php";

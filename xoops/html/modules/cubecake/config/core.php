@@ -38,7 +38,7 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', 2);
+	Configure::write('debug', 1);
 /**
  * Application wide charset encoding
  */
@@ -70,7 +70,7 @@
  * Turn off all caching application-wide.
  *
  */
-	//Configure::write('Cache.disable', true);
+	Configure::write('Cache.disable', true);
 /**
  * Enable cache checking.
  *
@@ -80,7 +80,7 @@
  * or in each action using $this->cacheAction = true.
  *
  */
-	//Configure::write('Cache.check', true);
+	Configure::write('Cache.check', true);
 /**
  * Defines the default error type when using the log() function. Used for
  * differentiating error logging and debugging. Currently PHP supports LOG_DEBUG.
@@ -99,7 +99,7 @@
  * To use database sessions, execute the SQL file found at /app/config/sql/sessions.sql.
  *
  */
-	Configure::write('Session.save', 'php');
+	//Configure::write('Session.save', 'php');
 /**
  * The name of the table used to store CakePHP database sessions.
  *
@@ -117,16 +117,16 @@
 /**
  * The name of CakePHP's session cookie.
  */
-	Configure::write('Session.cookie', 'CAKEPHP');
+	//Configure::write('Session.cookie', 'CAKEPHP');
 /**
  * Session time out time (in seconds).
  * Actual value depends on 'Security.level' setting.
  */
-	Configure::write('Session.timeout', '120');
+	//Configure::write('Session.timeout', '120');
 /**
  * If set to false, sessions are not automatically started.
  */
-	Configure::write('Session.start', true);
+	Configure::write('Session.start', false);
 /**
  * When set to false, HTTP_USER_AGENT will not be checked
  * in the session
@@ -148,7 +148,7 @@
 /**
  * A random string used in security hashing methods.
  */
-	Configure::write('Security.salt', 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');
+	Configure::write('Security.salt', md5(XOOPS_SALT));
 /**
  * Compress CSS output by removing comments, whitespace, repeating tags, etc.
  * This requires a/var/cache directory to be writable by the web server for caching.
