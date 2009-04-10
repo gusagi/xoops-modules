@@ -28,6 +28,11 @@ if (! file_exists(dirname(dirname(dirname(__FILE__))) .'/mainfile.php')) {
     die('Please copy "app" directory into your "{XOOPS_ROOT_PATH}/modules" directory.');
 }
 require_once dirname(dirname(dirname(__FILE__))) .'/mainfile.php';
+/*
+ * get xoops debug param
+ */
+$error_reporting = error_reporting();
+$display_errors = ini_get('display_errors');
 
 /*
  * define constant for CakePHP
@@ -54,13 +59,15 @@ ob_end_clean();
 /*
  * render contents for XOOPS Cube Legacy
  */
+error_reporting($error_reporting);
+ini_set('display_errors', $display_errors);
 $xcRoot =& XCube_Root::getSingleton();
 $renderTarget =& $xcRoot->mContext->mModule->getRenderTarget();
 $renderTarget->setTemplateName('legacy_dummy.html');
-
 // call header script
 require_once XOOPS_ROOT_PATH . "/header.php";
 // assign contents
 $renderTarget->setAttribute('dummy_content', $contents);
+$renderTarget->setAttribute('xoops_module_header', isset($xoops_module_header)? $xoops_module_header : '');
 // call header script
 require_once XOOPS_ROOT_PATH . "/footer.php";
