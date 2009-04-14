@@ -44,20 +44,31 @@ $frontDirname = str_replace( '_wizmobile_action', '', strtolower(get_class($this
 $tplFile = 'db:' . $frontDirname . '_admin_block_setting.html';
 
 // get block list
+$blocks = array();
 $existsBlocks = array();
-$blocks = $this->getBlocks();
+$newBlocks = $this->getBlocks();
 $wizmobileBlocks = $this->getWizMobileBlocks();
 $wizmobileBlockKeys = array_keys($wizmobileBlocks);
-foreach ($blocks as $key => $block) {
-    $bid = $blocks[$key]['bid'];
+foreach (array_keys($newBlocks) as $key) {
+    $bid = $newBlocks[$key]['bid'];
     $existsBlocks[] = $bid;
-    $blocks[$key]['wmb_visible'] = $blocks[$key]['visible'];
-    $blocks[$key]['wmb_weight'] = $blocks[$key]['weight'];
-    if (in_array($blocks[$key]['bid'], $wizmobileBlockKeys)) {
-        $blocks[$key]['wmb_visible'] = $wizmobileBlocks[$bid]['wmb_visible'];
-        $blocks[$key]['wmb_weight'] = $wizmobileBlocks[$bid]['wmb_weight'];
+    $newBlocks[$key]['wmb_bid'] = $newBlocks[$key]['bid'];
+    $newBlocks[$key]['wmb_visible'] = $newBlocks[$key]['visible'];
+    $newBlocks[$key]['wmb_weight'] = $newBlocks[$key]['weight'];
+    if (in_array($newBlocks[$key]['bid'], $wizmobileBlockKeys)) {
+        $newBlocks[$key]['wmb_visible'] = $wizmobileBlocks[$bid]['wmb_visible'];
+        $newBlocks[$key]['wmb_weight'] = $wizmobileBlocks[$bid]['wmb_weight'];
     }
+    if ($newBlocks[$key]['wmb_visible'] != 0) {
+        $index = $newBlocks[$key]['wmb_visible'] .'_' .$newBlocks[$key]['wmb_weight'] .'_' .
+            $newBlocks[$key]['mid'] .'_' .$newBlocks[$key]['bid'];
+    } else {
+        $index = '99_0_' .$newBlocks[$key]['mid'] .'_' .$newBlocks[$key]['bid'];
+    }
+    $blocks[$index] = $newBlocks[$key];
 }
+ksort($blocks);
+unset($newBlocks);
 
 // get default bid of config
 $configs = $this->getConfigs();

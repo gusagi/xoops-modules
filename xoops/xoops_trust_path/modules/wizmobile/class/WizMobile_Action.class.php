@@ -79,8 +79,8 @@ if ( ! class_exists('WizMobile_Action') ) {
                 $sql .= " $newblocksTable.`visible` = $visible AND ";
             }
             $sql .= " $newblocksTable.`isactive` = 1 ";
-            $sql .= " ORDER BY $newblocksTable.`visible` DESC, $newblocksTable.`weight`, " .
-                " $newblocksTable.`bid`";
+            $sql .= " ORDER BY $newblocksTable.`mid`, $newblocksTable.`visible` DESC, " .
+                " $newblocksTable.`weight`, $newblocksTable.`bid`";
             if ( $resource = $db->query($sql) ) {
                 while ( $result = $db->fetchArray($resource) ) {
                     if ( $result !== false && ! empty($result) ) {
