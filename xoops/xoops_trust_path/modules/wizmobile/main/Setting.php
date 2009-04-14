@@ -50,7 +50,7 @@ $renderTarget->setTemplateName( $tplFile );
 
 // include language file of user module
 $language = empty( $GLOBALS['xoopsConfig']['language'] ) ? 'english' : $GLOBALS['xoopsConfig']['language'];
-if( file_exists( XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/main.php' ) ) {
+if( file_exists( XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/blocks.php' ) ) {
     require_once XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/blocks.php';
 }
 

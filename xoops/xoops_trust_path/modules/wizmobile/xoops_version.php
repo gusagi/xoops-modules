@@ -70,10 +70,12 @@ $modversion['legacy_installer']['updater']['class'] = 'WizMobile_Updater';
 
 // database
 $modversion['sqlfile']['mysql'] = "";
-$modversion['tables'][] = "{prefix}_{_dirname_}_login";
-$modversion['tables'][] = "{prefix}_{_dirname_}_config";
-$modversion['tables'][] = "{prefix}_{_dirname_}_block";
-$modversion['tables'][] = "{prefix}_{_dirname_}_module";
+$modversion['tables'][] = "{prefix}_{_dirname_}_devices";
+$modversion['tables'][] = "{prefix}_{_dirname_}_configs";
+$modversion['tables'][] = "{prefix}_{_dirname_}_blocks";
+$modversion['tables'][] = "{prefix}_{_dirname_}_modules";
+$modversion['tables'][] = "{prefix}_{_dirname_}_themes";
+$modversion['tables'][] = "{prefix}_{_dirname_}_atypical";
 
 /*
 // Templates

@@ -52,7 +52,7 @@ if ( strtolower($method) === 'post' ) {
             sprintf(Wizin_Util::constant('WIZMOBILE_ERR_TICKET_NOT_FOUND')) );
     }
     $db =& XoopsDatabaseFactory::getDatabaseConnection();
-    $configTable = $db->prefix( $this->_sFrontDirName . '_config' );
+    $configTable = $db->prefix( $this->_sFrontDirName . '_configs' );
     $now = date( 'Y-m-d H:i:s' );
     $allowItems = array( 'login', 'theme', 'template_set', 'lookup', 'othermobile', 'pager', 'content_type' );
     $sqlArray = array();
@@ -82,6 +82,7 @@ if ( strtolower($method) === 'post' ) {
                 sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_GENERAL_SETTING_FAILED')) );
         }
     }
+    unset($sqlArray);
     WizXc_Util::clearCompiledCache();
     $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
         $this->_sFrontDirName . '/admin/admin.php?act=GeneralSetting', 3,

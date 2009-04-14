@@ -37,7 +37,9 @@ if ( ! class_exists('WizMobile_Updater') ) {
 
     class WizMobile_Updater extends WizXc_Updater
     {
-        var $_mMilestone = array( '020' => 'updateTo020', '025' => 'updateTo025', '030' => 'updateTo030' );
+        var $_mMilestone = array( '020' => 'updateTo020', '025' => 'updateTo025', '030' => 'updateTo030',
+        '036' => 'updateTo036', '037' => 'updateTo037'
+         );
 
         function updateTo020()
         {
@@ -147,6 +149,47 @@ if ( ! class_exists('WizMobile_Updater') ) {
             return $this->executeAutomaticUpgrade();
         }
 
+        function updateTo036()
+        {
+            //
+            // Create tables
+            //
+            $sqlFilePath = dirname( dirname(__FILE__) ) . '/sql/mysql.036.sql';
+            if ( file_exists($sqlFilePath) && is_readable($sqlFilePath) ) {
+                WizXc_Util::createTableByFile( $this->_mTargetXoopsModule, $this->mLog, $sqlFilePath );
+            }
+
+            $this->_mTargetXoopsModule->set('version', '36');
+            return $this->executeAutomaticUpgrade();
+        }
+
+        function updateTo037()
+        {
+            //
+            // Create tables
+            //
+            $sqlFilePath = dirname( dirname(__FILE__) ) . '/sql/mysql.037.sql';
+            if ( file_exists($sqlFilePath) && is_readable($sqlFilePath) ) {
+                WizXc_Util::createTableByFile( $this->_mTargetXoopsModule, $this->mLog, $sqlFilePath );
+            }
+
+            $this->_mTargetXoopsModule->set('version', '37');
+            return $this->executeAutomaticUpgrade();
+        }
+
+        function updateTo040()
+        {
+            //
+            // Create tables
+            //
+            $sqlFilePath = dirname( dirname(__FILE__) ) . '/sql/mysql.040.sql';
+            if ( file_exists($sqlFilePath) && is_readable($sqlFilePath) ) {
+                WizXc_Util::createTableByFile( $this->_mTargetXoopsModule, $this->mLog, $sqlFilePath );
+            }
+
+            $this->_mTargetXoopsModule->set('version', '40');
+            return $this->executeAutomaticUpgrade();
+        }
     }
 }
 

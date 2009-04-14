@@ -70,8 +70,16 @@ Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_SUCCESS', '¥Ö¥í¥Ã¥¯À©¸æÀ
 Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_FAILED', '¥Ö¥í¥Ã¥¯À©¸æÀßÄê¤Î¹¹¿·¤Ë¼ºÇÔ¤·¤Þ¤·¤¿' );
 
 // admin area / module setting
-Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_SUCCESS', '¥¢¥¯¥»¥¹À©¸æÀßÄê¤Î¹¹¿·¤¬´°Î»¤·¤Þ¤·¤¿' );
-Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_FAILED', '¥¢¥¯¥»¥¹À©¸æÀßÄê¤Î¹¹¿·¤Ë¼ºÇÔ¤·¤Þ¤·¤¿' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_SUCCESS', '¥â¥¸¥å¡¼¥ëÀ©¸æÀßÄê¤Î¹¹¿·¤¬´°Î»¤·¤Þ¤·¤¿' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_FAILED', '¥â¥¸¥å¡¼¥ëÀ©¸æÀßÄê¤Î¹¹¿·¤Ë¼ºÇÔ¤·¤Þ¤·¤¿' );
+
+// admin area / theme setting
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_THEME_SETTING_SUCCESS', '¥Æ¡¼¥ÞÀ©¸æÀßÄê¤Î¹¹¿·¤¬´°Î»¤·¤Þ¤·¤¿' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_THEME_SETTING_FAILED', '¥Æ¡¼¥ÞÀ©¸æÀßÄê¤Î¹¹¿·¤Ë¼ºÇÔ¤·¤Þ¤·¤¿' );
+
+// admin area / theme setting
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_GOOGLE_SETTING_SUCCESS', '¥°¡¼¥°¥ë´ØÏ¢À©¸æÀßÄê¤Î¹¹¿·¤¬´°Î»¤·¤Þ¤·¤¿' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_GOOGLE_SETTING_FAILED', '¥°¡¼¥°¥ë´ØÏ¢À©¸æÀßÄê¤Î¹¹¿·¤Ë¼ºÇÔ¤·¤Þ¤·¤¿' );
 
 // admin area / general setting
 Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_GENERAL_SETTING_SUCCESS', '°ìÈÌÀßÄê¤Î¹¹¿·¤¬´°Î»¤·¤Þ¤·¤¿' );
@@ -96,6 +104,8 @@ Wizin_Util::define( 'WIZMOBILE_LANG_REGISTER_UNIQID', 'µ¡¼ïIDÅÐÏ¿' );
 Wizin_Util::define( 'WIZMOBILE_LANG_SYSTEM_STATUS', '¥·¥¹¥Æ¥à¤Î¾õ¶·' );
 Wizin_Util::define( 'WIZMOBILE_LANG_BLOCK_CONTROL', '¥Ö¥í¥Ã¥¯À©¸æ' );
 Wizin_Util::define( 'WIZMOBILE_LANG_MODULE_CONTROL', '¥â¥¸¥å¡¼¥ëÀ©¸æ' );
+Wizin_Util::define( 'WIZMOBILE_LANG_THEME_CONTROL', '¥Æ¡¼¥ÞÀ©¸æ' );
+Wizin_Util::define( 'WIZMOBILE_LANG_GOOGLE_CONTROL', '¥°¡¼¥°¥ë´ØÏ¢À©¸æ' );
 Wizin_Util::define( 'WIZMOBILE_LANG_GENERAL_SETTING', '°ìÈÌÀßÄê' );
 
 // system status
@@ -103,12 +113,14 @@ Wizin_Util::define( 'WIZMOBILE_LANG_EXCHANGE_CONTROLLER', '¥³¥ó¥È¥í¡¼¥é¤Î´¹Áõ' )
 Wizin_Util::define( 'WIZMOBILE_LANG_IMAGE_RESIZE', '²èÁü¤Î¥ê¥µ¥¤¥º' );
 Wizin_Util::define( 'WIZMOBILE_LANG_PARTITION_PAGE', '¥Ú¡¼¥¸Ê¬³ä' );
 
-// non display block setting
-Wizin_Util::define( 'WIZMOBILE_LANG_NON_DISPLAY_BLOCK_SETTING', 'ÈóÉ½¼¨¥Ö¥í¥Ã¥¯¤ÎÀßÄê' );
+// block setting
+Wizin_Util::define( 'WIZMOBILE_LANG_BLOCK_SETTING', '¥Ö¥í¥Ã¥¯¤ÎÀßÄê' );
 Wizin_Util::define( 'WIZMOBILE_LANG_BLOCK_TITLE', '¥Ö¥í¥Ã¥¯¥¿¥¤¥È¥ë' );
 Wizin_Util::define( 'WIZMOBILE_LANG_MODULE_NAME', '¥â¥¸¥å¡¼¥ëÌ¾' );
 Wizin_Util::define( 'WIZMOBILE_LANG_DIRNAME', '¥Ç¥£¥ì¥¯¥È¥ê' );
-Wizin_Util::define( 'WIZMOBILE_LANG_NON_DISPLAY', 'ÈóÉ½¼¨' );
+Wizin_Util::define( 'WIZMOBILE_LANG_VISIBLE', 'É½¼¨' );
+Wizin_Util::define( 'WIZMOBILE_LANG_INVISIBLE', 'ÈóÉ½¼¨' );
+Wizin_Util::define( 'WIZMOBILE_LANG_WEIGHT', 'ÊÂ¤Ó½ç' );
 
 // default display block setting
 Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_BLOCK', 'É¸½àÉ½¼¨¥Ö¥í¥Ã¥¯¤ÎÀßÄê' );
@@ -118,6 +130,15 @@ Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_BLOCK_DESC', '¥Ú¡¼¥¸¥³¥ó¥Æ¥ó¥Ä¡¢ÁªÂò
 Wizin_Util::define( 'WIZMOBILE_LANG_DENY_ACCESS_MODULE_SETTING', '¥¢¥¯¥»¥¹½ü³°¥â¥¸¥å¡¼¥ë¤ÎÀßÄê' );
 Wizin_Util::define( 'WIZMOBILE_LANG_DENY_ACCESS', '½ü³°' );
 
+// default display theme setting
+Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_THEME', '·ÈÂÓÍÑ¤ÎÉ¸½à¥Æ¡¼¥Þ' );
+Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_THEME_DESC', '¸ÄÊÌ¤ÎÀßÄê¤¬¤Ê¤¤¾ì¹ç¤ËÉ½¼¨¤¹¤ë¥Æ¡¼¥Þ¤òÁªÂò¤·¤Æ²¼¤µ¤¤<br />¢¨°ìÈÌÀßÄê¤Î"¥Æ¡¼¥Þ"¤ÇÁª¤ó¤ÇÄº¤¤¤Æ¤â¹½¤¤¤Þ¤»¤ó' );
+Wizin_Util::define( 'WIZMOBILE_LANG_DISPLAY_TARGET', 'É½¼¨ÂÐ¾Ý' );
+Wizin_Util::define( 'WIZMOBILE_LANG_DISPLAY_TARGET_DESC', '¥°¥ë¡¼¥×Ëè¤Ë¡¢¤½¤ì¤¾¤ì¤Î¥Ú¡¼¥¸¤ÇÉ½¼¨¤¹¤ë¥Æ¡¼¥Þ¤òÁªÂò¤·¤Æ²¼¤µ¤¤' );
+
+// google adsense and analytics setting
+Wizin_Util::define( 'WIZMOBILE_LANG_ADSENSE_CODE', 'Google AdSense ¥³¡¼¥É' );
+Wizin_Util::define( 'WIZMOBILE_LANG_ADSENSE_CODE_DESC', '¥â¥Ð¥¤¥ë¥³¥ó¥Æ¥ó¥Ä¸þ¤±¤ÎAdSense¥³¡¼¥É¤òÅ½¤êÉÕ¤±¤Æ²¼¤µ¤¤' );
 
 // general setting
 Wizin_Util::define( 'WIZMOBILE_LANG_ITEM', '¹àÌÜ' );

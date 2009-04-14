@@ -8,7 +8,7 @@
         <th><{"WIZMOBILE_LANG_DIRNAME"|wiz_constant}></th>
       </tr>
       <{foreach name=fe_modules item=itm_modules key=key_modules from=$modules}>
-      <tr class="<{cycle values="odd, even"}>">
+      <tr class="<{cycle values="odd,even"}>">
         <td style="text-align: center;">
           <input type="checkbox" name="wmm_mid[]" value="<{$itm_modules.mid}>" <{if $itm_modules.mid|@in_array:$denyAccessModules}>checked="checked"<{/if}> />
         </td>

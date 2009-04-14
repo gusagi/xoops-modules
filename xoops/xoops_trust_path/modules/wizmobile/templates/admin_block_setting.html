@@ -1,18 +1,22 @@
 <div style="margin-left: 0.5em; padding: 1em;">
+  <span style="background-color:#ffcccc; font: normal normal bold 9pt/12pt;">
+    <{"WIZMOBILE_LANG_BLOCK_SETTING"|wiz_constant}>
+  </span>
+  <hr />
+</div>
+<div style="margin-left: 0.5em; padding-bottom: 1em;">
   <form action="admin.php" method="post">
-    <h3><{"WIZMOBILE_LANG_NON_DISPLAY_BLOCK_SETTING"|wiz_constant}></h3>
+    <h3><{"WIZMOBILE_LANG_BLOCK_SETTING"|wiz_constant}></h3>
     <table class="outer" style="margin-bottom: 1em;">
       <tr class="head">
-        <th style="width: 4em; text-align: center;"><{"WIZMOBILE_LANG_NON_DISPLAY"|wiz_constant}></th>
         <th><{"WIZMOBILE_LANG_BLOCK_TITLE"|wiz_constant}></th>
         <th><{"WIZMOBILE_LANG_MODULE_NAME"|wiz_constant}></th>
         <th><{"WIZMOBILE_LANG_DIRNAME"|wiz_constant}></th>
+        <th><{"WIZMOBILE_LANG_VISIBLE"|wiz_constant}>/<{"WIZMOBILE_LANG_INVISIBLE"|wiz_constant}></th>
+        <th style="width: 4em;"><{"WIZMOBILE_LANG_WEIGHT"|wiz_constant}></th>
       </tr>
       <{foreach name=fe_blocks item=itm_blocks key=key_blocks from=$blocks}>
-      <tr class="<{cycle values="odd, even"}>">
-        <td style="text-align: center;">
-          <input type="checkbox" name="wmb_bid[]" value="<{$itm_blocks.bid}>" <{if $itm_blocks.bid|@in_array:$nonDisplayBlocks}>checked="checked"<{/if}> />
-        </td>
+      <tr class="<{cycle values="odd,even"}>">
         <td>
           <{$itm_blocks.title}>
         </td>
@@ -22,6 +26,19 @@
         <td>
           <{$itm_blocks.dirname|default:"--"}>
         </td>
+        <td>
+          <label>
+            <input type="radio" name="wmb_visible[<{$itm_blocks.bid}>]" value="<{$smarty.const.WIZMOBILE_BLOCK_VISIBLE}>"<{if $itm_blocks.wmb_visible == $smarty.const.WIZMOBILE_BLOCK_VISIBLE}> checked="checked"<{/if}> />
+            <{"WIZMOBILE_LANG_VISIBLE"|wiz_constant}>
+          </label>
+          <label>
+            <input type="radio" name="wmb_visible[<{$itm_blocks.bid}>]" value="<{$smarty.const.WIZMOBILE_BLOCK_INVISIBLE}>"<{if $itm_blocks.wmb_visible == $smarty.const.WIZMOBILE_BLOCK_INVISIBLE}> checked="checked"<{/if}> />
+            <{"WIZMOBILE_LANG_INVISIBLE"|wiz_constant}>
+          </label>
+        </td>
+        <td>
+          <input type="text" name="wmb_weight[<{$itm_blocks.bid}>]" value="<{$itm_blocks.wmb_weight}>" style="width: 4em;" />
+        </td>
       </tr>
       <{/foreach}>
     </table>
@@ -30,10 +47,10 @@
     <table class="outer" style="margin-bottom: 1em; width: 600px;">
       <tr class="odd">
         <td>
-          <select name="default_bid" style="width: 300px;">
+          <select name="default_bid">
             <option value=""><{"WIZMOBILE_LANG_NONE_SETTING"|wiz_constant}></option>
             <{foreach name=fe_blocks item=itm_blocks key=key_blocks from=$blocks}>
-              <option value="<{$itm_blocks.bid}>" <{if $itm_blocks.bid == $defaultBid}>selected="selected"<{/if}> ><{$itm_blocks.title}></option>
+              <option value="<{$itm_blocks.bid}>" <{if $itm_blocks.bid == $defaultBid}>selected="selected"<{/if}> ><{$itm_blocks.title}>&nbsp;&nbsp;&nbsp;[ <{$itm_blocks.module_name|default:"--"}> / <{$itm_blocks.dirname|default:"--"}> ]</option>
             <{/foreach}>
           </select>
         </td>
@@ -42,6 +59,7 @@
         <td colspan="2"><{"WIZMOBILE_LANG_DEFAULT_BLOCK_DESC"|wiz_constant}></th>
       </tr>
     </table>
+
     <div style="text-align: center; width: 100%; margin: auto;">
       <input type="hidden" name="act" value="BlockSetting" />
       <{wiz_gticket area=$wizmobile_dirname}>

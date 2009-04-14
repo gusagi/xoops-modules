@@ -79,13 +79,13 @@ if ( strtolower($method) === 'post' ) {
             $this->_sFrontDirName . '/index.php?act=Setting', 1,
             Wizin_Util::constant('WIZMOBILE_MSG_CANNOT_GET_UNIQID') );
     }
-    $loginTable = $db->prefix( $this->_sFrontDirName . '_login' );
+    $loginTable = $db->prefix( $this->_sFrontDirName . '_devices' );
     $uid = $xcRoot->mContext->mXoopsUser->get( 'uid' );
     $uniqId = md5( $user->sUniqId . XOOPS_SALT );
     $now = date( 'Y-m-d H:i:s' );
     // TODO : use ORM
     $mode = Wizin_Util::constant( 'WIZMOBILE_LANG_REGISTER' );
-    $sql = "SELECT `wml_uniqid` FROM `$loginTable` WHERE `wml_uid` = '$uid'";
+    $sql = "SELECT `wmd_uniqid` FROM `$loginTable` WHERE `wmd_uid` = '$uid' AND `wmd_uniqid` = '$uniqId' AND `wmd_delete_datetime` = '0000-00-00 00:00:00';";
     if ( $resource = $db->query($sql) ) {
         $result = $db->fetchArray( $resource );
         if ( $result !== false && ! empty($result) ) {
@@ -93,9 +93,9 @@ if ( strtolower($method) === 'post' ) {
         }
     }
     if ( $mode === Wizin_Util::constant('WIZMOBILE_LANG_REGISTER') ) {
-        $sql = "INSERT INTO `$loginTable` ( `wml_uid`, `wml_uniqid`, `wml_init_datetime`, `wml_update_datetime` ) VALUES ( '$uid', '$uniqId', '$now', '$now' );";
+        $sql = "INSERT INTO `$loginTable` ( `wmd_uid`, `wmd_uniqid`, `wmd_init_datetime`, `wmd_update_datetime` ) VALUES ( '$uid', '$uniqId', '$now', '$now' );";
     } else if ( $mode === Wizin_Util::constant('WIZMOBILE_LANG_UPDATE') ) {
-        $sql = "UPDATE `$loginTable` SET `wml_uniqid` = '$uniqId', `wml_update_datetime` = '$now' WHERE `wml_uid` = '$uid';";
+        $sql = "UPDATE `$loginTable` SET `wmd_uniqid` = '$uniqId', `wmd_update_datetime` = '$now' WHERE `wmd_uid` = '$uid' AND `wmd_uniqid` = '$uniqId' AND `wmd_delete_datetime` = '0000-00-00 00:00:00';";
     }
     if ( $db->query($sql) ) {
         $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .

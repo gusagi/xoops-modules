@@ -1,7 +1,11 @@
+ALTER TABLE `{prefix}_{_dirname_}_config` RENAME TO `{prefix}_{_dirname_}_configs`;
+ALTER TABLE `{prefix}_{_dirname_}_module` RENAME TO `{prefix}_{_dirname_}_modules`;
+
+
 DROP TABLE IF EXISTS `{prefix}_{_dirname_}_devices`;
 CREATE TABLE `{prefix}_{_dirname_}_devices` (
     `wmd_device_id` MEDIUMINT UNSIGNED NOT NULL AUTO_INCREMENT ,
-    `wmd_uid` MEDIUMINT UNSIGNED NOT NULL,
+    `wmd_uid` MEDIUMINT UNSIGNED NOT NULL ,
     `wmd_email` VARCHAR(60),
     `wmd_uniqid` VARBINARY(32) NOT NULL,
     `wmd_identifier` VARBINARY(16) NOT NULL,
@@ -12,19 +16,8 @@ CREATE TABLE `{prefix}_{_dirname_}_devices` (
 ) Type=MyISAM;
 ALTER TABLE `{prefix}_{_dirname_}_devices` ADD UNIQUE INDEX `wmd_idx_unique` (`wmd_uid` , `wmd_uniqid`) ;
 ALTER TABLE `{prefix}_{_dirname_}_devices` ADD INDEX `wmd_idx_select` (`wmd_identifier`, `wmd_delete_datetime`) ;
-
-
-DROP TABLE IF EXISTS `{prefix}_{_dirname_}_configs`;
-CREATE TABLE `{prefix}_{_dirname_}_configs` (
-    `wmc_config_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT ,
-    `wmc_item` VARCHAR(64) NOT NULL,
-    `wmc_value` VARCHAR(32) NOT NULL,
-    `wmc_init_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
-    `wmc_update_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
-    `wmc_delete_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
-    PRIMARY KEY  (`wmc_config_id`)
-) Type=MyISAM;
-ALTER TABLE `{prefix}_{_dirname_}_configs` ADD INDEX `wmc_idx` (`wmc_item`, `wmc_delete_datetime`) ;
+INSERT INTO `{prefix}_{_dirname_}_devices` (`wmd_uid`, `wmd_uniqid`, `wmd_identifier`, `wmd_init_datetime`, `wmd_update_datetime`) SELECT `wml_uid` AS `wmd_uid`, `wml_uniqid` AS `wmd_uniqid`, '' AS `wmd_identifier`, `wml_init_datetime` AS `wmd_init_datetime`, `wml_update_datetime` AS `wmd_update_datetime` FROM `{prefix}_{_dirname_}_login`;
+DROP TABLE IF EXISTS `{prefix}_{_dirname_}_login`;
 
 
 DROP TABLE IF EXISTS `{prefix}_{_dirname_}_blocks`;
@@ -40,18 +33,8 @@ CREATE TABLE `{prefix}_{_dirname_}_blocks` (
 ) Type=MyISAM;
 # -- wmb_visible : 0->invisible, 1->visible;
 ALTER TABLE `{prefix}_{_dirname_}_blocks` ADD INDEX `wmb_idx` (`wmb_bid`, `wmb_visible`, `wmb_weight`, `wmb_delete_datetime`) ;
-
-
-DROP TABLE IF EXISTS `{prefix}_{_dirname_}_modules`;
-CREATE TABLE `{prefix}_{_dirname_}_modules` (
-    `wmm_module_id` SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT ,
-    `wmm_mid` MEDIUMINT UNSIGNED NOT NULL ,
-    `wmm_init_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
-    `wmm_update_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
-    `wmm_delete_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
-    PRIMARY KEY  (`wmm_module_id`)
-) Type=MyISAM;
-ALTER TABLE `{prefix}_{_dirname_}_modules` ADD INDEX `wmm_idx` (`wmm_mid`, `wmm_delete_datetime`) ;
+INSERT INTO `{prefix}_{_dirname_}_blocks` (`wmb_bid`, `wmb_init_datetime`, `wmb_update_datetime`) SELECT `wmb_bid`, `wmb_init_datetime`, `wmb_update_datetime` FROM `{prefix}_{_dirname_}_block` WHERE `wmb_delete_datetime` = '0000-00-00 00:00:00';
+DROP TABLE IF EXISTS `{prefix}_{_dirname_}_block`;
 
 
 DROP TABLE IF EXISTS `{prefix}_{_dirname_}_themes`;

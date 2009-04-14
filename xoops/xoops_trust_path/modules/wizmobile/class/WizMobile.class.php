@@ -60,6 +60,10 @@ if ( ! class_exists('WizMobile') ) {
 
         function _define()
         {
+            // block display mode
+            define('WIZMOBILE_BLOCK_INVISIBLE', 0);
+            define('WIZMOBILE_BLOCK_VISIBLE', 1);
+            // connector string and current uri
             if ( WIZXC_URI_CONNECTOR === '&' ) {
                 if ( ! empty($_REQUEST['mobilebid']) ) {
                     $queryString = getenv( 'QUERY_STRING' );
@@ -230,9 +234,10 @@ if ( ! class_exists('WizMobile') ) {
 
         function _exchangeTheme()
         {
-            // exchange theme
+            // init process
             $xcRoot =& XCube_Root::getSingleton();
             $actionClass =& $this->getActionClass();
+            // get default theme
             $configs = $actionClass->getConfigs();
             if ( ! empty($configs) && ! empty($configs['theme']) && ! empty($configs['theme']['wmc_value']) ) {
                 $theme = $configs['theme']['wmc_value'];
@@ -263,7 +268,7 @@ if ( ! class_exists('WizMobile') ) {
 
         function resetUserTheme()
         {
-            unset( $_SESSION['xoopsUserTheme'] );
+            unset($_SESSION['xoopsUserTheme']);
         }
 
         function directLoginSuccess()
@@ -483,6 +488,7 @@ if ( ! class_exists('WizMobile') ) {
             } else {
                 $xoopsTpl->register_modifier( 'wiz_pager', array('WizMobile', 'dummyModifier') );
             }
+            $xoopsTpl->register_function( 'wizmobile_google_ads', array('WizMobile', 'googleAds') );
         }
 
         function dummyModifier( $string, $maxKbyte = 0 )
@@ -518,6 +524,119 @@ if ( ! class_exists('WizMobile') ) {
                 }
             }
             $xoopsTpl->assign( 'block', $block );
+        }
+
+        function googleAds()
+        {
+            $flgFile = XOOPS_TRUST_PATH . '/cache/wizmobile_ads_flg_' . Wizin_Util::salt(XOOPS_SALT);
+            if (! file_exists($flgFile)) {
+                touch($flgFile);
+            }
+            $cacheObject = new Wizin_Cache('wizmobile_ads_cache_', Wizin_Util::salt(XOOPS_SALT));
+            if ($cacheObject->isCached($flgFile)) {
+                $params = $cacheObject->load();
+            } else {
+                $wizMobile = & WizMobile::getSingleton();
+                $actionClass =& $wizMobile->getActionClass();
+                $atypical = $actionClass->getAtypical();
+                if (! isset($atypical['adsense_code'])) {
+                    return '';
+                }
+                $adsenseCode = $atypical['adsense_code']['wma_value'];
+                $params = $actionClass->googleAdsParams($adsenseCode);
+                $cacheObject->save($params);
+            }
+            $user = & Wizin_User::getSingleton();
+            $params['https'] = getenv('HTTPS');
+            $params['host'] = str_replace(getenv('REQUEST_URI'), '', WIZMOBILE_CURRENT_URI);
+            $params['ip'] = $_SERVER['REMOTE_ADDR'];
+            $params['ref'] = '';
+            $params['url'] = $params['host'] . getenv('SCRIPT_NAME');
+            $queryString = getenv('QUERY_STRING');
+            $queryString = str_replace(SID, '', $queryString);
+            if (! empty($queryString)) {
+                $params['url'] .= '?' . $queryString;
+            }
+            $params['useragent'] = getenv('HTTP_USER_AGENT');
+            switch ($user->sCharset) {
+                case 'shift_jis':
+                    $params['oe'] = 'sjis';
+                    break;
+                case 'euc-jp':
+                    $params['oe'] = 'euc-jp';
+                    break;
+                case 'utf-8':
+                default:
+                    $params['oe'] = 'utf8';
+                    break;
+            }
+            $dt = round(1000 * array_sum(explode(' ', microtime())));
+            //$params['dt'] = $dt;
+            $params = array_map('urlencode', $params);
+            $adsUrl = 'http://pagead2.googlesyndication.com/pagead/ads?dt=' . $dt;
+            // get screen info
+            $screen_res = @ $_SERVER['HTTP_UA_PIXELS'];
+            $delimiter = 'x';
+            if (empty($screen_res)) {
+                $screen_res = @ $_SERVER['HTTP_X_UP_DEVCAP_SCREENPIXELS'];
+                $delimiter = ',';
+            }
+            if (! empty($screen_res)) {
+                $res_array = explode($delimiter, $screen_res);
+                if (count($res_array) == 2) {
+                    $adsUrl .= '&u_w=' . $res_array[0] . '&u_h=' . $res_array[1];
+                }
+            }
+            // get imode-id
+            $dcmguid = getenv('HTTP_X_DCMGUID');
+            if (! empty($dcmguid)) {
+                $adsUrl .= '&dcmguid=' . $dcmguid;
+            }
+            foreach ($params as $key => $value) {
+                $adsUrl .= '&' . $key . '=' . $value;
+            }
+            /*
+            $adsTag = Wizin_Util_Web::getContentsByHttp($adsUrl);
+            $adsTag = mb_convert_encoding($adsTag, mb_internal_encoding(), $user->sEncoding);
+            */
+            return $adsTag;
+        }
+
+        function overrideTheme()
+        {
+            // init process
+            $xcRoot =& XCube_Root::getSingleton();
+            // get theme setting by cache
+            $flgFile = XOOPS_TRUST_PATH . '/cache/wizmobile_theme_flg_' . Wizin_Util::salt(XOOPS_SALT);
+            if (! file_exists($flgFile)) {
+                touch($flgFile);
+            }
+            $cacheObject = new Wizin_Cache('wizmobile_theme_cache_', Wizin_Util::salt(XOOPS_SALT));
+            if ($cacheObject->isCached($flgFile)) {
+                $themes = $cacheObject->load();
+            } else {
+                $actionClass =& $this->getActionClass();
+                $themes = $actionClass->getThemes();
+                $cacheObject->save($themes);
+            }
+            // check group-module theme setting
+            if (isset($xcRoot->mContext->mXoopsUser) && is_object($xcRoot->mContext->mXoopsUser)) {
+                $groupid = 0;
+            } else {
+                $groupid = -1;
+            }
+            if (isset($xcRoot->mContext->mModule) && is_object($xcRoot->mContext->mModule)) {
+                $mid = -1;
+            } else {
+                $mid = 0;
+            }
+            if (isset($themes[$groupid]) && isset($themes[$groupid][$mid])) {
+                if (file_exists(XOOPS_THEME_PATH . '/' . $themes[$groupid][$mid]) &&
+                        is_dir(XOOPS_THEME_PATH . '/' . $themes[$groupid][$mid]) &&
+                        file_exists(XOOPS_THEME_PATH . '/' . $themes[$groupid][$mid] . '/theme.html')) {
+                    $xcRoot->mContext->setThemeName($themes[$groupid][$mid]);
+                }
+            }
         }
     }
 }

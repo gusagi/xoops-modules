@@ -52,7 +52,7 @@ if ( strtolower($method) === 'post' ) {
         $xcRoot->mController->executeRedirect( WIZXC_CURRENT_URI, 3,
             sprintf(Wizin_Util::constant('WIZMOBILE_ERR_TICKET_NOT_FOUND')) );
     }
-    $moduleTable = $db->prefix( $this->_sFrontDirName . '_module' );
+    $moduleTable = $db->prefix( $this->_sFrontDirName . '_modules' );
     $modulesTable = $db->prefix( 'modules' );
     $insertModules = array();
     $updateModules = array();
@@ -97,6 +97,7 @@ if ( strtolower($method) === 'post' ) {
                 sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_MODULE_SETTING_FAILED')) );
         }
     }
+    unset($sqlArray);
     WizXc_Util::clearCompiledCache();
     $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
         $this->_sFrontDirName . '/admin/admin.php?act=ModuleSetting', 3,

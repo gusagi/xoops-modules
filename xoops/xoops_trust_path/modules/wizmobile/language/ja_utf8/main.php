@@ -70,8 +70,16 @@ Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_SUCCESS', 'ブロック�
 Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_FAILED', 'ブロック制御設定の更新に失敗しました' );
 
 // admin area / module setting
-Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_SUCCESS', 'アクセス制御設定の更新が完了しました' );
-Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_FAILED', 'アクセス制御設定の更新に失敗しました' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_SUCCESS', 'モジュール制御設定の更新が完了しました' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_FAILED', 'モジュール制御設定の更新に失敗しました' );
+
+// admin area / theme setting
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_THEME_SETTING_SUCCESS', 'テーマ制御設定の更新が完了しました' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_THEME_SETTING_FAILED', 'テーマ制御設定の更新に失敗しました' );
+
+// admin area / theme setting
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_GOOGLE_SETTING_SUCCESS', 'グーグル関連制御設定の更新が完了しました' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_GOOGLE_SETTING_FAILED', 'グーグル関連制御設定の更新に失敗しました' );
 
 // admin area / general setting
 Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_GENERAL_SETTING_SUCCESS', '一般設定の更新が完了しました' );
@@ -96,6 +104,8 @@ Wizin_Util::define( 'WIZMOBILE_LANG_REGISTER_UNIQID', '機種ID登録' );
 Wizin_Util::define( 'WIZMOBILE_LANG_SYSTEM_STATUS', 'システムの状況' );
 Wizin_Util::define( 'WIZMOBILE_LANG_BLOCK_CONTROL', 'ブロック制御' );
 Wizin_Util::define( 'WIZMOBILE_LANG_MODULE_CONTROL', 'モジュール制御' );
+Wizin_Util::define( 'WIZMOBILE_LANG_THEME_CONTROL', 'テーマ制御' );
+Wizin_Util::define( 'WIZMOBILE_LANG_GOOGLE_CONTROL', 'グーグル関連制御' );
 Wizin_Util::define( 'WIZMOBILE_LANG_GENERAL_SETTING', '一般設定' );
 
 // system status
@@ -103,12 +113,14 @@ Wizin_Util::define( 'WIZMOBILE_LANG_EXCHANGE_CONTROLLER', 'コントローラの
 Wizin_Util::define( 'WIZMOBILE_LANG_IMAGE_RESIZE', '画像のリサイズ' );
 Wizin_Util::define( 'WIZMOBILE_LANG_PARTITION_PAGE', 'ページ分割' );
 
-// non display block setting
-Wizin_Util::define( 'WIZMOBILE_LANG_NON_DISPLAY_BLOCK_SETTING', '非表示ブロックの設定' );
+// block setting
+Wizin_Util::define( 'WIZMOBILE_LANG_BLOCK_SETTING', 'ブロックの設定' );
 Wizin_Util::define( 'WIZMOBILE_LANG_BLOCK_TITLE', 'ブロックタイトル' );
 Wizin_Util::define( 'WIZMOBILE_LANG_MODULE_NAME', 'モジュール名' );
 Wizin_Util::define( 'WIZMOBILE_LANG_DIRNAME', 'ディレクトリ' );
-Wizin_Util::define( 'WIZMOBILE_LANG_NON_DISPLAY', '非表示' );
+Wizin_Util::define( 'WIZMOBILE_LANG_VISIBLE', '表示' );
+Wizin_Util::define( 'WIZMOBILE_LANG_INVISIBLE', '非表示' );
+Wizin_Util::define( 'WIZMOBILE_LANG_WEIGHT', '並び順' );
 
 // default display block setting
 Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_BLOCK', '標準表示ブロックの設定' );
@@ -118,6 +130,15 @@ Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_BLOCK_DESC', 'ページコンテン�
 Wizin_Util::define( 'WIZMOBILE_LANG_DENY_ACCESS_MODULE_SETTING', 'アクセス除外モジュールの設定' );
 Wizin_Util::define( 'WIZMOBILE_LANG_DENY_ACCESS', '除外' );
 
+// default display theme setting
+Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_THEME', '携帯用の標準テーマ' );
+Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_THEME_DESC', '個別の設定がない場合に表示するテーマを選択して下さい<br />※一般設定の"テーマ"で選んで頂いても構いません' );
+Wizin_Util::define( 'WIZMOBILE_LANG_DISPLAY_TARGET', '表示対象' );
+Wizin_Util::define( 'WIZMOBILE_LANG_DISPLAY_TARGET_DESC', 'グループ毎に、それぞれのページで表示するテーマを選択して下さい' );
+
+// google adsense and analytics setting
+Wizin_Util::define( 'WIZMOBILE_LANG_ADSENSE_CODE', 'Google AdSense コード' );
+Wizin_Util::define( 'WIZMOBILE_LANG_ADSENSE_CODE_DESC', 'モバイルコンテンツ向けのAdSenseコードを貼り付けて下さい' );
 
 // general setting
 Wizin_Util::define( 'WIZMOBILE_LANG_ITEM', '項目' );

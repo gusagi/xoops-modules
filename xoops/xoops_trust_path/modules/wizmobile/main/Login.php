@@ -56,13 +56,6 @@ if ( empty($configs['login']) || $configs['login']['wmc_value'] !== '1' ) {
     $wizMobile->denyAccessLoginPage();
 }
 
-$user = & Wizin_User::getSingleton();
-$user->checkClient( true );
-if ( ! $user->bIsMobile ) {
-	header( "Location: " . XOOPS_URL . '/user.php' );
-	exit();
-}
-
 // check login and redirect
 $method = getenv( 'REQUEST_METHOD' );
 if ( strtolower($method) === 'post' ) {
@@ -75,17 +68,20 @@ if ( strtolower($method) === 'post' ) {
     $db =& XoopsDatabaseFactory::getDatabaseConnection();
     $user = & Wizin_User::getSingleton();
     $user->checkClient( true );
-    if ( $user->bIsMobile ) {
-        $loginTable = $db->prefix( $this->_sFrontDirName . '_login' );
+    if ( ! $user->bIsMobile ) {
+    	header( "Location: " . XOOPS_URL . '/user.php' );
+    	exit();
+    } else {
+        $loginTable = $db->prefix( $this->_sFrontDirName . '_devices' );
         $uniqId = md5( $user->sUniqId . XOOPS_SALT );
         // TODO : use ORM
-        $sql = "SELECT `wml_uid` FROM `$loginTable` WHERE CAST(`wml_uniqid` AS BINARY) = '$uniqId' AND `wml_delete_datetime` = '0000-00-00 00:00:00';";
+        $sql = "SELECT `wmd_uid` FROM `$loginTable` WHERE `wmd_uniqid` = '$uniqId' AND `wmd_delete_datetime` = '0000-00-00 00:00:00';";
         if ( $resource = $db->query($sql) ) {
             $result = $db->fetchArray( $resource );
             if ( $result !== false && ! empty($result) ) {
                 /** This code block copied from "User_LegacypageFunctions" >> */
                 $handler =& xoops_gethandler('user');
-                $xcUser =& $handler->get( $result['wml_uid'] );
+                $xcUser =& $handler->get( $result['wmd_uid'] );
                 $xcRoot->mContext->mXoopsUser =& $xcUser;
 
                 //

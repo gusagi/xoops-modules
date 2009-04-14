@@ -61,7 +61,7 @@ if ( ! class_exists('WizMobile_Action') ) {
             return $instance;
         }
 
-        function getBlocks()
+        function getBlocks($visible = '')
         {
             $xcRoot = XCube_Root::getSingleton();
             $db =& XoopsDatabaseFactory::getDatabaseConnection();
@@ -70,14 +70,17 @@ if ( ! class_exists('WizMobile_Action') ) {
             $blocks = array();
             // TODO : use ORM
             $sql = "SELECT ";
-            $sql .= " $newblocksTable.`bid`, $newblocksTable.`name` AS block_name, ";
-            $sql .= " $newblocksTable.`title`, $newblocksTable.`dirname`, $newblocksTable.`visible`, ";
-            $sql .= " $newblocksTable.`isactive`, $modulesTable.`name` AS module_name ";
+            $sql .= " $newblocksTable.*, $modulesTable.`name` AS module_name ";
             $sql .= " FROM `$newblocksTable` LEFT JOIN ";
             $sql .= " `$modulesTable` ON $modulesTable.`mid` = $newblocksTable.`mid` ";
             $sql .= " WHERE ";
-            $sql .= " $newblocksTable.`visible` = 1 AND ";
-            $sql .= " $newblocksTable.`isactive` = 1 ;";
+            if (isset($visible) && $visible !== '') {
+                $visible = intval($visible);
+                $sql .= " $newblocksTable.`visible` = $visible AND ";
+            }
+            $sql .= " $newblocksTable.`isactive` = 1 ";
+            $sql .= " ORDER BY $newblocksTable.`visible` DESC, $newblocksTable.`weight`, " .
+                " $newblocksTable.`bid`";
             if ( $resource = $db->query($sql) ) {
                 while ( $result = $db->fetchArray($resource) ) {
                     if ( $result !== false && ! empty($result) ) {
@@ -88,21 +91,27 @@ if ( ! class_exists('WizMobile_Action') ) {
             return $blocks;
         }
 
-        function getNondisplayBlocks()
+        function getWizMobileBlocks($visible = '')
         {
-            $nondisplayBlocks = array();
+            $blocks = array();
             $db =& XoopsDatabaseFactory::getDatabaseConnection();
-            $blockTable = $db->prefix( $this->_sFrontDirName . '_block' );
+            $blockTable = $db->prefix( $this->_sFrontDirName . '_blocks' );
             // TODO : use ORM
-            $sql = "SELECT `wmb_bid` FROM `$blockTable` WHERE `wmb_delete_datetime` = '0000-00-00 00:00:00';";
+            $sql = "SELECT * FROM `$blockTable` WHERE `wmb_delete_datetime` = '0000-00-00 00:00:00'";
+            if ($visible !== '') {
+                $sql .= " AND `wmb_visible` = " . intval($visible);
+            }
+            $sql .= " ORDER BY `$blockTable`.`wmb_visible` DESC, `$blockTable`.`wmb_weight`, " .
+                " `$blockTable`.`wmb_bid`";
             if ( $resource = $db->query($sql) ) {
                 while ( $result = $db->fetchArray($resource) ) {
                     if ( $result !== false && ! empty($result) ) {
-                        $nondisplayBlocks[] = intval( $result['wmb_bid'] );
+                        $wmb_bid = intval($result['wmb_bid']);
+                        $blocks[$wmb_bid] = $result;
                     }
                 }
             }
-            return $nondisplayBlocks;
+            return $blocks;
         }
 
         function getConfigs()
@@ -113,7 +122,7 @@ if ( ! class_exists('WizMobile_Action') ) {
             }
             $xcRoot = XCube_Root::getSingleton();
             $db =& XoopsDatabaseFactory::getDatabaseConnection();
-            $configTable = $db->prefix( $this->_sFrontDirName . '_config' );
+            $configTable = $db->prefix( $this->_sFrontDirName . '_configs' );
             $configs = array();
             // TODO : use ORM
             $sql = "SELECT * FROM `$configTable` WHERE `wmc_delete_datetime` = '0000-00-00 00:00:00';";
@@ -126,6 +135,54 @@ if ( ! class_exists('WizMobile_Action') ) {
                 }
             }
             return $configs;
+        }
+
+        function getAtypical()
+        {
+            static $atypical;
+            if ( isset($atypical) ) {
+                return $atypical;
+            }
+            $xcRoot = XCube_Root::getSingleton();
+            $db =& XoopsDatabaseFactory::getDatabaseConnection();
+            $atypicalTable = $db->prefix( $this->_sFrontDirName . '_atypical' );
+            $configs = array();
+            // TODO : use ORM
+            $sql = "SELECT * FROM `$atypicalTable` WHERE `wma_delete_datetime` = '0000-00-00 00:00:00';";
+            if ( $resource = $db->query($sql) ) {
+                while ( $result = $db->fetchArray($resource) ) {
+                    if ( $result !== false && ! empty($result) ) {
+                        $wma_item = $result['wma_item'];
+                        $atypical[$wma_item] = $result;
+                    }
+                }
+            }
+            return $atypical;
+        }
+
+        function getThemes()
+        {
+            static $themes;
+            if ( isset($themes) ) {
+                return $themes;
+            }
+            $xcRoot = XCube_Root::getSingleton();
+            $db =& XoopsDatabaseFactory::getDatabaseConnection();
+            $themeTable = $db->prefix( $this->_sFrontDirName . '_themes' );
+            $themes = array();
+            // TODO : use ORM
+            $sql = "SELECT * FROM `$themeTable` WHERE `wmt_delete_datetime` IS NULL;";
+            if ( $resource = $db->query($sql) ) {
+                while ( $result = $db->fetchArray($resource) ) {
+                    $wmt_groupid = intval($result['wmt_groupid']);
+                    $wmt_mid = intval($result['wmt_mid']);
+                    if (! isset($themes[$wmt_groupid])) {
+                        $themes[$wmt_groupid] = array();
+                    }
+                    $themes[$wmt_groupid][$wmt_mid] = $result['wmt_theme_name'];
+                }
+            }
+            return $themes;
         }
 
         function getMobileThemes()
@@ -176,7 +233,7 @@ if ( ! class_exists('WizMobile_Action') ) {
         {
             $denyAccessModules = array();
             $db =& XoopsDatabaseFactory::getDatabaseConnection();
-            $moduleTable = $db->prefix( $this->_sFrontDirName . '_module' );
+            $moduleTable = $db->prefix( $this->_sFrontDirName . '_modules' );
             // TODO : use ORM
             $sql = "SELECT `wmm_mid` FROM `$moduleTable` WHERE `wmm_delete_datetime` = '0000-00-00 00:00:00';";
             if ( $resource = $db->query($sql) ) {
@@ -187,6 +244,28 @@ if ( ! class_exists('WizMobile_Action') ) {
                 }
             }
             return $denyAccessModules;
+        }
+
+        function googleAdsParams($adsenseCode = '')
+        {
+            $params = array();
+            $adsKeys = array('ad_type', 'channel', 'format', 'markup', 'output');
+            $adsenseCode = strtr($adsenseCode, array("\r\n" => "\n", "\r" => "\n"));
+            $lines = explode("\n", $adsenseCode);
+            foreach ($lines as $line) {
+                if (substr($line, 0, 18) === '$GLOBALS[' . "'google'" . ']') {
+                    list($key, $value) = explode("=", $line);
+                    $key = strtr($key, array('$GLOBALS[' . "'google'" . "]['" => '', "']" => ''));
+                    $value = strtr($value, array("'" => '', ';' => '', "\r" => '', "\n" => ''));
+                    if ($key === 'client') {
+                        $value = 'ca-mb-' . $value;
+                    } else if (! in_array($key, $adsKeys) && strpos($key, 'color_') !== 0) {
+                        continue;
+                    }
+                    $params[$key] = $value;
+                }
+            }
+            return $params;
         }
     }
 }

@@ -73,6 +73,14 @@ Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_FAILED', 'It failed in u
 Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_SUCCESS', 'Update of module control setting completed.' );
 Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_MODULE_SETTING_FAILED', 'It failed in update module control setting.' );
 
+// admin area / theme setting
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_THEME_SETTING_SUCCESS', 'Update of theme control setting completed.' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_THEME_SETTING_FAILED', 'It failed in update theme control setting.' );
+
+// admin area / theme setting
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_GOOGLE_SETTING_SUCCESS', 'Update of the service of google control setting completed.' );
+Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_GOOGLE_SETTING_FAILED', 'It failed in update the service of google control setting.' );
+
 // admin area / general setting
 Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_GENERAL_SETTING_SUCCESS', 'Update of generality setting completed.' );
 Wizin_Util::define( 'WIZMOBILE_MSG_UPDATE_GENERAL_SETTING_FAILED', 'It failed in update of generality setting.' );
@@ -96,6 +104,8 @@ Wizin_Util::define( 'WIZMOBILE_LANG_REGISTER_UNIQID', 'Register terminal specifi
 Wizin_Util::define( 'WIZMOBILE_LANG_SYSTEM_STATUS', 'System status' );
 Wizin_Util::define( 'WIZMOBILE_LANG_BLOCK_CONTROL', 'Block control' );
 Wizin_Util::define( 'WIZMOBILE_LANG_MODULE_CONTROL', 'Module control' );
+Wizin_Util::define( 'WIZMOBILE_LANG_THEME_CONTROL', 'Theme control' );
+Wizin_Util::define( 'WIZMOBILE_LANG_GOOGLE_CONTROL', 'The service of google control' );
 Wizin_Util::define( 'WIZMOBILE_LANG_GENERAL_SETTING', 'Generality setting' );
 
 // system status
@@ -103,12 +113,14 @@ Wizin_Util::define( 'WIZMOBILE_LANG_EXCHANGE_CONTROLLER', 'Exchange Controller' 
 Wizin_Util::define( 'WIZMOBILE_LANG_IMAGE_RESIZE', 'Resize of image' );
 Wizin_Util::define( 'WIZMOBILE_LANG_PARTITION_PAGE', 'Page division' );
 
-// non display block setting
-Wizin_Util::define( 'WIZMOBILE_LANG_NON_DISPLAY_BLOCK_SETTING', 'Non display block setting' );
+// block setting
+Wizin_Util::define( 'WIZMOBILE_LANG_BLOCK_SETTING', 'Block setting' );
 Wizin_Util::define( 'WIZMOBILE_LANG_BLOCK_TITLE', 'Block title' );
 Wizin_Util::define( 'WIZMOBILE_LANG_MODULE_NAME', 'Module name' );
 Wizin_Util::define( 'WIZMOBILE_LANG_DIRNAME', 'Directory' );
-Wizin_Util::define( 'WIZMOBILE_LANG_NON_DISPLAY', 'Non display' );
+Wizin_Util::define( 'WIZMOBILE_LANG_VISIBLE', 'Visible' );
+Wizin_Util::define( 'WIZMOBILE_LANG_INVISIBLE', 'Invisible' );
+Wizin_Util::define( 'WIZMOBILE_LANG_WEIGHT', 'Weight' );
 
 // default display block setting
 Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_BLOCK', 'Default display block setting' );
@@ -118,6 +130,15 @@ Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_BLOCK_DESC', 'Please choose a block 
 Wizin_Util::define( 'WIZMOBILE_LANG_DENY_ACCESS_MODULE_SETTING', 'Deny access module setting' );
 Wizin_Util::define( 'WIZMOBILE_LANG_DENY_ACCESS', 'Deny access' );
 
+// default display theme setting
+Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_THEME', 'Default theme for portable telephone.' );
+Wizin_Util::define( 'WIZMOBILE_LANG_DEFAULT_THEME_DESC', 'Please select the theme which is indicated in when there is no individual setting.<br />* You choosing with theme of generality setting, it does not care,' );
+Wizin_Util::define( 'WIZMOBILE_LANG_DISPLAY_TARGET', 'Display target' );
+Wizin_Util::define( 'WIZMOBILE_LANG_DISPLAY_TARGET_DESC', 'Please select the theme which is indicated in every group, in the respective page.' );
+
+// google adsense and analytics setting
+Wizin_Util::define( 'WIZMOBILE_LANG_ADSENSE_CODE', 'Google AdSense code' );
+Wizin_Util::define( 'WIZMOBILE_LANG_ADSENSE_CODE_DESC', 'Please stick the AdSense code for the Mobile contents.' );
 
 // general setting
 Wizin_Util::define( 'WIZMOBILE_LANG_ITEM', 'Item' );
