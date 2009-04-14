@@ -33,8 +33,6 @@
  */
 
 if (! class_exists('WizXc_Util')) {
-    require_once XOOPS_ROOT_PATH."/class/xoopsblock.php";
-    require_once XOOPS_ROOT_PATH."/class/template.php";
 
     class WizXc_Util
     {
@@ -48,6 +46,8 @@ if (! class_exists('WizXc_Util')) {
 
         function installD3Templates($module, &$log, $templatesDir)
         {
+            require_once XOOPS_ROOT_PATH."/class/xoopsblock.php";
+            require_once XOOPS_ROOT_PATH."/class/template.php";
             $tplHandler =& xoops_gethandler('tplfile');
             $mid = $module->getVar('mid');
             $dirname = $module->getVar('dirname');
