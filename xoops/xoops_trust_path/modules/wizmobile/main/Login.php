@@ -32,8 +32,8 @@
  */
 
 // direct access protect
-$scriptFileName = getenv( 'SCRIPT_FILENAME' );
-if ( $scriptFileName === __FILE__ ) {
+$scriptFileName = getenv('SCRIPT_FILENAME');
+if ($scriptFileName === __FILE__) {
     exit();
 }
 
@@ -41,47 +41,47 @@ if ( $scriptFileName === __FILE__ ) {
 $xcRoot =& XCube_Root::getSingleton();
 $wizMobile =& WizMobile::getSingleton();
 $configs = $this->getConfigs();
-if ( ! empty($configs['lookup']) && $configs['lookup']['wmc_value'] === '1' ) {
+if (! empty($configs['lookup']) && $configs['lookup']['wmc_value'] === '1') {
     $lookup = true;
 } else {
     $lookup = false;
 }
 $renderTarget =& $xcRoot->mContext->mModule->getRenderTarget();
-$frontDirname = str_replace( '_wizmobile_action', '', strtolower(get_class($this)) );
+$frontDirname = str_replace('_wizmobile_action', '', strtolower(get_class($this)));
 $tplFile = $frontDirname . '_main_login.html';
-$renderTarget->setTemplateName( $tplFile );
+$renderTarget->setTemplateName($tplFile);
 
 // if login disabled
-if ( empty($configs['login']) || $configs['login']['wmc_value'] !== '1' ) {
+if (empty($configs['login']) || $configs['login']['wmc_value'] !== '1') {
     $wizMobile->denyAccessLoginPage();
 }
 
 // check login and redirect
-$method = getenv( 'REQUEST_METHOD' );
-if ( strtolower($method) === 'post' ) {
-	if ( ! defined('_MD_LEGACY_ERROR_DBUPDATE_FAILED') ) {
-	    $language = empty( $GLOBALS['xoopsConfig']['language'] ) ? 'english' : $GLOBALS['xoopsConfig']['language'];
-	    if( file_exists( XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/main.php' ) ) {
+$method = getenv('REQUEST_METHOD');
+if (strtolower($method) === 'post') {
+	if (! defined('_MD_LEGACY_ERROR_DBUPDATE_FAILED')) {
+	    $language = empty($GLOBALS['xoopsConfig']['language']) ? 'english' : $GLOBALS['xoopsConfig']['language'];
+	    if(file_exists(XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/main.php')) {
 	        require_once XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/main.php';
 	    }
 	}
     $db =& XoopsDatabaseFactory::getDatabaseConnection();
     $user = & Wizin_User::getSingleton();
-    $user->checkClient( true );
-    if ( ! $user->bIsMobile ) {
-    	header( "Location: " . XOOPS_URL . '/user.php' );
+    $user->checkClient(true);
+    if (! $user->bIsMobile) {
+    	header("Location: " . XOOPS_URL . '/user.php');
     	exit();
     } else {
-        $loginTable = $db->prefix( $this->_sFrontDirName . '_devices' );
-        $uniqId = md5( $user->sUniqId . XOOPS_SALT );
+        $loginTable = $db->prefix($this->_sFrontDirName . '_devices');
+        $uniqId = md5($user->sUniqId . XOOPS_SALT);
         // TODO : use ORM
         $sql = "SELECT `wmd_uid` FROM `$loginTable` WHERE `wmd_uniqid` = '$uniqId' AND `wmd_delete_datetime` = '0000-00-00 00:00:00';";
-        if ( $resource = $db->query($sql) ) {
-            $result = $db->fetchArray( $resource );
-            if ( $result !== false && ! empty($result) ) {
+        if ($resource = $db->query($sql)) {
+            $result = $db->fetchArray($resource);
+            if ($result !== false && ! empty($result)) {
                 /** This code block copied from "User_LegacypageFunctions" >> */
                 $handler =& xoops_gethandler('user');
-                $xcUser =& $handler->get( $result['wmd_uid'] );
+                $xcUser =& $handler->get($result['wmd_uid']);
                 $xcRoot->mContext->mXoopsUser =& $xcUser;
 
                 //
@@ -95,28 +95,28 @@ if ( strtolower($method) === 'post' ) {
             }
         }
     }
-    if ( isset($xcUser) && is_object($xcUser) ) {
-        XCube_DelegateUtils::call( 'Site.CheckLogin.Success', new XCube_Ref($xcUser) );
-        $this->executeRedirect( XOOPS_URL, 1, XCube_Utils::formatMessage(_MD_LEGACY_MESSAGE_LOGIN_SUCCESS, $xcUser->get('uname')) );
+    if (isset($xcUser) && is_object($xcUser)) {
+        XCube_DelegateUtils::call('Site.CheckLogin.Success', new XCube_Ref($xcUser));
+        $this->executeRedirect(XOOPS_URL, 1, XCube_Utils::formatMessage(_MD_LEGACY_MESSAGE_LOGIN_SUCCESS, $xcUser->get('uname')));
     } else {
-        XCube_DelegateUtils::call( 'Site.CheckLogin.Fail', new XCube_Ref($xcUser) );
-        $this->executeRedirect( XOOPS_URL, 1, _MD_LEGACY_ERROR_INCORRECTLOGIN );
+        XCube_DelegateUtils::call('Site.CheckLogin.Fail', new XCube_Ref($xcUser));
+        $this->executeRedirect(XOOPS_URL, 1, _MD_LEGACY_ERROR_INCORRECTLOGIN);
     }
 }
 
 // include language file of user module
-if ( ! defined('_MB_USER_USERNAME') ) {
-	$language = empty( $GLOBALS['xoopsConfig']['language'] ) ? 'english' : $GLOBALS['xoopsConfig']['language'];
-	if( file_exists( XOOPS_ROOT_PATH . '/modules/user/language/' . $language . '/blocks.php' ) ) {
+if (! defined('_MB_USER_USERNAME')) {
+	$language = empty($GLOBALS['xoopsConfig']['language']) ? 'english' : $GLOBALS['xoopsConfig']['language'];
+	if(file_exists(XOOPS_ROOT_PATH . '/modules/user/language/' . $language . '/blocks.php')) {
 	    require_once XOOPS_ROOT_PATH . '/modules/user/language/' . $language . '/blocks.php';
 	}
 }
 
 // login check and get "user" module config
-if ( isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser']) ) {
-    $xcRoot->mController->executeForward( XOOPS_URL );
+if (isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser'])) {
+    $xcRoot->mController->executeForward(XOOPS_URL);
 } else {
-    $config_handler =& xoops_gethandler( 'config' );
+    $config_handler =& xoops_gethandler('config');
     $userModuleConfig =& $config_handler->getConfigsByDirname('user');
 }
 
@@ -124,7 +124,7 @@ if ( isset($GLOBALS['xoopsUser']) && is_object($GLOBALS['xoopsUser']) ) {
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 // display main templates
-$renderTarget->setAttribute( 'block', $userModuleConfig );
+$renderTarget->setAttribute('block', $userModuleConfig);
 
 // call footer
 require_once XOOPS_ROOT_PATH . '/footer.php';

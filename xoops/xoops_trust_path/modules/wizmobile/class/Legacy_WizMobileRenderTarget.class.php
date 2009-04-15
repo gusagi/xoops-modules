@@ -33,11 +33,11 @@
 
 if (!defined('XOOPS_ROOT_PATH')) exit();
 
-if ( !defined('LEGACY_RENDER_TARGET_TYPE_BUFFER') ) {
-    include_once( XOOPS_ROOT_PATH . '/modules/legacyRender/kernel/Legacy_RenderTarget.class.php' );
+if (!defined('LEGACY_RENDER_TARGET_TYPE_BUFFER')) {
+    include_once(XOOPS_ROOT_PATH . '/modules/legacyRender/kernel/Legacy_RenderTarget.class.php');
 }
 
-if( ! class_exists( 'Legacy_WizMobileThemeRenderTarget' ) ) {
+if(! class_exists('Legacy_WizMobileThemeRenderTarget')) {
     class Legacy_WizMobileThemeRenderTarget extends Legacy_ThemeRenderTarget
     {
     	function sendHeader()
@@ -53,13 +53,13 @@ if( ! class_exists( 'Legacy_WizMobileThemeRenderTarget' ) ) {
         {
             $wizMobile =& WizMobile::getSingleton();
             ob_start();
-            parent::setResult( $result );
+            parent::setResult($result);
             $wizMobile->renderContents();
         }
     }
 }
 
-if( ! class_exists( 'Legacy_WizMobileDialogRenderTarget' ) ) {
+if(! class_exists('Legacy_WizMobileDialogRenderTarget')) {
     class Legacy_WizMobileDialogRenderTarget extends Legacy_DialogRenderTarget
     {
     	function sendHeader()
@@ -75,7 +75,7 @@ if( ! class_exists( 'Legacy_WizMobileDialogRenderTarget' ) ) {
         {
             $wizMobile =& WizMobile::getSingleton();
             ob_start();
-            parent::setResult( $result );
+            parent::setResult($result);
             $wizMobile->renderContents();
         }
 

@@ -33,13 +33,13 @@
  *
  */
 
-$scriptFileName = getenv( 'SCRIPT_FILENAME' );
-if ( $scriptFileName === __FILE__ ) {
+$scriptFileName = getenv('SCRIPT_FILENAME');
+if ($scriptFileName === __FILE__) {
     exit();
 }
 
-$frontDirname = basename( dirname($frontFile) );
-require dirname( __FILE__ ) . '/init.php';
+$frontDirname = basename(dirname($frontFile));
+require dirname(__FILE__) . '/init.php';
 
 $xcRoot =& XCube_Root::getSingleton();
 $currentVersion = $xcRoot->mContext->mModule->mXoopsModule->getVar('version');
@@ -58,17 +58,17 @@ if ($currentVersion >= 30) {
     $adminmenu[] = array(
         'title' => Wizin_Util::constant('WIZMOBILE_LANG_MODULE_CONTROL'),
         'link' => 'admin/admin.php?act=ModuleSetting'
-    );
+   );
 }
 if ($currentVersion >= 40) {
     $adminmenu[] = array(
         'title' => Wizin_Util::constant('WIZMOBILE_LANG_THEME_CONTROL'),
         'link' => 'admin/admin.php?act=ThemeSetting'
-    );
+   );
     $adminmenu[] = array(
         'title' => Wizin_Util::constant('WIZMOBILE_LANG_GOOGLE_CONTROL'),
         'link' => 'admin/admin.php?act=GoogleSetting'
-    );
+   );
 }
 $adminmenu[] = array(
     'title' => Wizin_Util::constant('WIZMOBILE_LANG_GENERAL_SETTING'),

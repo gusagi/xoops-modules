@@ -32,15 +32,15 @@
  */
 
 // direct access protect
-$scriptFileName = getenv( 'SCRIPT_FILENAME' );
-if ( $scriptFileName === __FILE__ ) {
+$scriptFileName = getenv('SCRIPT_FILENAME');
+if ($scriptFileName === __FILE__) {
     exit();
 }
 
 // init process
 $xcRoot =& XCube_Root::getSingleton();
 $xoopsTpl = WizXc_Util::getXoopsTpl();
-$frontDirname = str_replace( '_wizmobile_action', '', strtolower(get_class($this)) );
+$frontDirname = str_replace('_wizmobile_action', '', strtolower(get_class($this)));
 $tplFile = 'db:' . $frontDirname . '_admin_block_setting.html';
 
 // get block list
@@ -72,26 +72,26 @@ unset($newBlocks);
 
 // get default bid of config
 $configs = $this->getConfigs();
-if ( isset($configs['default_bid']) ) {
+if (isset($configs['default_bid'])) {
     $defaultBid = $configs['default_bid']['wmc_value'];
 } else {
     $defaultBid = '';
 }
 
 // register and redirect
-$method = getenv( 'REQUEST_METHOD' );
-if ( strtolower($method) === 'post' ) {
+$method = getenv('REQUEST_METHOD');
+if (strtolower($method) === 'post') {
     $gTicket = new XoopsGTicket();
-    if ( ! $gTicket->check(true, $this->_sFrontDirName, false) ) {
-        $xcRoot->mController->executeRedirect( WIZXC_CURRENT_URI, 3,
-            sprintf(Wizin_Util::constant('WIZMOBILE_ERR_TICKET_NOT_FOUND')) );
+    if (! $gTicket->check(true, $this->_sFrontDirName, false)) {
+        $xcRoot->mController->executeRedirect(WIZXC_CURRENT_URI, 3,
+            sprintf(Wizin_Util::constant('WIZMOBILE_ERR_TICKET_NOT_FOUND')));
     }
     $db =& XoopsDatabaseFactory::getDatabaseConnection();
     // update nondisplay block setting
-    $blockTable = $db->prefix( $this->_sFrontDirName . '_blocks' );
-    $newblocksTable = $db->prefix( 'newblocks' );
+    $blockTable = $db->prefix($this->_sFrontDirName . '_blocks');
+    $newblocksTable = $db->prefix('newblocks');
     $sqlArray = array();
-    $now = date( 'Y-m-d H:i:s' );
+    $now = date('Y-m-d H:i:s');
     foreach ($existsBlocks as $bid) {
         $wmb_visible = isset($_REQUEST['wmb_visible'][$bid]) ? intval($_REQUEST['wmb_visible'][$bid]) : 0;
         $wmb_weight = isset($_REQUEST['wmb_weight'][$bid]) ? intval($_REQUEST['wmb_weight'][$bid]) : 0;
@@ -118,52 +118,52 @@ if ( strtolower($method) === 'post' ) {
         }
     }
     // update default display block setting
-    if ( isset($_REQUEST['default_bid']) ) {
-        $configTable = $db->prefix( $this->_sFrontDirName . '_configs' );
-        if ( $_REQUEST['default_bid'] === '' || ! in_array($_REQUEST['default_bid'], $existsBlocks) ) {
+    if (isset($_REQUEST['default_bid'])) {
+        $configTable = $db->prefix($this->_sFrontDirName . '_configs');
+        if ($_REQUEST['default_bid'] === '' || ! in_array($_REQUEST['default_bid'], $existsBlocks)) {
             // record exists ?
             $sql = "SELECT wmc_value FROM `$configTable` WHERE `wmc_delete_datetime` = '0000-00-00 00:00:00' " .
                 "AND `wmc_item` = 'default_bid' LIMIT 1;";
-            if ( $resource = $db->query($sql) ) {
-                if ( $result = $db->fetchArray($resource) ) {
+            if ($resource = $db->query($sql)) {
+                if ($result = $db->fetchArray($resource)) {
                     // delete record
                     $sqlArray[] = "UPDATE `$configTable` SET `wmc_value` = '', `wmc_update_datetime` = '$now' WHERE " .
                         "`wmc_delete_datetime` = '0000-00-00 00:00:00' AND `wmc_item` = 'default_bid';";
                 } else {
                     // insert record
                     $sqlArray[] = "INSERT INTO `$configTable` (`wmc_item`, `wmc_value`, `wmc_init_datetime`, `wmc_update_datetime`) " .
-                        " VALUES ( 'default_bid', '', '$now', '$now' );";
+                        " VALUES ('default_bid', '', '$now', '$now');";
                 }
             }
         } else {
             // record exists ?
             $sql = "SELECT wmc_value FROM `$configTable` WHERE `wmc_delete_datetime` = '0000-00-00 00:00:00' AND " .
                 "`wmc_item` = 'default_bid' LIMIT 1;";
-            $defaultBid = intval( $_REQUEST['default_bid'] );
-            if ( $resource = $db->query($sql) ) {
-                if ( $result = $db->fetchArray($resource) ) {
+            $defaultBid = intval($_REQUEST['default_bid']);
+            if ($resource = $db->query($sql)) {
+                if ($result = $db->fetchArray($resource)) {
                     // update record
                     $sqlArray[] = "UPDATE `$configTable` SET `wmc_value` = '$defaultBid', `wmc_update_datetime` = '$now' " .
                         " WHERE `wmc_delete_datetime` = '0000-00-00 00:00:00' AND `wmc_item` = 'default_bid';";
                 } else {
                     // insert record
                     $sqlArray[] = "INSERT INTO `$configTable` (`wmc_item`, `wmc_value`, `wmc_init_datetime`, `wmc_update_datetime`) " .
-                        " VALUES ( 'default_bid', '$defaultBid', '$now', '$now' );";
+                        " VALUES ('default_bid', '$defaultBid', '$now', '$now');";
                 }
             }
         }
     }
-    foreach ( $sqlArray as $sql ) {
-        if ( ! $db->query($sql) ) {
-            $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
+    foreach ($sqlArray as $sql) {
+        if (! $db->query($sql)) {
+            $xcRoot->mController->executeRedirect(XOOPS_URL . '/modules/' .
                 $this->_sFrontDirName . '/admin/admin.php?act=BlockSetting', 3,
-                sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_FAILED')) );
+                sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_FAILED')));
         }
     }
     unset($sqlArray);
-    $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
+    $xcRoot->mController->executeRedirect(XOOPS_URL . '/modules/' .
         $this->_sFrontDirName . '/admin/admin.php?act=BlockSetting', 3,
-        sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_SUCCESS')) );
+        sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_BLOCK_SETTING_SUCCESS')));
 }
 
 //
@@ -173,9 +173,9 @@ if ( strtolower($method) === 'post' ) {
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 // display main templates
-$xoopsTpl->assign( 'defaultBid', $defaultBid );
-$xoopsTpl->assign( 'blocks', $blocks );
-$xoopsTpl->display( $tplFile );
+$xoopsTpl->assign('defaultBid', $defaultBid);
+$xoopsTpl->assign('blocks', $blocks);
+$xoopsTpl->display($tplFile);
 
 // call footer
 require_once XOOPS_ROOT_PATH . '/footer.php';

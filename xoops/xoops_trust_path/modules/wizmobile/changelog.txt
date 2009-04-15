@@ -6,6 +6,8 @@
 - Added 'typecast' emoji images.(special thanks 'TypeCast' project!)
 - Added 'ThemeSetting' action.
 - Added 'GoogleSetting' action.
+- Modified 'BlockSetting' action.
+- Deleted unnecessary space in brackets.
 ----------------------------------
 [2009-02-01 Ver 0.34 -> 0.35]
 - 'WizXc' module updated from '0.26' to '0.27'.

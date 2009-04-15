@@ -7,4 +7,4 @@ CREATE TABLE `{prefix}_{_dirname_}_module` (
     `wmm_delete_datetime` datetime NOT NULL default '0000-00-00 00:00:00',
     PRIMARY KEY  (`wmm_module_id`)
 ) Type=MyISAM;
-ALTER TABLE `{prefix}_{_dirname_}_module` ADD INDEX `wmm_idx` ( `wmm_mid`, `wmm_delete_datetime` ) ;
+ALTER TABLE `{prefix}_{_dirname_}_module` ADD INDEX `wmm_idx` (`wmm_mid`, `wmm_delete_datetime`) ;

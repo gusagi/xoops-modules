@@ -31,41 +31,41 @@
  *
  */
 
-if ( ! defined('XOOPS_ROOT_PATH') || ! defined('XOOPS_TRUST_PATH') ) {
+if (! defined('XOOPS_ROOT_PATH') || ! defined('XOOPS_TRUST_PATH')) {
     exit();
 }
 
 require_once XOOPS_TRUST_PATH . '/wizin/src/Wizin_Util.class.php';
-$frontDirname = basename( dirname($frontFile) );
-$language = empty( $GLOBALS['xoopsConfig']['language'] ) ? 'english' : $GLOBALS['xoopsConfig']['language'];
-if( file_exists( XOOPS_ROOT_PATH . '/modules/' . $frontDirname . '/language/' . $language . '/main.php' ) ) {
+$frontDirname = basename(dirname($frontFile));
+$language = empty($GLOBALS['xoopsConfig']['language']) ? 'english' : $GLOBALS['xoopsConfig']['language'];
+if(file_exists(XOOPS_ROOT_PATH . '/modules/' . $frontDirname . '/language/' . $language . '/main.php')) {
     require XOOPS_ROOT_PATH . '/modules/' . $frontDirname . '/language/' . $language . '/main.php';
 }
-if( file_exists( dirname(__FILE__) . '/language/' . $language . '/main.php' ) ) {
+if(file_exists(dirname(__FILE__) . '/language/' . $language . '/main.php')) {
     require dirname(__FILE__) . '/language/' . $language . '/main.php';
 }
 
 // module infomation
 $modversion = array();
-$modversion['name']        = Wizin_Util::constant( 'WIZMOBILE_MODINFO_NAME' );
+$modversion['name']        = Wizin_Util::constant('WIZMOBILE_MODINFO_NAME');
 $modversion['version']     = '0.40';
-$modversion['description'] = Wizin_Util::constant( 'WIZMOBILE_MODINFO_DESC' );
+$modversion['description'] = Wizin_Util::constant('WIZMOBILE_MODINFO_DESC');
 $modversion['credits']     = 'Makoto Hashiguchi a.k.a. gusagi';
 $modversion['author']      = 'Makoto Hashiguchi a.k.a. gusagi &lt;gusagi&#64;gusagi.com&gt;<br />url : http://www.gusagi.com';
 $modversion['license']     = 'GNU General Public License';
 $modversion['official']    = 0;
-$modversion['image']       = file_exists( dirname($frontFile) .'/modicon.png' ) ? 'modicon.png' : 'modicon.php';
-$modversion['dirname']     = basename( dirname($frontFile) );
+$modversion['image']       = file_exists(dirname($frontFile) .'/modicon.png') ? 'modicon.png' : 'modicon.php';
+$modversion['dirname']     = basename(dirname($frontFile));
 $modversion['use_smarty'] = 0;
 $modversion['cube_style'] = true;
 
 // installer
 $modversion['disable_legacy_2nd_installer'] = true;
-$modversion['legacy_installer']['installer']['filepath'] = dirname( __FILE__ ) . '/class/WizMobile_Installer.class.php';
+$modversion['legacy_installer']['installer']['filepath'] = dirname(__FILE__) . '/class/WizMobile_Installer.class.php';
 $modversion['legacy_installer']['installer']['class'] = 'WizMobile_Installer';
 
 // updater
-$modversion['legacy_installer']['updater']['filepath'] = dirname( __FILE__ ) . '/class/WizMobile_Updater.class.php';
+$modversion['legacy_installer']['updater']['filepath'] = dirname(__FILE__) . '/class/WizMobile_Updater.class.php';
 $modversion['legacy_installer']['updater']['class'] = 'WizMobile_Updater';
 
 // database
@@ -79,8 +79,8 @@ $modversion['tables'][] = "{prefix}_{_dirname_}_atypical";
 
 /*
 // Templates
-$modversion['templates'][] = array( 'file' => 'user_userinfo.html',
-    'description' => 'Display a user information in userinfo.php' );
+$modversion['templates'][] = array('file' => 'user_userinfo.html',
+    'description' => 'Display a user information in userinfo.php');
 */
 
 // access permission

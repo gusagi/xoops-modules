@@ -34,28 +34,28 @@
  */
 
 // direct access protect
-$scriptFileName = getenv( 'SCRIPT_FILENAME' );
-if ( $scriptFileName === __FILE__ ) {
+$scriptFileName = getenv('SCRIPT_FILENAME');
+if ($scriptFileName === __FILE__) {
     exit();
 }
 
-$frontDirname = basename( dirname(dirname($frontFile)) );
-require dirname( __FILE__ ) . '/init.php';
+$frontDirname = basename(dirname(dirname($frontFile)));
+require dirname(__FILE__) . '/init.php';
 
-if ( class_exists('Wizin') ) {
-    require dirname( __FILE__ ) . '/class/WizMobile.class.php';
+if (class_exists('Wizin')) {
+    require dirname(__FILE__) . '/class/WizMobile.class.php';
 
     // execute
     $wizMobile =& WizMobile::getSingleton();
-    $actionScript = dirname( __FILE__ ) . '/class/WizMobile_Action.class.php';
-    if ( file_exists($actionScript) ) {
+    $actionScript = dirname(__FILE__) . '/class/WizMobile_Action.class.php';
+    if (file_exists($actionScript)) {
         require $actionScript;
-        if ( class_exists($className) ) {
+        if (class_exists($className)) {
             $wizMobile->sActionClassName = $className;
         }
     }
-    $preloadScript = dirname( __FILE__ ) . '/preload/WizMobile_Preload.class.php';
-    if ( file_exists($preloadScript) ) {
+    $preloadScript = dirname(__FILE__) . '/preload/WizMobile_Preload.class.php';
+    if (file_exists($preloadScript)) {
         require $preloadScript;
     }
 }

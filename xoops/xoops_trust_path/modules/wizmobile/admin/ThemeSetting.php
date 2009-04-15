@@ -32,20 +32,20 @@
  */
 
 // direct access protect
-$scriptFileName = getenv( 'SCRIPT_FILENAME' );
-if ( $scriptFileName === __FILE__ ) {
+$scriptFileName = getenv('SCRIPT_FILENAME');
+if ($scriptFileName === __FILE__) {
     exit();
 }
 
 // init process
 $xcRoot =& XCube_Root::getSingleton();
 $xoopsTpl = WizXc_Util::getXoopsTpl();
-$frontDirname = str_replace( '_wizmobile_action', '', strtolower(get_class($this)) );
+$frontDirname = str_replace('_wizmobile_action', '', strtolower(get_class($this)));
 $tplFile = 'db:' . $frontDirname . '_admin_theme_setting.html';
 
 // include language file of legacy module
-$language = empty( $GLOBALS['xoopsConfig']['language'] ) ? 'english' : $GLOBALS['xoopsConfig']['language'];
-if( file_exists( XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/admin.php' ) ) {
+$language = empty($GLOBALS['xoopsConfig']['language']) ? 'english' : $GLOBALS['xoopsConfig']['language'];
+if(file_exists(XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/admin.php')) {
     require_once XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/admin.php';
 }
 
@@ -53,11 +53,11 @@ if( file_exists( XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/a
 $groups = array();
 /*
 $db =& XoopsDatabaseFactory::getDatabaseConnection();
-$groupTable = $db->prefix( 'groups' );
+$groupTable = $db->prefix('groups');
 $sql = "SELECT `groupid`, `name` FROM `$groupTable` ORDER BY groupid;";
-if ( $resource = $db->query($sql) ) {
-    while ( $result = $db->fetchArray($resource) ) {
-        $groupId = intval( $result['groupid'] );
+if ($resource = $db->query($sql)) {
+    while ($result = $db->fetchArray($resource)) {
+        $groupId = intval($result['groupid']);
         $groups[$groupId] = $result['name'];
     }
 }
@@ -71,35 +71,35 @@ $modules[0] = array('mid' => 0, 'name' => _AD_LEGACY_LANG_TOPPAGE);
 $modules[-1] = array('mid' => -1, 'name' => _AD_LEGACY_LANG_ALL_MODULES);
 
 // register and redirect
-$method = getenv( 'REQUEST_METHOD' );
-if ( strtolower($method) === 'post' ) {
+$method = getenv('REQUEST_METHOD');
+if (strtolower($method) === 'post') {
     $gTicket = new XoopsGTicket();
-    if ( ! $gTicket->check(true, $this->_sFrontDirName, false) ) {
-        $xcRoot->mController->executeRedirect( WIZXC_CURRENT_URI, 3,
-            sprintf(Wizin_Util::constant('WIZMOBILE_ERR_TICKET_NOT_FOUND')) );
+    if (! $gTicket->check(true, $this->_sFrontDirName, false)) {
+        $xcRoot->mController->executeRedirect(WIZXC_CURRENT_URI, 3,
+            sprintf(Wizin_Util::constant('WIZMOBILE_ERR_TICKET_NOT_FOUND')));
     }
     $db =& XoopsDatabaseFactory::getDatabaseConnection();
     $sqlArray = array();
-    $now = date( 'Y-m-d H:i:s' );
+    $now = date('Y-m-d H:i:s');
     // update config table
-    $configTable = $db->prefix( $this->_sFrontDirName . '_configs' );
+    $configTable = $db->prefix($this->_sFrontDirName . '_configs');
     $allowItems = array('theme');
-    $requestItems = ( ! empty($_REQUEST['wmc_item']) && is_array($_REQUEST['wmc_item']) ) ?
+    $requestItems = (! empty($_REQUEST['wmc_item']) && is_array($_REQUEST['wmc_item'])) ?
         $_REQUEST['wmc_item']: array();
-    foreach ( $requestItems as $wmc_item => $wmc_value ) {
-        if ( ! in_array($wmc_item, $allowItems) ) {
+    foreach ($requestItems as $wmc_item => $wmc_value) {
+        if (! in_array($wmc_item, $allowItems)) {
             continue;
         }
-        $wmc_item = mysql_real_escape_string( $wmc_item );
-        $wmc_value = mysql_real_escape_string( $wmc_value );
+        $wmc_item = mysql_real_escape_string($wmc_item);
+        $wmc_value = mysql_real_escape_string($wmc_value);
         $sql = "SELECT * FROM `$configTable` WHERE `wmc_item` = '$wmc_item';";
-        if ( $resource = $db->query($sql) ) {
-            if ( $result = $db->fetchArray($resource) ) {
+        if ($resource = $db->query($sql)) {
+            if ($result = $db->fetchArray($resource)) {
                 $sqlArray[] = "UPDATE `$configTable` SET `wmc_value` = '$wmc_value', `wmc_update_datetime` = '$now' " .
                     " WHERE `wmc_config_id` = " . $result['wmc_config_id'] . ";";
             } else {
                 $sqlArray[] = "INSERT INTO `$configTable` (`wmc_item`, `wmc_value`, `wmc_init_datetime`, `wmc_update_datetime`) " .
-                    " VALUES ( '$wmc_item', '$wmc_value', '$now', '$now' );";
+                    " VALUES ('$wmc_item', '$wmc_value', '$now', '$now');";
             }
         }
     }
@@ -110,17 +110,17 @@ if ( strtolower($method) === 'post' ) {
     //   2) module exists?
     //   3) theme exists?
     $params = array();
-    $themeTable = $db->prefix( $this->_sFrontDirName . '_themes' );
-    $requestThemes = ( ! empty($_REQUEST['wmt_theme']) && is_array($_REQUEST['wmt_theme']) ) ?
+    $themeTable = $db->prefix($this->_sFrontDirName . '_themes');
+    $requestThemes = (! empty($_REQUEST['wmt_theme']) && is_array($_REQUEST['wmt_theme'])) ?
         $_REQUEST['wmt_theme']: array();
-    foreach ( $requestThemes as $wmt_groupid => $wmt_theme ) {
-        $wmt_groupid = intval( $wmt_groupid );
+    foreach ($requestThemes as $wmt_groupid => $wmt_theme) {
+        $wmt_groupid = intval($wmt_groupid);
         foreach ($wmt_theme as $wmt_mid => $wmt_theme_name) {
-            $wmt_mid = intval( $wmt_mid );
+            $wmt_mid = intval($wmt_mid);
             $sql = "SELECT * FROM `$themeTable` WHERE `wmt_mid` = $wmt_mid AND " .
                 "`wmt_groupid` = $wmt_groupid AND `wmt_delete_datetime` IS NULL;";
-            if ( $resource = $db->query($sql) ) {
-                if ( $result = $db->fetchArray($resource) ) {
+            if ($resource = $db->query($sql)) {
+                if ($result = $db->fetchArray($resource)) {
                     $wmt_theme_id = intval($result['wmt_theme_id']);
                     if (! is_null($wmt_theme_name) && $wmt_theme_name !== '') {
                         // update
@@ -157,11 +157,11 @@ if ( strtolower($method) === 'post' ) {
         " `wmt_groupid` NOT IN ($implodedGroups);";
     unset($implodedGroups);
     // execute sql
-    foreach ( $sqlArray as $sql ) {
-        if ( ! $db->query($sql) ) {
-            $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
+    foreach ($sqlArray as $sql) {
+        if (! $db->query($sql)) {
+            $xcRoot->mController->executeRedirect(XOOPS_URL . '/modules/' .
                 $this->_sFrontDirName . '/admin/admin.php?act=ThemeSetting', 3,
-                sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_THEMEL_SETTING_FAILED')) );
+                sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_THEMEL_SETTING_FAILED')));
         }
     }
     unset($sqlArray);
@@ -173,9 +173,9 @@ if ( strtolower($method) === 'post' ) {
         $cacheObject->save($params);
     }
 
-    $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
+    $xcRoot->mController->executeRedirect(XOOPS_URL . '/modules/' .
         $this->_sFrontDirName . '/admin/admin.php?act=ThemeSetting', 3,
-        sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_THEME_SETTING_SUCCESS')) );
+        sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_THEME_SETTING_SUCCESS')));
 }
 
 // get theme setting
@@ -190,12 +190,12 @@ $themes = $this->getThemes();
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 // display main templates
-$xoopsTpl->assign( 'groups', $groups );
-$xoopsTpl->assign( 'modules', $modules );
-$xoopsTpl->assign( 'configs', $configs );
-$xoopsTpl->assign( 'themes', $themes );
-$xoopsTpl->assign( 'mobileThemes', $mobileThemes );
-$xoopsTpl->display( $tplFile );
+$xoopsTpl->assign('groups', $groups);
+$xoopsTpl->assign('modules', $modules);
+$xoopsTpl->assign('configs', $configs);
+$xoopsTpl->assign('themes', $themes);
+$xoopsTpl->assign('mobileThemes', $mobileThemes);
+$xoopsTpl->display($tplFile);
 
 // call footer
 require_once XOOPS_ROOT_PATH . '/footer.php';

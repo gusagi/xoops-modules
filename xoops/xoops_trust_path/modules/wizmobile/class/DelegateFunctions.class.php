@@ -50,7 +50,7 @@ class LegacyWizMobileRender_DelegateFunctions
 
                 $themeDir = XOOPS_THEME_PATH . "/" . $dirname;
                 if (is_dir($themeDir)) {
-                    if ( ! file_exists($themeDir . '/.legacy_wizmobilerendersystem') ) {
+                    if (! file_exists($themeDir . '/.legacy_wizmobilerendersystem')) {
                         continue;
                     }
 
@@ -62,7 +62,7 @@ class LegacyWizMobileRender_DelegateFunctions
                             $results[] =& $theme;
                         }
                     } else {
-                        if ( file_exists($themeDir . "/theme.html") ) {
+                        if (file_exists($themeDir . "/theme.html")) {
                             $theme->mName = $dirname;
                             $theme->mRenderSystemName = 'Legacy_WizMobileRenderSystem';
                             $theme->mFormat = "XOOPS2 Legacy Style";

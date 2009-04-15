@@ -32,25 +32,25 @@
  */
 
 // direct access protect
-$scriptFileName = getenv( 'SCRIPT_FILENAME' );
-if ( $scriptFileName === __FILE__ ) {
+$scriptFileName = getenv('SCRIPT_FILENAME');
+if ($scriptFileName === __FILE__) {
     exit();
 }
 
 // init process
 $xcRoot =& XCube_Root::getSingleton();
-if ( ! is_object($xcRoot->mContext->mXoopsUser) ) {
-    $xcRoot->mController->executeRedirect( XOOPS_URL . '/user.php', 1, _NOPERM );
+if (! is_object($xcRoot->mContext->mXoopsUser)) {
+    $xcRoot->mController->executeRedirect(XOOPS_URL . '/user.php', 1, _NOPERM);
     exit();
 }
 $renderTarget =& $xcRoot->mContext->mModule->getRenderTarget();
-$frontDirname = str_replace( '_wizmobile_action', '', strtolower(get_class($this)) );
+$frontDirname = str_replace('_wizmobile_action', '', strtolower(get_class($this)));
 $tplFile = $frontDirname . '_main_setting.html';
-$renderTarget->setTemplateName( $tplFile );
+$renderTarget->setTemplateName($tplFile);
 
 // include language file of user module
-$language = empty( $GLOBALS['xoopsConfig']['language'] ) ? 'english' : $GLOBALS['xoopsConfig']['language'];
-if( file_exists( XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/blocks.php' ) ) {
+$language = empty($GLOBALS['xoopsConfig']['language']) ? 'english' : $GLOBALS['xoopsConfig']['language'];
+if(file_exists(XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/blocks.php')) {
     require_once XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/blocks.php';
 }
 

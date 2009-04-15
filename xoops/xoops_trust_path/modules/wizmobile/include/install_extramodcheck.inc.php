@@ -33,8 +33,8 @@
  *
  */
 
-if ( ! function_exists('get_writeoks_from_wizmobile') ) {
-    function get_writeoks_from_wizmobile( $xoops_root_path , $mytrustdirname ) {
-        return array( XOOPS_ROOT_PATH . '/uploads/wizmobile' ) ;
+if (! function_exists('get_writeoks_from_wizmobile')) {
+    function get_writeoks_from_wizmobile($xoops_root_path , $mytrustdirname) {
+        return array(XOOPS_ROOT_PATH . '/uploads/wizmobile') ;
     }
 }

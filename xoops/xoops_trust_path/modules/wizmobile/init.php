@@ -34,22 +34,22 @@
  */
 
 // direct access protect
-$scriptFileName = getenv( 'SCRIPT_FILENAME' );
-if ( $scriptFileName === __FILE__ ) {
+$scriptFileName = getenv('SCRIPT_FILENAME');
+if ($scriptFileName === __FILE__) {
     exit();
 }
 
 // call wizxc's init process
 $initScript = XOOPS_TRUST_PATH . '/modules/wizxc/init.php';
-if ( file_exists($initScript) && is_readable($initScript) ) {
+if (file_exists($initScript) && is_readable($initScript)) {
     require_once $initScript;
 }
 
 // include language file
-$language = empty( $GLOBALS['xoopsConfig']['language'] ) ? 'english' : $GLOBALS['xoopsConfig']['language'];
-if( file_exists( XOOPS_ROOT_PATH . '/modules/' . $frontDirname . '/language/' . $language . '/main.php' ) ) {
+$language = empty($GLOBALS['xoopsConfig']['language']) ? 'english' : $GLOBALS['xoopsConfig']['language'];
+if(file_exists(XOOPS_ROOT_PATH . '/modules/' . $frontDirname . '/language/' . $language . '/main.php')) {
     require XOOPS_ROOT_PATH . '/modules/' . $frontDirname . '/language/' . $language . '/main.php';
 }
-if( file_exists( dirname(__FILE__) . '/language/' . $language . '/main.php' ) ) {
+if(file_exists(dirname(__FILE__) . '/language/' . $language . '/main.php')) {
     require dirname(__FILE__) . '/language/' . $language . '/main.php';
 }

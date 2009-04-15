@@ -33,12 +33,12 @@
 
 if (!defined('XOOPS_ROOT_PATH')) exit();
 
-if ( !defined('LEGACY_RENDERSYSTEM_BANNERSETUP_BEFORE') ) {
-    include_once( XOOPS_ROOT_PATH . '/modules/legacyRender/kernel/Legacy_RenderSystem.class.php' );
+if (!defined('LEGACY_RENDERSYSTEM_BANNERSETUP_BEFORE')) {
+    include_once(XOOPS_ROOT_PATH . '/modules/legacyRender/kernel/Legacy_RenderSystem.class.php');
 }
-include_once( XOOPS_TRUST_PATH . '/modules/wizmobile/class/Legacy_WizMobileRenderTarget.class.php' );
+include_once(XOOPS_TRUST_PATH . '/modules/wizmobile/class/Legacy_WizMobileRenderTarget.class.php');
 
-if( ! class_exists( 'Legacy_WizMobileRenderSystem' ) ) {
+if(! class_exists('Legacy_WizMobileRenderSystem')) {
     class Legacy_WizMobileRenderSystem extends Legacy_RenderSystem
     {
         /**
@@ -67,9 +67,9 @@ if( ! class_exists( 'Legacy_WizMobileRenderSystem' ) ) {
             // init process
             $user =& Wizin_User::getSingleton();
             if ($user->bIsMobile) {
-                $this->_renderThemeMobile( $target );
+                $this->_renderThemeMobile($target);
             }
-            parent::renderTheme( $target );
+            parent::renderTheme($target);
         }
 
         function _renderThemeMobile(&$target)
@@ -80,10 +80,10 @@ if( ! class_exists( 'Legacy_WizMobileRenderSystem' ) ) {
             $wizMobileAction =& $wizMobile->getActionClass();
             // if $xoops_contents is empty, display default setting block.
             $configs = $wizMobileAction->getConfigs();
-            $xoopsContents = $target->getAttribute( 'xoops_contents' );
+            $xoopsContents = $target->getAttribute('xoops_contents');
             $defaultBid = 0;
-            if ( (! isset($xoopsContents) || $xoopsContents === '') &&
-                    empty($_REQUEST['mobilebid']) ) {
+            if ((! isset($xoopsContents) || $xoopsContents === '') &&
+                    empty($_REQUEST['mobilebid'])) {
                 $defaultBid = isset($configs['default_bid']) ?
                     intval($configs['default_bid']['wmc_value']): 0;
             }
@@ -95,22 +95,22 @@ if( ! class_exists( 'Legacy_WizMobileRenderSystem' ) ) {
              */
             $nondisplayBlocks = $wizMobileAction->getWizMobileBlocks(WIZMOBILE_BLOCK_INVISIBLE);
             $legacy_BlockContents =& $xcRoot->mContext->mAttributes['legacy_BlockContents'];
-            $blockFlagMap = array( 'xoops_showlblock', 'xoops_showcblock', 'xoops_showcblock',
-                'xoops_showcblock', 'xoops_showrblock' );
-            if ( ! empty($legacy_BlockContents) ) {
-                foreach ( $legacy_BlockContents as $index => $blockArea ) {
-                    foreach ( $blockArea as $key => $block ) {
-                        $blockId = intval( $block['id'] );
-                        if ( ! in_array($blockId, $nondisplayBlocks) || $blockId === $defaultBid ) {
-                            if ( $mobileBid === $blockId ) {
-                                $this->mXoopsTpl->assign( 'wizMobileBlockTitle', $block['title'] );
-                                $this->mXoopsTpl->assign( 'wizMobileBlockContents', $block['content'] );
+            $blockFlagMap = array('xoops_showlblock', 'xoops_showcblock', 'xoops_showcblock',
+                'xoops_showcblock', 'xoops_showrblock');
+            if (! empty($legacy_BlockContents)) {
+                foreach ($legacy_BlockContents as $index => $blockArea) {
+                    foreach ($blockArea as $key => $block) {
+                        $blockId = intval($block['id']);
+                        if (! in_array($blockId, $nondisplayBlocks) || $blockId === $defaultBid) {
+                            if ($mobileBid === $blockId) {
+                                $this->mXoopsTpl->assign('wizMobileBlockTitle', $block['title']);
+                                $this->mXoopsTpl->assign('wizMobileBlockContents', $block['content']);
                             }
                         } else {
-                            unset( $xcRoot->mContext->mAttributes['legacy_BlockContents'][$index][$key] );
+                            unset($xcRoot->mContext->mAttributes['legacy_BlockContents'][$index][$key]);
                         }
                     }
-                    if ( count($xcRoot->mContext->mAttributes['legacy_BlockContents'][$index]) === 0 ) {
+                    if (count($xcRoot->mContext->mAttributes['legacy_BlockContents'][$index]) === 0) {
                         $xcRoot->mContext->mAttributes['legacy_BlockShowFlags'][$index] = false;
                     }
                 }
@@ -131,23 +131,23 @@ if( ! class_exists( 'Legacy_WizMobileRenderSystem' ) ) {
             }
             // display sub menu
             $subMenuContents = '';
-            if ( function_exists('b_legacy_mainmenu_show') ) {
+            if (function_exists('b_legacy_mainmenu_show')) {
                 $xoopsModule =& $xcRoot->mContext->mXoopsModule;
-                if ( isset($xoopsModule) && is_object($xoopsModule) ) {
-                    if ( $xoopsModule->getVar('hasmain') == 1 && $xoopsModule->getVar('weight') > 0 ) {
+                if (isset($xoopsModule) && is_object($xoopsModule)) {
+                    if ($xoopsModule->getVar('hasmain') == 1 && $xoopsModule->getVar('weight') > 0) {
                         $dirname = $xoopsModule->getVar('dirname');
                         $modname = $xoopsModule->getVar('name');
                         // assign submenu(string.)
-                        $subMenuContents .= '<a href="' . XOOPS_URL . '/modules/' . htmlspecialchars( $dirname, ENT_QUOTES ) .
-                            '/">[' . htmlspecialchars( $modname, ENT_QUOTES ) . ']</a>&nbsp;';
+                        $subMenuContents .= '<a href="' . XOOPS_URL . '/modules/' . htmlspecialchars($dirname, ENT_QUOTES) .
+                            '/">[' . htmlspecialchars($modname, ENT_QUOTES) . ']</a>&nbsp;';
                         $subLinks = $xoopsModule->subLink();
-                        foreach ( $subLinks as $index => $subLink ) {
-                            if ( $index !== 0 ) {
+                        foreach ($subLinks as $index => $subLink) {
+                            if ($index !== 0) {
                                 $subMenuContents .= "&nbsp;/&nbsp;";
                             }
                             $subMenuContents .= '<a href="' . $subLink['url'] . '">' . $subLink['name'] . '</a>';
                         }
-                        $this->mXoopsTpl->assign( 'wizMobileSubMenuContents', $subMenuContents );
+                        $this->mXoopsTpl->assign('wizMobileSubMenuContents', $subMenuContents);
                         // assign submenu(not string.)
                         $this->mXoopsTpl->assign('wizMobileModuleName', $modname);
                         $this->mXoopsTpl->assign('wizMobileModuleLink', XOOPS_URL . '/modules/' . $dirname . '/');
@@ -180,7 +180,7 @@ if( ! class_exists( 'Legacy_WizMobileRenderSystem' ) ) {
 
             // get permitted blockid
             $sql = "SELECT DISTINCT gperm_itemid FROM ".$db->prefix('group_permission')." WHERE gperm_name = 'block_read' AND gperm_modid = 1";
-            if ( is_array($groups) ) {
+            if (is_array($groups)) {
                 $sql .= ' AND gperm_groupid IN ('.implode(',', array_map('intval', $groups)).')';
             } else {
                 if (intval($groups) > 0) {
@@ -247,7 +247,7 @@ if( ! class_exists( 'Legacy_WizMobileRenderSystem' ) ) {
                             'title'      => $blockProcedure->getTitle(),
                             'content' => $content,
                             'weight'  => $blockProcedure->getWeight()
-                        );
+                       );
                     }
                     $usedCacheFlag = true;
                 }
@@ -264,7 +264,7 @@ if( ! class_exists( 'Legacy_WizMobileRenderSystem' ) ) {
                             'content'=>$renderBuffer->getResult(),
                             'weight'=>$blockProcedure->getWeight(),
                             'id' => $blockProcedure->getId(),
-                    );
+                   );
                 }
             }
             return $block;

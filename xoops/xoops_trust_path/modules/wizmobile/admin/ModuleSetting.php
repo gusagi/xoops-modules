@@ -32,8 +32,8 @@
  */
 
 // direct access protect
-$scriptFileName = getenv( 'SCRIPT_FILENAME' );
-if ( $scriptFileName === __FILE__ ) {
+$scriptFileName = getenv('SCRIPT_FILENAME');
+if ($scriptFileName === __FILE__) {
     exit();
 }
 
@@ -41,71 +41,71 @@ if ( $scriptFileName === __FILE__ ) {
 $xcRoot =& XCube_Root::getSingleton();
 $xoopsTpl = WizXc_Util::getXoopsTpl();
 $db =& XoopsDatabaseFactory::getDatabaseConnection();
-$frontDirname = str_replace( '_wizmobile_action', '', strtolower(get_class($this)) );
+$frontDirname = str_replace('_wizmobile_action', '', strtolower(get_class($this)));
 $tplFile = 'db:' . $frontDirname . '_admin_module_setting.html';
 
 // register and redirect
-$method = getenv( 'REQUEST_METHOD' );
-if ( strtolower($method) === 'post' ) {
+$method = getenv('REQUEST_METHOD');
+if (strtolower($method) === 'post') {
     $gTicket = new XoopsGTicket();
-    if ( ! $gTicket->check(true, $this->_sFrontDirName, false) ) {
-        $xcRoot->mController->executeRedirect( WIZXC_CURRENT_URI, 3,
-            sprintf(Wizin_Util::constant('WIZMOBILE_ERR_TICKET_NOT_FOUND')) );
+    if (! $gTicket->check(true, $this->_sFrontDirName, false)) {
+        $xcRoot->mController->executeRedirect(WIZXC_CURRENT_URI, 3,
+            sprintf(Wizin_Util::constant('WIZMOBILE_ERR_TICKET_NOT_FOUND')));
     }
-    $moduleTable = $db->prefix( $this->_sFrontDirName . '_modules' );
-    $modulesTable = $db->prefix( 'modules' );
+    $moduleTable = $db->prefix($this->_sFrontDirName . '_modules');
+    $modulesTable = $db->prefix('modules');
     $insertModules = array();
     $updateModules = array();
     $deleteModules = array();
     $existsModules = array();
-    $now = date( 'Y-m-d H:i:s' );
+    $now = date('Y-m-d H:i:s');
     // TODO : use ORM
     $sql = "SELECT `mid` FROM `$modulesTable`";
-    if ( $resource = $db->query($sql) ) {
-        while ( $result = $db->fetchArray($resource) ) {
-            if ( $result !== false && ! empty($result) ) {
+    if ($resource = $db->query($sql)) {
+        while ($result = $db->fetchArray($resource)) {
+            if ($result !== false && ! empty($result)) {
                 $existsModules[] = $result['mid'];
             }
         }
     }
     $denyAccessModules = $this->getDenyAccessModules();
-    $requestModules = ( ! empty($_REQUEST['wmm_mid']) && is_array($_REQUEST['wmm_mid']) ) ?
+    $requestModules = (! empty($_REQUEST['wmm_mid']) && is_array($_REQUEST['wmm_mid'])) ?
         $_REQUEST['wmm_mid']: array();
-    $insertModules = array_diff( $requestModules, $denyAccessModules );
-    $updateModules = array_intersect( $requestModules, $denyAccessModules );
-    $deleteModules = array_merge( array_diff($denyAccessModules, $existsModules),
-        array_diff($denyAccessModules, $requestModules) );
-    $insertModules = array_map( 'intval', $insertModules );
-    $updateModules = array_map( 'intval', $updateModules );
-    $deleteModules = array_map( 'intval', $deleteModules );
+    $insertModules = array_diff($requestModules, $denyAccessModules);
+    $updateModules = array_intersect($requestModules, $denyAccessModules);
+    $deleteModules = array_merge(array_diff($denyAccessModules, $existsModules),
+        array_diff($denyAccessModules, $requestModules));
+    $insertModules = array_map('intval', $insertModules);
+    $updateModules = array_map('intval', $updateModules);
+    $deleteModules = array_map('intval', $deleteModules);
     $sqlArray = array();
-    foreach ( $insertModules as $wmm_mid ) {
+    foreach ($insertModules as $wmm_mid) {
         $sqlArray[] = "INSERT INTO `$moduleTable` (`wmm_mid`, `wmm_init_datetime`, `wmm_update_datetime`) VALUES ($wmm_mid, '$now', '$now');";
     }
-    if ( ! empty($updateModules) ) {
-        $sqlArray[] = "UPDATE `$moduleTable` SET `wmm_update_datetime` = '$now' WHERE `wmm_mid` IN ( " .
-            implode( ',', $updateModules ) . " ) AND `wmm_delete_datetime` = '0000-00-00 00:00:00';";
+    if (! empty($updateModules)) {
+        $sqlArray[] = "UPDATE `$moduleTable` SET `wmm_update_datetime` = '$now' WHERE `wmm_mid` IN (" .
+            implode(',', $updateModules) . ") AND `wmm_delete_datetime` = '0000-00-00 00:00:00';";
     }
-    if ( ! empty($deleteModules) ) {
-        $sqlArray[] = "UPDATE `$moduleTable` SET `wmm_delete_datetime` = '$now' WHERE `wmm_mid` IN ( " .
-            implode( ',', $deleteModules ) . " ) AND `wmm_delete_datetime` = '0000-00-00 00:00:00';";
+    if (! empty($deleteModules)) {
+        $sqlArray[] = "UPDATE `$moduleTable` SET `wmm_delete_datetime` = '$now' WHERE `wmm_mid` IN (" .
+            implode(',', $deleteModules) . ") AND `wmm_delete_datetime` = '0000-00-00 00:00:00';";
     }
-    foreach ( $sqlArray as $sql ) {
-        if ( ! $db->query($sql) ) {
-            $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
+    foreach ($sqlArray as $sql) {
+        if (! $db->query($sql)) {
+            $xcRoot->mController->executeRedirect(XOOPS_URL . '/modules/' .
                 $this->_sFrontDirName . '/admin/admin.php?act=ModuleSetting', 3,
-                sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_MODULE_SETTING_FAILED')) );
+                sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_MODULE_SETTING_FAILED')));
         }
     }
     unset($sqlArray);
     WizXc_Util::clearCompiledCache();
-    $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
+    $xcRoot->mController->executeRedirect(XOOPS_URL . '/modules/' .
         $this->_sFrontDirName . '/admin/admin.php?act=ModuleSetting', 3,
-        sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_MODULE_SETTING_SUCCESS')) );
+        sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_MODULE_SETTING_SUCCESS')));
 }
 
 // get block list
-$modulesTable = $db->prefix( 'modules' );
+$modulesTable = $db->prefix('modules');
 $modules = array();
 // TODO : use ORM
 $sql = "SELECT ";
@@ -114,9 +114,9 @@ $sql .= " $modulesTable.`dirname` ";
 $sql .= " FROM `$modulesTable` ";
 $sql .= " WHERE ";
 $sql .= " $modulesTable.`isactive` = 1 ;";
-if ( $resource = $db->query($sql) ) {
-    while ( $result = $db->fetchArray($resource) ) {
-        if ( $result !== false && ! empty($result) ) {
+if ($resource = $db->query($sql)) {
+    while ($result = $db->fetchArray($resource)) {
+        if ($result !== false && ! empty($result)) {
             $modules[] = $result;
         }
     }
@@ -130,9 +130,9 @@ $denyAccessModules = $this->getDenyAccessModules();
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 // display main templates
-$xoopsTpl->assign( 'modules', $modules );
-$xoopsTpl->assign( 'denyAccessModules', $denyAccessModules );
-$xoopsTpl->display( $tplFile );
+$xoopsTpl->assign('modules', $modules);
+$xoopsTpl->assign('denyAccessModules', $denyAccessModules);
+$xoopsTpl->display($tplFile);
 
 // call footer
 require_once XOOPS_ROOT_PATH . '/footer.php';

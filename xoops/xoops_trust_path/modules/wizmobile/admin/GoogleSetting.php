@@ -32,54 +32,54 @@
  */
 
 // direct access protect
-$scriptFileName = getenv( 'SCRIPT_FILENAME' );
-if ( $scriptFileName === __FILE__ ) {
+$scriptFileName = getenv('SCRIPT_FILENAME');
+if ($scriptFileName === __FILE__) {
     exit();
 }
 
 // init process
 $xcRoot =& XCube_Root::getSingleton();
 $xoopsTpl = WizXc_Util::getXoopsTpl();
-$frontDirname = str_replace( '_wizmobile_action', '', strtolower(get_class($this)) );
+$frontDirname = str_replace('_wizmobile_action', '', strtolower(get_class($this)));
 $tplFile = 'db:' . $frontDirname . '_admin_google_setting.html';
 
 // register and redirect
-$method = getenv( 'REQUEST_METHOD' );
-if ( strtolower($method) === 'post' ) {
+$method = getenv('REQUEST_METHOD');
+if (strtolower($method) === 'post') {
     $gTicket = new XoopsGTicket();
-    if ( ! $gTicket->check(true, $this->_sFrontDirName, false) ) {
-        $xcRoot->mController->executeRedirect( WIZXC_CURRENT_URI, 3,
-            sprintf(Wizin_Util::constant('WIZMOBILE_ERR_TICKET_NOT_FOUND')) );
+    if (! $gTicket->check(true, $this->_sFrontDirName, false)) {
+        $xcRoot->mController->executeRedirect(WIZXC_CURRENT_URI, 3,
+            sprintf(Wizin_Util::constant('WIZMOBILE_ERR_TICKET_NOT_FOUND')));
     }
     $db =& XoopsDatabaseFactory::getDatabaseConnection();
-    $atypicalTable = $db->prefix( $this->_sFrontDirName . '_atypical' );
-    $now = date( 'Y-m-d H:i:s' );
-    $allowItems = array( 'adsense_code' );
+    $atypicalTable = $db->prefix($this->_sFrontDirName . '_atypical');
+    $now = date('Y-m-d H:i:s');
+    $allowItems = array('adsense_code');
     $sqlArray = array();
-    $requestItems = ( ! empty($_REQUEST['wma_item']) && is_array($_REQUEST['wma_item']) ) ?
+    $requestItems = (! empty($_REQUEST['wma_item']) && is_array($_REQUEST['wma_item'])) ?
         $_REQUEST['wma_item']: array();
-    foreach ( $requestItems as $wma_item => $wma_value ) {
-        if ( ! in_array($wma_item, $allowItems) ) {
+    foreach ($requestItems as $wma_item => $wma_value) {
+        if (! in_array($wma_item, $allowItems)) {
             continue;
         }
-        $wma_item = mysql_real_escape_string( $wma_item );
-        $wma_value = mysql_real_escape_string( $wma_value );
+        $wma_item = mysql_real_escape_string($wma_item);
+        $wma_value = mysql_real_escape_string($wma_value);
         $sql = "SELECT * FROM `$atypicalTable` WHERE `wma_item` = '$wma_item';";
-        if ( $resource = $db->query($sql) ) {
-            if ( $result = $db->fetchArray($resource) ) {
+        if ($resource = $db->query($sql)) {
+            if ($result = $db->fetchArray($resource)) {
                 $sqlArray[] = "UPDATE `$atypicalTable` SET `wma_value` = '$wma_value', `wma_update_datetime` = '$now' " .
                     " WHERE `wma_atypical_id` = " . $result['wma_atypical_id'] . ";";
             } else {
                 $sqlArray[] = "INSERT INTO `$atypicalTable` (`wma_item`, `wma_value`, `wma_init_datetime`, `wma_update_datetime`) " .
-                    " VALUES ( '$wma_item', '$wma_value', '$now', '$now' );";
+                    " VALUES ('$wma_item', '$wma_value', '$now', '$now');";
             }
         }
     }
-    foreach ( $sqlArray as $sql ) {
-        if ( ! $db->query($sql) ) {
-            $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
+    foreach ($sqlArray as $sql) {
+        if (! $db->query($sql)) {
+            $xcRoot->mController->executeRedirect(XOOPS_URL . '/modules/' .
                 $this->_sFrontDirName . '/admin/admin.php?act=GoogleSetting', 3,
-                sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_GOOGLE_SETTING_FAILED')) );
+                sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_GOOGLE_SETTING_FAILED')));
         }
     }
     unset($sqlArray);
@@ -91,9 +91,9 @@ if ( strtolower($method) === 'post' ) {
         $params = $this->googleAdsParams($requestItems['adsense_code']);
         $cacheObject->save($params);
     }
-    $xcRoot->mController->executeRedirect( XOOPS_URL . '/modules/' .
+    $xcRoot->mController->executeRedirect(XOOPS_URL . '/modules/' .
         $this->_sFrontDirName . '/admin/admin.php?act=GoogleSetting', 3,
-        sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_GOOGLE_SETTING_SUCCESS')) );
+        sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_GOOGLE_SETTING_SUCCESS')));
 }
 
 // get module config
@@ -106,8 +106,8 @@ $atypical = $this->getAtypical();
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 // display main templates
-$xoopsTpl->assign( 'atypical', $atypical );
-$xoopsTpl->display( $tplFile );
+$xoopsTpl->assign('atypical', $atypical);
+$xoopsTpl->display($tplFile);
 
 // call footer
 require_once XOOPS_ROOT_PATH . '/footer.php';

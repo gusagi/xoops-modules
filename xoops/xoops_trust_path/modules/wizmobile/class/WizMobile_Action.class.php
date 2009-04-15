@@ -31,14 +31,14 @@
  *
  */
 
-if ( ! class_exists('WizMobile_Action') ) {
+if (! class_exists('WizMobile_Action')) {
     require_once XOOPS_TRUST_PATH . '/modules/wizxc/class/WizXc_Action.class.php';
 
     class WizMobile_Action extends WizXc_Action
     {
         function executeAdmin()
         {
-            if ( empty($_REQUEST['act']) ) {
+            if (empty($_REQUEST['act'])) {
                 $_REQUEST['act'] = 'SystemStatus';
             }
             parent::executeAdmin();
@@ -47,14 +47,14 @@ if ( ! class_exists('WizMobile_Action') ) {
         function _setup()
         {
             $this->_sModuleDir = XOOPS_TRUST_PATH . '/modules/wizmobile';
-            $this->_sFrontDirName = str_replace( '_wizmobile_action', '', strtolower(get_class($this)) );
+            $this->_sFrontDirName = str_replace('_wizmobile_action', '', strtolower(get_class($this)));
             $this->_sClassName = $this->_sFrontDirName . '_WizMobile_Action';
         }
 
         function &getSingletonByOwn()
         {
             static $instance;
-            if ( ! isset($instance) ) {
+            if (! isset($instance)) {
                 $className = $this->_sClassName;
                 $instance = new $className();
             }
@@ -65,8 +65,8 @@ if ( ! class_exists('WizMobile_Action') ) {
         {
             $xcRoot = XCube_Root::getSingleton();
             $db =& XoopsDatabaseFactory::getDatabaseConnection();
-            $newblocksTable = $db->prefix( 'newblocks' );
-            $modulesTable = $db->prefix( 'modules' );
+            $newblocksTable = $db->prefix('newblocks');
+            $modulesTable = $db->prefix('modules');
             $blocks = array();
             // TODO : use ORM
             $sql = "SELECT ";
@@ -81,9 +81,9 @@ if ( ! class_exists('WizMobile_Action') ) {
             $sql .= " $newblocksTable.`isactive` = 1 ";
             $sql .= " ORDER BY $newblocksTable.`mid`, $newblocksTable.`visible` DESC, " .
                 " $newblocksTable.`weight`, $newblocksTable.`bid`";
-            if ( $resource = $db->query($sql) ) {
-                while ( $result = $db->fetchArray($resource) ) {
-                    if ( $result !== false && ! empty($result) ) {
+            if ($resource = $db->query($sql)) {
+                while ($result = $db->fetchArray($resource)) {
+                    if ($result !== false && ! empty($result)) {
                         $blocks[] = $result;
                     }
                 }
@@ -95,7 +95,7 @@ if ( ! class_exists('WizMobile_Action') ) {
         {
             $blocks = array();
             $db =& XoopsDatabaseFactory::getDatabaseConnection();
-            $blockTable = $db->prefix( $this->_sFrontDirName . '_blocks' );
+            $blockTable = $db->prefix($this->_sFrontDirName . '_blocks');
             // TODO : use ORM
             $sql = "SELECT * FROM `$blockTable` WHERE `wmb_delete_datetime` = '0000-00-00 00:00:00'";
             if ($visible !== '') {
@@ -103,9 +103,9 @@ if ( ! class_exists('WizMobile_Action') ) {
             }
             $sql .= " ORDER BY `$blockTable`.`wmb_visible` DESC, `$blockTable`.`wmb_weight`, " .
                 " `$blockTable`.`wmb_bid`";
-            if ( $resource = $db->query($sql) ) {
-                while ( $result = $db->fetchArray($resource) ) {
-                    if ( $result !== false && ! empty($result) ) {
+            if ($resource = $db->query($sql)) {
+                while ($result = $db->fetchArray($resource)) {
+                    if ($result !== false && ! empty($result)) {
                         $wmb_bid = intval($result['wmb_bid']);
                         $blocks[$wmb_bid] = $result;
                     }
@@ -117,18 +117,18 @@ if ( ! class_exists('WizMobile_Action') ) {
         function getConfigs()
         {
             static $configs;
-            if ( isset($configs) ) {
+            if (isset($configs)) {
                 return $configs;
             }
             $xcRoot = XCube_Root::getSingleton();
             $db =& XoopsDatabaseFactory::getDatabaseConnection();
-            $configTable = $db->prefix( $this->_sFrontDirName . '_configs' );
+            $configTable = $db->prefix($this->_sFrontDirName . '_configs');
             $configs = array();
             // TODO : use ORM
             $sql = "SELECT * FROM `$configTable` WHERE `wmc_delete_datetime` = '0000-00-00 00:00:00';";
-            if ( $resource = $db->query($sql) ) {
-                while ( $result = $db->fetchArray($resource) ) {
-                    if ( $result !== false && ! empty($result) ) {
+            if ($resource = $db->query($sql)) {
+                while ($result = $db->fetchArray($resource)) {
+                    if ($result !== false && ! empty($result)) {
                         $wmc_item = $result['wmc_item'];
                         $configs[$wmc_item] = $result;
                     }
@@ -140,18 +140,18 @@ if ( ! class_exists('WizMobile_Action') ) {
         function getAtypical()
         {
             static $atypical;
-            if ( isset($atypical) ) {
+            if (isset($atypical)) {
                 return $atypical;
             }
             $xcRoot = XCube_Root::getSingleton();
             $db =& XoopsDatabaseFactory::getDatabaseConnection();
-            $atypicalTable = $db->prefix( $this->_sFrontDirName . '_atypical' );
+            $atypicalTable = $db->prefix($this->_sFrontDirName . '_atypical');
             $configs = array();
             // TODO : use ORM
             $sql = "SELECT * FROM `$atypicalTable` WHERE `wma_delete_datetime` = '0000-00-00 00:00:00';";
-            if ( $resource = $db->query($sql) ) {
-                while ( $result = $db->fetchArray($resource) ) {
-                    if ( $result !== false && ! empty($result) ) {
+            if ($resource = $db->query($sql)) {
+                while ($result = $db->fetchArray($resource)) {
+                    if ($result !== false && ! empty($result)) {
                         $wma_item = $result['wma_item'];
                         $atypical[$wma_item] = $result;
                     }
@@ -163,17 +163,17 @@ if ( ! class_exists('WizMobile_Action') ) {
         function getThemes()
         {
             static $themes;
-            if ( isset($themes) ) {
+            if (isset($themes)) {
                 return $themes;
             }
             $xcRoot = XCube_Root::getSingleton();
             $db =& XoopsDatabaseFactory::getDatabaseConnection();
-            $themeTable = $db->prefix( $this->_sFrontDirName . '_themes' );
+            $themeTable = $db->prefix($this->_sFrontDirName . '_themes');
             $themes = array();
             // TODO : use ORM
             $sql = "SELECT * FROM `$themeTable` WHERE `wmt_delete_datetime` IS NULL;";
-            if ( $resource = $db->query($sql) ) {
-                while ( $result = $db->fetchArray($resource) ) {
+            if ($resource = $db->query($sql)) {
+                while ($result = $db->fetchArray($resource)) {
                     $wmt_groupid = intval($result['wmt_groupid']);
                     $wmt_mid = intval($result['wmt_mid']);
                     if (! isset($themes[$wmt_groupid])) {
@@ -188,15 +188,15 @@ if ( ! class_exists('WizMobile_Action') ) {
         function getMobileThemes()
         {
             $themes = array();
-            if ( $handler = opendir(XOOPS_THEME_PATH) ) {
-                while ( ($dirname = readdir($handler)) !== false ) {
-                    if ( $dirname === '.' || $dirname === '..' ) {
+            if ($handler = opendir(XOOPS_THEME_PATH)) {
+                while (($dirname = readdir($handler)) !== false) {
+                    if ($dirname === '.' || $dirname === '..') {
                         continue;
                     }
 
                     $themeDir = XOOPS_THEME_PATH . "/" . $dirname;
-                    if ( is_dir($themeDir) ) {
-                        if ( file_exists($themeDir . '/.legacy_wizmobilerendersystem') ) {
+                    if (is_dir($themeDir)) {
+                        if (file_exists($themeDir . '/.legacy_wizmobilerendersystem')) {
                             $themes[] = $dirname;
                         }
                     }
@@ -210,7 +210,7 @@ if ( ! class_exists('WizMobile_Action') ) {
         {
             $xcRoot = XCube_Root::getSingleton();
             $db =& XoopsDatabaseFactory::getDatabaseConnection();
-            $tplsetTable = $db->prefix( 'tplset' );
+            $tplsetTable = $db->prefix('tplset');
             $templateSets = array();
             // TODO : use ORM
             $sql = "SELECT ";
@@ -218,10 +218,10 @@ if ( ! class_exists('WizMobile_Action') ) {
             $sql .= " FROM `$tplsetTable` ";
             $sql .= " ORDER BY ";
             $sql .= " $tplsetTable.`tplset_id` ;";
-            if ( $resource = $db->query($sql) ) {
-                while ( $result = $db->fetchArray($resource) ) {
-                    if ( $result !== false && ! empty($result) ) {
-                        $tplsetId = intval( $result['tplset_id'] );
+            if ($resource = $db->query($sql)) {
+                while ($result = $db->fetchArray($resource)) {
+                    if ($result !== false && ! empty($result)) {
+                        $tplsetId = intval($result['tplset_id']);
                         $templateSets[$tplsetId] = $result;
                     }
                 }
@@ -233,13 +233,13 @@ if ( ! class_exists('WizMobile_Action') ) {
         {
             $denyAccessModules = array();
             $db =& XoopsDatabaseFactory::getDatabaseConnection();
-            $moduleTable = $db->prefix( $this->_sFrontDirName . '_modules' );
+            $moduleTable = $db->prefix($this->_sFrontDirName . '_modules');
             // TODO : use ORM
             $sql = "SELECT `wmm_mid` FROM `$moduleTable` WHERE `wmm_delete_datetime` = '0000-00-00 00:00:00';";
-            if ( $resource = $db->query($sql) ) {
-                while ( $result = $db->fetchArray($resource) ) {
-                    if ( $result !== false && ! empty($result) ) {
-                        $denyAccessModules[] = intval( $result['wmm_mid'] );
+            if ($resource = $db->query($sql)) {
+                while ($result = $db->fetchArray($resource)) {
+                    if ($result !== false && ! empty($result)) {
+                        $denyAccessModules[] = intval($result['wmm_mid']);
                     }
                 }
             }
@@ -271,6 +271,6 @@ if ( ! class_exists('WizMobile_Action') ) {
 }
 
 $className = $frontDirname . "_" . 'WizMobile_Action';
-if ( ! class_exists($className) ) {
-    eval( "class $className extends WizMobile_Action {}" );
+if (! class_exists($className)) {
+    eval("class $className extends WizMobile_Action {}");
 }

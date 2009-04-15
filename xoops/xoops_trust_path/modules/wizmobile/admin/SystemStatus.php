@@ -34,15 +34,15 @@
  */
 
 // direct access protect
-$scriptFileName = getenv( 'SCRIPT_FILENAME' );
-if ( $scriptFileName === __FILE__ ) {
+$scriptFileName = getenv('SCRIPT_FILENAME');
+if ($scriptFileName === __FILE__) {
     exit();
 }
 
 // init process
 $xcRoot =& XCube_Root::getSingleton();
 $xoopsTpl = WizXc_Util::getXoopsTpl();
-$frontDirname = str_replace( '_wizmobile_action', '', strtolower(get_class($this)) );
+$frontDirname = str_replace('_wizmobile_action', '', strtolower(get_class($this)));
 $tplFile = 'db:' . $frontDirname . '_admin_system_status.html';
 
 //
@@ -51,14 +51,14 @@ $tplFile = 'db:' . $frontDirname . '_admin_system_status.html';
 $systemStatus = array();
 
 // exchange controller
-$supportControllers = array( 'legacy_wizxccontroller', 'hdlegacy_controller' );
-$controllerClass = strtolower( get_class($xcRoot->mController) );
-if ( in_array($controllerClass, $supportControllers) ) {
-    $systemStatus['controller']['result'] = Wizin_Util::constant( 'WIZMOBILE_LANG_ENABLE' );
+$supportControllers = array('legacy_wizxccontroller', 'hdlegacy_controller');
+$controllerClass = strtolower(get_class($xcRoot->mController));
+if (in_array($controllerClass, $supportControllers)) {
+    $systemStatus['controller']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_ENABLE');
 } else {
-    $systemStatus['controller']['result'] = Wizin_Util::constant( 'WIZMOBILE_LANG_DISABLE' );
-    $systemStatus['controller']['messages'][] = Wizin_Util::constant( 'WIZMOBILE_MSG_CONTROLLER_IS_NOT_EXCHANGED' );
-    $systemStatus['controller']['messages'][] = Wizin_Util::constant( 'WIZMOBILE_MSG_CONTROLLER_PATCH' );
+    $systemStatus['controller']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_DISABLE');
+    $systemStatus['controller']['messages'][] = Wizin_Util::constant('WIZMOBILE_MSG_CONTROLLER_IS_NOT_EXCHANGED');
+    $systemStatus['controller']['messages'][] = Wizin_Util::constant('WIZMOBILE_MSG_CONTROLLER_PATCH');
     $systemStatus['controller']['code'] = '[RenderSystems]
         Legacy_WizMobileRenderSystem=Legacy_WizMobileRenderSystem
 
@@ -78,33 +78,33 @@ if ( in_array($controllerClass, $supportControllers) ) {
 
 // image resize
 $createDir = XOOPS_ROOT_PATH . '/uploads/wizmobile';
-if ( extension_loaded('gd') && file_exists($createDir) && is_dir($createDir) &&
-        is_writable($createDir) ) {
-    $systemStatus['imageResize']['result'] = Wizin_Util::constant( 'WIZMOBILE_LANG_ENABLE' );
+if (extension_loaded('gd') && file_exists($createDir) && is_dir($createDir) &&
+        is_writable($createDir)) {
+    $systemStatus['imageResize']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_ENABLE');
 } else {
-    $systemStatus['imageResize']['result'] = Wizin_Util::constant( 'WIZMOBILE_LANG_DISABLE' );
-    if ( ! extension_loaded('gd') ) {
-        $systemStatus['imageResize']['messages'][] = Wizin_Util::constant( 'WIZMOBILE_MSG_GD_NOT_EXISTS' );
+    $systemStatus['imageResize']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_DISABLE');
+    if (! extension_loaded('gd')) {
+        $systemStatus['imageResize']['messages'][] = Wizin_Util::constant('WIZMOBILE_MSG_GD_NOT_EXISTS');
     }
-    if ( ! file_exists($createDir) || ! is_dir($createDir) ) {
-        $systemStatus['imageResize']['messages'][] = Wizin_Util::constant( 'WIZMOBILE_MSG_RESIZED_IMAGE_DIR_NOT_EXISTS' );
+    if (! file_exists($createDir) || ! is_dir($createDir)) {
+        $systemStatus['imageResize']['messages'][] = Wizin_Util::constant('WIZMOBILE_MSG_RESIZED_IMAGE_DIR_NOT_EXISTS');
     }
-    if ( ! is_writable($createDir) ) {
-        $systemStatus['imageResize']['messages'][] = Wizin_Util::constant( 'WIZMOBILE_MSG_RESIZED_IMAGE_DIR_NOT_WRITABLE' );
+    if (! is_writable($createDir)) {
+        $systemStatus['imageResize']['messages'][] = Wizin_Util::constant('WIZMOBILE_MSG_RESIZED_IMAGE_DIR_NOT_WRITABLE');
     }
 }
 
 // partition page
-if ( class_exists('DOMDocument') && class_exists('SimpleXMLElement') &&
+if (class_exists('DOMDocument') && class_exists('SimpleXMLElement') &&
         method_exists('SimpleXMLElement','getName')) {
-    $systemStatus['partitionPage']['result'] = Wizin_Util::constant( 'WIZMOBILE_LANG_ENABLE' );
+    $systemStatus['partitionPage']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_ENABLE');
 } else {
-    $systemStatus['partitionPage']['result'] = Wizin_Util::constant( 'WIZMOBILE_LANG_DISABLE' );
-    if ( ! class_exists('DOMDocument') ) {
-        $systemStatus['partitionPage']['messages'][] = Wizin_Util::constant( 'WIZMOBILE_MSG_DOM_NOT_EXISTS' );
+    $systemStatus['partitionPage']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_DISABLE');
+    if (! class_exists('DOMDocument')) {
+        $systemStatus['partitionPage']['messages'][] = Wizin_Util::constant('WIZMOBILE_MSG_DOM_NOT_EXISTS');
     }
-    if ( ! class_exists('SimpleXMLElement') ) {
-        $systemStatus['partitionPage']['messages'][] = Wizin_Util::constant( 'WIZMOBILE_MSG_SIMPLEXML_NOT_EXISTS' );
+    if (! class_exists('SimpleXMLElement')) {
+        $systemStatus['partitionPage']['messages'][] = Wizin_Util::constant('WIZMOBILE_MSG_SIMPLEXML_NOT_EXISTS');
     }
 }
 
@@ -115,8 +115,8 @@ if ( class_exists('DOMDocument') && class_exists('SimpleXMLElement') &&
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 // display main templates
-$xoopsTpl->assign( 'systemStatus', $systemStatus );
-$xoopsTpl->display( $tplFile );
+$xoopsTpl->assign('systemStatus', $systemStatus);
+$xoopsTpl->display($tplFile);
 
 // call footer
 require_once XOOPS_ROOT_PATH . '/footer.php';
