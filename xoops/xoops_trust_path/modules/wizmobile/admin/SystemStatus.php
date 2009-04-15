@@ -108,6 +108,20 @@ if (class_exists('DOMDocument') && class_exists('SimpleXMLElement') &&
     }
 }
 
+// pictogram filter
+if (! class_exists('Wizin_Filter_Pictogram')) {
+    if (file_exists(WIZIN_ROOT_PATH .'/src/filter/Pictogram.class.php')) {
+        require WIZIN_ROOT_PATH .'/src/filter/Pictogram.class.php';
+    }
+}
+if (class_exists('Wizin_Filter_Pictogram')) {
+    $systemStatus['pictogramFilter']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_ENABLE');
+} else {
+    $systemStatus['pictogramFilter']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_DISABLE');
+    $systemStatus['pictogramFilter']['messages'][] = Wizin_Util::constant('WIZMOBILE_MSG_PICTOGRAM_LIB_NOT_EXISTS');
+    $systemStatus['pictogramFilter']['messages'][] = Wizin_Util::constant('WIZMOBILE_MSG_PLZ_PICTOGRAM_LIB_INSTALL');
+}
+
 //
 // render admin view
 //

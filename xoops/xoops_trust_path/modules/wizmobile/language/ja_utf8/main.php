@@ -58,6 +58,8 @@ Wizin_Util::define('WIZMOBILE_MSG_RESIZED_IMAGE_DIR_NOT_EXISTS', XOOPS_ROOT_PATH
 Wizin_Util::define('WIZMOBILE_MSG_RESIZED_IMAGE_DIR_NOT_WRITABLE', XOOPS_ROOT_PATH . '/uploads/wizmobile に書き込み権限がないため、画像のリサイズ機能は無効となっています');
 Wizin_Util::define('WIZMOBILE_MSG_DOM_NOT_EXISTS', 'DOM拡張が存在しないため、ページ分割機能は無効となっています');
 Wizin_Util::define('WIZMOBILE_MSG_SIMPLEXML_NOT_EXISTS', 'SimpleXMLが存在しないため、ページ分割機能は無効となっています');
+Wizin_Util::define('WIZMOBILE_MSG_PICTOGRAM_LIB_NOT_EXISTS', 'PEARパッケージ"Text_Pictogram_Mobile"が存在しないため、絵文字フィルター機能は無効となっています');
+Wizin_Util::define('WIZMOBILE_MSG_PLZ_PICTOGRAM_LIB_INSTALL', 'pearコマンドでインストールするか、xoops_trust_path/wizin/lib/PEARの下に展開して下さい');
 
 // main area / register uniq id
 Wizin_Util::define('WIZMOBILE_MSG_REGISTER_UNIQID_SUCCESS', '機種IDの%sが完了しました');
@@ -112,6 +114,7 @@ Wizin_Util::define('WIZMOBILE_LANG_GENERAL_SETTING', '一般設定');
 Wizin_Util::define('WIZMOBILE_LANG_EXCHANGE_CONTROLLER', 'コントローラの換装');
 Wizin_Util::define('WIZMOBILE_LANG_IMAGE_RESIZE', '画像のリサイズ');
 Wizin_Util::define('WIZMOBILE_LANG_PARTITION_PAGE', 'ページ分割');
+Wizin_Util::define('WIZMOBILE_LANG_PICTOGRAM_FILTER', '絵文字フィルター');
 
 // block setting
 Wizin_Util::define('WIZMOBILE_LANG_BLOCK_SETTING', 'ブロックの設定');
@@ -139,6 +142,8 @@ Wizin_Util::define('WIZMOBILE_LANG_DISPLAY_TARGET_DESC', 'グループ毎に、�
 // google adsense and analytics setting
 Wizin_Util::define('WIZMOBILE_LANG_ADSENSE_CODE', 'Google AdSense コード');
 Wizin_Util::define('WIZMOBILE_LANG_ADSENSE_CODE_DESC', 'モバイルコンテンツ向けのAdSenseコードを貼り付けて下さい');
+Wizin_Util::define('WIZMOBILE_LANG_ADSENSE_HOW_TO', '携帯用のテーマやテンプレートに&lt;{wizmobile_google_ads}&gt;と記述して下さい');
+Wizin_Util::define('WIZMOBILE_LANG_ADSENSE_NOTICE', '※機種IDが取得できないアクセスでは、広告は表示されません');
 
 // general setting
 Wizin_Util::define('WIZMOBILE_LANG_ITEM', '項目');

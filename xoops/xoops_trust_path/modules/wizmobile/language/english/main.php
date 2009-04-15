@@ -58,6 +58,8 @@ Wizin_Util::define('WIZMOBILE_MSG_RESIZED_IMAGE_DIR_NOT_EXISTS', 'Because ' . XO
 Wizin_Util::define('WIZMOBILE_MSG_RESIZED_IMAGE_DIR_NOT_WRITABLE', 'Because ' . XOOPS_ROOT_PATH . '/uploads/wizmobile directory is not writable, resize function of the image has become invalid.');
 Wizin_Util::define('WIZMOBILE_MSG_DOM_NOT_EXISTS', 'Because DOMDocument class does not exist, page divided function has become invalid.');
 Wizin_Util::define('WIZMOBILE_MSG_SIMPLEXML_NOT_EXISTS', 'Because SimpleXMLElement class does not exist, page divided function has become invalid.');
+Wizin_Util::define('WIZMOBILE_MSG_PICTOGRAM_LIB_NOT_EXISTS', 'Pictogram filter for portable telephone has become invalid, because PEAR package "Text_Pictogram_Mobile" does not exist.');
+Wizin_Util::define('WIZMOBILE_MSG_PLZ_PICTOGRAM_LIB_INSTALL', 'Please install by "pear install" or upload into xoops_trust_path/wizin/lib/PEAR.');
 
 // main area / register uniq id
 Wizin_Util::define('WIZMOBILE_MSG_REGISTER_UNIQID_SUCCESS', '%s of terminal specific ID completed.');
@@ -112,6 +114,7 @@ Wizin_Util::define('WIZMOBILE_LANG_GENERAL_SETTING', 'Generality setting');
 Wizin_Util::define('WIZMOBILE_LANG_EXCHANGE_CONTROLLER', 'Exchange Controller');
 Wizin_Util::define('WIZMOBILE_LANG_IMAGE_RESIZE', 'Resize of image');
 Wizin_Util::define('WIZMOBILE_LANG_PARTITION_PAGE', 'Page division');
+Wizin_Util::define('WIZMOBILE_LANG_PICTOGRAM_FILTER', 'Pictogram filter for portable telephone');
 
 // block setting
 Wizin_Util::define('WIZMOBILE_LANG_BLOCK_SETTING', 'Block setting');
@@ -139,6 +142,8 @@ Wizin_Util::define('WIZMOBILE_LANG_DISPLAY_TARGET_DESC', 'Please select the them
 // google adsense and analytics setting
 Wizin_Util::define('WIZMOBILE_LANG_ADSENSE_CODE', 'Google AdSense code');
 Wizin_Util::define('WIZMOBILE_LANG_ADSENSE_CODE_DESC', 'Please stick the AdSense code for the Mobile contents.');
+Wizin_Util::define('WIZMOBILE_LANG_ADSENSE_HOW_TO', 'Please write &lt;{wizmobile_google_ads}&gt; on theme or template.');
+Wizin_Util::define('WIZMOBILE_LANG_ADSENSE_NOTICE', '- With the access which cannot acquire terminal specific ID, adsense can\'t display.');
 
 // general setting
 Wizin_Util::define('WIZMOBILE_LANG_ITEM', 'Item');
