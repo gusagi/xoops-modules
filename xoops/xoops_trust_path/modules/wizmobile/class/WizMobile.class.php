@@ -595,10 +595,8 @@ if (! class_exists('WizMobile')) {
             foreach ($params as $key => $value) {
                 $adsUrl .= '&' . $key . '=' . $value;
             }
-            /*
             $adsTag = Wizin_Util_Web::getContentsByHttp($adsUrl);
             $adsTag = mb_convert_encoding($adsTag, mb_internal_encoding(), $user->sEncoding);
-            */
             return $adsTag;
         }
 
