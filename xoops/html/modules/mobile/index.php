@@ -33,13 +33,13 @@
  *
  */
 
-require dirname( dirname(dirname(__FILE__)) ) . '/mainfile.php';
-require dirname( __FILE__ ) . '/mytrustdirname.php';
+require dirname(dirname(dirname(__FILE__))) . '/mainfile.php';
+require dirname(__FILE__) . '/mytrustdirname.php';
 
-if ( defined('XOOPS_TRUST_PATH') ) {
+if (defined('XOOPS_TRUST_PATH')) {
     $frontFile = __FILE__;
-    $trustFile = XOOPS_TRUST_PATH . '/modules/' . $mytrustdirname . '/' . basename( __FILE__ );
-    if ( file_exists($trustFile) ) {
+    $trustFile = XOOPS_TRUST_PATH . '/modules/' . $mytrustdirname . '/' . basename(__FILE__);
+    if (file_exists($trustFile)) {
         require $trustFile;
     }
 }
