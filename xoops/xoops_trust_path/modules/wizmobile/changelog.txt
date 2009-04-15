@@ -8,7 +8,9 @@
 - Added 'GoogleSetting' action.
 - Modified 'BlockSetting' action.
 - Deleted unnecessary space in brackets.
-- 'Wizin' updated from '0.38' to '0.40'.
+- Modified block render logic.
+- Modified submenu render logic.
+- 'Wizin' updated from '0.38' to '0.41'.
 ----------------------------------
 [2009-02-01 Ver 0.34 -> 0.35]
 - 'WizXc' module updated from '0.26' to '0.27'.
