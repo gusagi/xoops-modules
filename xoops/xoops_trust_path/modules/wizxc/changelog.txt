@@ -1,3 +1,7 @@
+[2009-04-15 Ver 0.28]
+- Added check logic for the case defined '_LEGACY_PREVENT_LOAD_CORE_'.
+- Deleted unnecessary space in brackets.
+- Moved include line, from global area to function.
 ----------------------------------
 [2009-01-08 Ver 0.27]
 - Replace call function name, from 'Wizin_Util::getPrefix' to 'Wizin_Util::salt'.
