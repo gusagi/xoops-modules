@@ -84,13 +84,11 @@ if (strtolower($method) === 'post') {
     }
     unset($sqlArray);
     WizXc_Util::clearCompiledCache();
-    if (! empty($requestItems['adsense_code'])) {
-        touch(XOOPS_TRUST_PATH . '/cache/wizmobile_ads_flg_' . Wizin_Util::salt(XOOPS_SALT));
-        $cacheObject = new Wizin_Cache('wizmobile_ads_cache_', Wizin_Util::salt(XOOPS_SALT));
-        $cacheObject->clear();
-        $params = $this->googleAdsParams($requestItems['adsense_code']);
-        $cacheObject->save($params);
-    }
+    touch(XOOPS_TRUST_PATH . '/cache/wizmobile_ads_flg_' . Wizin_Util::salt(XOOPS_SALT));
+    $cacheObject = new Wizin_Cache('wizmobile_ads_cache_', Wizin_Util::salt(XOOPS_SALT));
+    $cacheObject->clear();
+    $params = $this->googleAdsParams($requestItems['adsense_code']);
+    $cacheObject->save($params);
     $xcRoot->mController->executeRedirect(XOOPS_URL . '/modules/' .
         $this->_sFrontDirName . '/admin/admin.php?act=GoogleSetting', 3,
         sprintf(Wizin_Util::constant('WIZMOBILE_MSG_UPDATE_GOOGLE_SETTING_SUCCESS')));

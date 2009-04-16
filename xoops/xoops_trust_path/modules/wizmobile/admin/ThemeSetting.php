@@ -166,12 +166,10 @@ if (strtolower($method) === 'post') {
     }
     unset($sqlArray);
     WizXc_Util::clearCompiledCache();
-    if (! empty($params)) {
-        touch(XOOPS_TRUST_PATH . '/cache/wizmobile_theme_flg_' . Wizin_Util::salt(XOOPS_SALT));
-        $cacheObject = new Wizin_Cache('wizmobile_theme_cache_', Wizin_Util::salt(XOOPS_SALT));
-        $cacheObject->clear();
-        $cacheObject->save($params);
-    }
+    touch(XOOPS_TRUST_PATH . '/cache/wizmobile_theme_flg_' . Wizin_Util::salt(XOOPS_SALT));
+    $cacheObject = new Wizin_Cache('wizmobile_theme_cache_', Wizin_Util::salt(XOOPS_SALT));
+    $cacheObject->clear();
+    $cacheObject->save($params);
 
     $xcRoot->mController->executeRedirect(XOOPS_URL . '/modules/' .
         $this->_sFrontDirName . '/admin/admin.php?act=ThemeSetting', 3,
