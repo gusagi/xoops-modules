@@ -171,7 +171,7 @@ if (! class_exists('WizMobile_Action')) {
             $themeTable = $db->prefix($this->_sFrontDirName . '_themes');
             $themes = array();
             // TODO : use ORM
-            $sql = "SELECT * FROM `$themeTable` WHERE `wmt_delete_datetime` IS NULL;";
+            $sql = "SELECT * FROM `$themeTable` WHERE `wmt_delete_datetime` = '0000-00-00 00:00:00';";
             if ($resource = $db->query($sql)) {
                 while ($result = $db->fetchArray($resource)) {
                     $wmt_groupid = intval($result['wmt_groupid']);
