@@ -93,7 +93,8 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
              * Deprecated logic block.
              * This block will delete...
              */
-            $nondisplayBlocks = $wizMobileAction->getWizMobileBlocks(WIZMOBILE_BLOCK_INVISIBLE);
+            $wizmobileBlocks = $wizMobileAction->getWizMobileBlocks(WIZMOBILE_BLOCK_INVISIBLE);
+            $nondisplayBlocks = array_keys($wizmobileBlocks);
             $legacy_BlockContents =& $xcRoot->mContext->mAttributes['legacy_BlockContents'];
             $blockFlagMap = array('xoops_showlblock', 'xoops_showcblock', 'xoops_showcblock',
                 'xoops_showcblock', 'xoops_showrblock');
