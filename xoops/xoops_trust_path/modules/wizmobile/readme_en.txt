@@ -16,4 +16,4 @@ The license of this module itself is GPL2, but it depends on the framework
 "Wizin" of new BSD license.
 
 2008 February 26th create.
-2009 April    15th update.
+2009 April    16th update.
