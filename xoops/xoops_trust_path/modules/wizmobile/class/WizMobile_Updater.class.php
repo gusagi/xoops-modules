@@ -152,12 +152,24 @@ if (! class_exists('WizMobile_Updater')) {
 
         function updateTo040()
         {
+            $db =& XoopsDatabaseFactory::getDatabaseConnection();
+            $blocksTable = $db->prefix($this->_mTargetXoopsModule->getVar('dirname') . '_blocks');
+            $now = date('Y-m-d H:i:s');
+
             //
             // Create tables
             //
             $sqlFilePath = dirname(dirname(__FILE__)) . '/sql/mysql.040.sql';
             if (file_exists($sqlFilePath) && is_readable($sqlFilePath)) {
                 WizXc_Util::createTableByFile($this->_mTargetXoopsModule, $this->mLog, $sqlFilePath);
+            }
+
+            // update blocks table datetime column
+            $sql = "UPDATE `$blocksTable` SET `wmb_init_datetime` = '$now', " .
+                "`wmb_update_datetime` = '$now' WHERE `wmb_init_datetime` = '0000-00-00 00:00:00'";
+            if (! $db->query($sql)) {
+                $this->mLog->addError($this->_mTargetXoopsModule->getVar('dirname') .
+                    ' : mobile block datetime update error!');
             }
 
             $this->_mTargetXoopsModule->set('version', '40');

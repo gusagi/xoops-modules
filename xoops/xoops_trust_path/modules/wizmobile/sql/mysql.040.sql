@@ -34,7 +34,7 @@ CREATE TABLE `{prefix}_{_dirname_}_blocks` (
 # -- wmb_visible : 0->invisible, 1->visible;
 ALTER TABLE `{prefix}_{_dirname_}_blocks` ADD INDEX `wmb_idx` (`wmb_bid`, `wmb_visible`, `wmb_weight`, `wmb_delete_datetime`) ;
 INSERT INTO `{prefix}_{_dirname_}_blocks` (`wmb_bid`, `wmb_visible`, `wmb_weight`, `wmb_init_datetime`, `wmb_update_datetime`) SELECT `wmb_bid`, 0 as `wmb_visible`, 0 as `wmb_weight`, `wmb_init_datetime`, `wmb_update_datetime` FROM `{prefix}_{_dirname_}_block` WHERE `wmb_delete_datetime` = '0000-00-00 00:00:00';
-INSERT INTO `{prefix}_{_dirname_}_blocks` (`wmb_bid`, `wmb_visible`, `wmb_weight`, `wmb_init_datetime`, `wmb_update_datetime`) SELECT `{prefix}_newblocks`.`bid` AS `wmb_bid`, `visible` AS `wmb_visible`, `weight` AS `wmb_weight`, NOW() AS `wmb_init_datetime`, NOW() AS `wmb_update_datetime` FROM `{prefix}_newblocks` LEFT JOIN `{prefix}_{_dirname_}_block` ON `{prefix}_newblocks`.`bid` = `{prefix}_{_dirname_}_block`.`wmb_bid` WHERE `wmb_delete_datetime`IS NULL;
+INSERT INTO `{prefix}_{_dirname_}_blocks` (`wmb_bid`, `wmb_visible`, `wmb_weight`) SELECT `{prefix}_newblocks`.`bid` AS `wmb_bid`, `visible` AS `wmb_visible`, `weight` AS `wmb_weight` FROM `{prefix}_newblocks` LEFT JOIN `{prefix}_{_dirname_}_block` ON `{prefix}_newblocks`.`bid` = `{prefix}_{_dirname_}_block`.`wmb_bid` WHERE `wmb_delete_datetime` IS NULL;
 DROP TABLE IF EXISTS `{prefix}_{_dirname_}_block`;
 
 
