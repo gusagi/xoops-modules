@@ -1,5 +1,5 @@
 ----------------------------------
-[2009-04-16 Ver 0.35 -> 0.40]
+[2009-04-18 Ver 0.35 -> 0.40]
 - Fixed bug about sensitive upper-cese with module dirname.(thx naoto_is)
 - Updated constant message 'WIZMOBILE_MSG_UPDATE_***_SETTING_***'.
 - Added TextPictogram filter.(special thanks yudoufu!)
@@ -11,7 +11,7 @@
 - Modified block render logic.
 - Modified submenu render logic.
 - Update theme logic.
-- 'Wizin' updated from '0.38' to '0.42'.
+- 'Wizin' updated from '0.38' to '0.43'.
 ----------------------------------
 [2009-02-01 Ver 0.34 -> 0.35]
 - 'WizXc' module updated from '0.26' to '0.27'.
