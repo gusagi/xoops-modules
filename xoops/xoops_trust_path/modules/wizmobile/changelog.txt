@@ -1,4 +1,7 @@
 ----------------------------------
+[2009-05-05 Ver 0.40 -> 0.41]
+- Fixed bug about visible mobile theme when not mobile client access.(thx mbxoops)
+----------------------------------
 [2009-04-18 Ver 0.35 -> 0.40]
 - Fixed bug about sensitive upper-cese with module dirname.(thx naoto_is)
 - Updated constant message 'WIZMOBILE_MSG_UPDATE_***_SETTING_***'.

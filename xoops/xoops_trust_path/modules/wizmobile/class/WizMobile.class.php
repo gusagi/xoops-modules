@@ -221,10 +221,13 @@ if (! class_exists('WizMobile')) {
         function _exchangeRenderSystem()
         {
             // exchange render system
+            $user = & Wizin_User::getSingleton();
             $xcRoot =& XCube_Root::getSingleton();
-            $xcRoot->mDelegateManager->add('LegacyThemeHandler.GetInstalledThemes',
-                'LegacyWizMobileRender_DelegateFunctions::getInstalledThemes',
-                XOOPS_TRUST_PATH . '/modules/wizmobile/class/DelegateFunctions.class.php');
+            if ($user->bIsMobile) {
+                $xcRoot->mDelegateManager->add('LegacyThemeHandler.GetInstalledThemes',
+                    'LegacyWizMobileRender_DelegateFunctions::getInstalledThemes',
+                    XOOPS_TRUST_PATH . '/modules/wizmobile/class/DelegateFunctions.class.php');
+            }
             // if access area is not admin area, exchange render system
             if (! class_exists('Legacy_AdminControllerStrategy')) {
                 $renderSystem = $xcRoot->mContext->mBaseRenderSystemName;
