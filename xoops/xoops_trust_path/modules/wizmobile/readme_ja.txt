@@ -1,6 +1,6 @@
 /**************************************************
  * 【 モジュール名 】WizMobile
- * 【  バージョン  】0.40
+ * 【  バージョン  】0.41
  * 【   権 利 者   】Makoto Hashiguchi a.k.a. gusagi
  * 【   作 成 者   】Makoto Hashiguchi a.k.a. gusagi
  * 【  ライセンス  】GNU General Public License Version2 with the special exception
@@ -87,4 +87,4 @@ pico用の.htaccessに上書きして下さい。
 --------------
 
 2008年  2月 26日 作成
-2009年  4月 18日 更新
+2009年  5月 11日 更新

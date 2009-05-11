@@ -1,6 +1,7 @@
 ----------------------------------
-[2009-05-05 Ver 0.40 -> 0.41]
+[2009-05-11 Ver 0.40 -> 0.41]
 - Fixed bug about visible mobile theme when not mobile client access.(thx mbxoops)
+- 'Wizin' updated from '0.42' to '0.43'.
 ----------------------------------
 [2009-04-18 Ver 0.35 -> 0.40]
 - Fixed bug about sensitive upper-cese with module dirname.(thx naoto_is)
@@ -14,7 +15,7 @@
 - Modified block render logic.
 - Modified submenu render logic.
 - Update theme logic.
-- 'Wizin' updated from '0.38' to '0.43'.
+- 'Wizin' updated from '0.38' to '0.42'.
 ----------------------------------
 [2009-02-01 Ver 0.34 -> 0.35]
 - 'WizXc' module updated from '0.26' to '0.27'.
