@@ -1,3 +1,7 @@
+----------------------------------
+[2009-05-11 Ver 0.29]
+- Fixed bug about unnecessary escape when 'magic_quote_gpc' is enable.
+----------------------------------
 [2009-04-15 Ver 0.28]
 - Added check logic for the case defined '_LEGACY_PREVENT_LOAD_CORE_'.
 - Deleted unnecessary space in brackets.

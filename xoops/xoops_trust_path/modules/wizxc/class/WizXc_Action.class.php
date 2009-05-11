@@ -43,6 +43,9 @@ if (! class_exists('WizXc_Action')) {
 
         function _require()
         {
+            if (! class_exists('Wizin_Util')) {
+                require XOOPS_TRUST_PATH . '/wizin/src/Wizin.class.php';
+            }
         }
 
         function _define()
@@ -60,6 +63,11 @@ if (! class_exists('WizXc_Action')) {
 
         function execute()
         {
+            if (get_magic_quotes_gpc()) {
+                $_POST = Wizin_Util::stripslashesRecursive($_POST);
+                $_GET = Wizin_Util::stripslashesRecursive($_GET);
+                $_REQUEST = Wizin_Util::stripslashesRecursive($_REQUEST);
+            }
             $act = (! empty($_REQUEST['act']))? $_REQUEST['act']: 'index';
             $path = $this->_sModuleDir;
             if ($this->_sMode === 'admin') {

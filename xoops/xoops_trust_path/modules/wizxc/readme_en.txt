@@ -1,6 +1,6 @@
 /**************************************************
  * < Module name > WizXc
- * < Version >     0.28
+ * < Version >     0.29
  * < Proprietor >  Makoto Hashiguchi a.k.a. gusagi
  * < Developer >   Makoto Hashiguchi a.k.a. gusagi
  * < License >     GNU General Public License Version2 with the special exception
@@ -16,4 +16,4 @@ The license of this module itself is GPL2, but it depends on the framework
 "Wizin" of new BSD license.
 
 2008 February 26th create.
-2009 April    15th update.
+2009 May      11th update.
