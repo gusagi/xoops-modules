@@ -9,6 +9,7 @@
     <h3><{"WIZMOBILE_LANG_BLOCK_SETTING"|wiz_constant}></h3>
     <table class="outer" style="margin-bottom: 1em;">
       <tr class="head">
+        <th>ID</th>
         <th><{"WIZMOBILE_LANG_BLOCK_TITLE"|wiz_constant}></th>
         <th><{"WIZMOBILE_LANG_MODULE_NAME"|wiz_constant}></th>
         <th><{"WIZMOBILE_LANG_DIRNAME"|wiz_constant}></th>
@@ -17,6 +18,9 @@
       </tr>
       <{foreach name=fe_blocks item=itm_blocks key=key_blocks from=$blocks}>
       <tr class="<{cycle values="odd,even"}>">
+        <td>
+          <{$itm_blocks.bid}>
+        </td>
         <td>
           <{$itm_blocks.title}>
         </td>

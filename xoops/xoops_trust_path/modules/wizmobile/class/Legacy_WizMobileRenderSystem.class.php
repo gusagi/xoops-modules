@@ -58,7 +58,9 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
          */
         function &getThemeRenderTarget($isDialog = false)
         {
-            $screenTarget = $isDialog ? new Legacy_WizMobileDialogRenderTarget() : new Legacy_WizMobileThemeRenderTarget();
+            $screenTarget = $isDialog ?
+                new Legacy_WizMobileDialogRenderTarget() :
+                new Legacy_WizMobileThemeRenderTarget();
             return $screenTarget;
         }
 
@@ -195,21 +197,38 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
                 $blockids[] = $myrow['gperm_itemid'];
             }
 
+            // get loaded blocks
+            $legacy_BlockContents =& $xcRoot->mContext->mAttributes['legacy_BlockContents'];
+            $loadedBlocks = array();
+            if (! empty($legacy_BlockContents)) {
+                foreach ($legacy_BlockContents as $index => $blockArea) {
+                    foreach ($blockArea as $key => $block) {
+                        $blockId = $block['id'];
+                        $loadedBlocks[$blockId] = $block;
+                    }
+                }
+            }
+            $loadedBlockIds = array_keys($loadedBlocks);
+
             // get block objects
             foreach ($wizmobileBlockKeys as $wmb_bid) {
                 if (in_array($wmb_bid, $blockids)) {
-                    $blockObject =& $blockHandler->get($wmb_bid);
-                    $blockProcedure =& Legacy_Utils::createBlockProcedure($blockObject);
-                    if ($blockProcedure->prepare() !== false) {
-                        // get block contents
-                        $block = $this->_getMobileBlockContents($blockProcedure);
-                        if (! empty($block)) {
-                            $blocks[$wmb_bid] = $this->_getMobileBlockContents($blockProcedure);
+                    if (in_array($wmb_bid, $loadedBlockIds)) {
+                        $blocks[$wmb_bid] = $loadedBlocks[$wmb_bid];
+                    } else {
+                        $blockObject =& $blockHandler->get($wmb_bid);
+                        $blockProcedure =& Legacy_Utils::createBlockProcedure($blockObject);
+                        if ($blockProcedure->prepare() !== false) {
+                            // get block contents
+                            $block = $this->_getMobileBlockContents($blockProcedure);
+                            if (! empty($block)) {
+                                $blocks[$wmb_bid] = $this->_getMobileBlockContents($blockProcedure);
+                            }
+                            unset($block);
                         }
-                        unset($block);
+                        unset($blockObject);
+                        unset($blockProcedure);
                     }
-                    unset($blockObject);
-                    unset($blockProcedure);
                 }
             }
 
@@ -218,6 +237,7 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
             unset($blockids);
             unset($wizmobileBlocks);
             unset($wizmobileBlockKeys);
+            unset($loadedBlockIds);
             return $blocks;
         }
 

@@ -4,6 +4,7 @@
 - Fixed bug about admin sidemenu notice message.
 - Fixed bug about some column's data type.(thx key and yufoufu)
 - Fixed bug about parse error on php4.(thx toshikun)
+- Fixed bug about get block process twice.(thx masahiro)
 - Added emoji input support.(thx mbxoops)
 - 'Wizin' updated from '0.42' to '0.44'.
 ----------------------------------
