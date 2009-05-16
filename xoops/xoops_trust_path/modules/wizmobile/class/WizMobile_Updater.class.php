@@ -39,7 +39,7 @@ if (! class_exists('WizMobile_Updater')) {
     {
         var $_mMilestone = array('020' => 'updateTo020', '025' => 'updateTo025',
             '030' => 'updateTo030',
-            '040' => 'updateTo040'
+            '040' => 'updateTo040', '041' => 'updateTo041'
         );
 
         function updateTo020()
@@ -175,6 +175,21 @@ if (! class_exists('WizMobile_Updater')) {
             $this->_mTargetXoopsModule->set('version', '40');
             return $this->executeAutomaticUpgrade();
         }
+
+        function updateTo041()
+        {
+            //
+            // Create tables
+            //
+            $sqlFilePath = dirname(dirname(__FILE__)) . '/sql/mysql.041.sql';
+            if (file_exists($sqlFilePath) && is_readable($sqlFilePath)) {
+                WizXc_Util::createTableByFile($this->_mTargetXoopsModule, $this->mLog, $sqlFilePath);
+            }
+
+            $this->_mTargetXoopsModule->set('version', '41');
+            return $this->executeAutomaticUpgrade();
+        }
+
     }
 }
 
