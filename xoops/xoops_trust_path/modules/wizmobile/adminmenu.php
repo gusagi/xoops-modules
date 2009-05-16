@@ -48,30 +48,36 @@ $currentVersion = intval($currentVersion);
 $adminmenu = array();
 $adminmenu[] = array(
     'title' => Wizin_Util::constant('WIZMOBILE_LANG_SYSTEM_STATUS'),
-    'link' => 'admin/admin.php?act=SystemStatus'
+    'link' => 'admin/admin.php?act=SystemStatus',
+    'show' => true,
 );
 $adminmenu[] = array(
     'title' => Wizin_Util::constant('WIZMOBILE_LANG_BLOCK_CONTROL'),
-    'link' => 'admin/admin.php?act=BlockSetting'
+    'link' => 'admin/admin.php?act=BlockSetting',
+    'show' => true,
 );
 if ($currentVersion >= 30) {
     $adminmenu[] = array(
         'title' => Wizin_Util::constant('WIZMOBILE_LANG_MODULE_CONTROL'),
-        'link' => 'admin/admin.php?act=ModuleSetting'
+        'link' => 'admin/admin.php?act=ModuleSetting',
+        'show' => true,
    );
 }
 if ($currentVersion >= 40) {
     $adminmenu[] = array(
         'title' => Wizin_Util::constant('WIZMOBILE_LANG_THEME_CONTROL'),
-        'link' => 'admin/admin.php?act=ThemeSetting'
+        'link' => 'admin/admin.php?act=ThemeSetting',
+        'show' => true,
    );
     $adminmenu[] = array(
         'title' => Wizin_Util::constant('WIZMOBILE_LANG_GOOGLE_CONTROL'),
-        'link' => 'admin/admin.php?act=GoogleSetting'
+        'link' => 'admin/admin.php?act=GoogleSetting',
+        'show' => true,
    );
 }
 $adminmenu[] = array(
     'title' => Wizin_Util::constant('WIZMOBILE_LANG_GENERAL_SETTING'),
-    'link' => 'admin/admin.php?act=GeneralSetting'
+    'link' => 'admin/admin.php?act=GeneralSetting',
+    'show' => true,
 );
 

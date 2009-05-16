@@ -1,6 +1,7 @@
 ----------------------------------
 [2009-05-13 Ver 0.40 -> 0.41]
 - Fixed bug about visible mobile theme when not mobile client access.(thx mbxoops)
+- Fixed bug about admin sidemenu notice message.
 - Fixed bug about some column's data type.(thx key and yufoufu)
 - 'Wizin' updated from '0.42' to '0.44'.
 ----------------------------------
