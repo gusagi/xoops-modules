@@ -162,7 +162,7 @@ if (! class_exists('WizMobile')) {
                     $this->_exchangeRenderSystem();
                 } else {
                     // emoji filter
-                    ob_start(array($this, '_filterEmojiForUnknown'));
+                    ob_start(array($this, '_filterUnknown'));
 	                // add delegate
 	                $xcRoot->mDelegateManager->add('XoopsTpl.New' , array($this , 'unknownTpl')) ;
                     ini_set('default_charset', _CHARSET);
@@ -346,19 +346,15 @@ if (! class_exists('WizMobile')) {
             $contents = ob_get_clean();
             $user = & Wizin_User::getSingleton();
             $filter =& Wizin_Filter_Mobile::getSingleton();
-            if ($user->bIsMobile) {
-                $this->_filterMobile($filter, $contents);
-                $actionClass =& $this->getActionClass();
-                $configs = $actionClass->getConfigs();
-                if (! empty($configs['content_type']) && $configs['content_type']['wmc_value'] === '1') {
-                    $contentType = 'application/xhtml+xml';
-                } else {
-                    $contentType = 'text/html';
-                }
-                header('Content-Type:' . $contentType . '; charset=' . $user->sCharset);
+            $this->_filterMobile($filter, $contents);
+            $actionClass =& $this->getActionClass();
+            $configs = $actionClass->getConfigs();
+            if (! empty($configs['content_type']) && $configs['content_type']['wmc_value'] === '1') {
+                $contentType = 'application/xhtml+xml';
             } else {
-                $this->_filterUnknown($filter, $contents);
+                $contentType = 'text/html';
             }
+            header('Content-Type:' . $contentType . '; charset=' . $user->sCharset);
             $filter->executeOutputFilter($contents);
             echo $contents;
         }
@@ -380,15 +376,7 @@ if (! class_exists('WizMobile')) {
             $filter->addOutputFilter(array($filter, 'filterOutputPictogramMobile'), $params);
         }
 
-        function _filterUnknown(& $filter, & $contents)
-        {
-            $actionClass =& $this->getActionClass();
-            $frontDirName = str_replace('_wizmobile_action', '', strtolower(get_class($actionClass)));
-            $params = array(XOOPS_URL . '/modules/' . $frontDirName . '/images/emoticons');
-            $filter->addOutputFilter(array($filter, 'filterOutputPictogramMobile'), $params);
-        }
-
-        function _filterEmojiForUnknown($buf)
+        function _filterUnknown($buf)
         {
             $actionClass =& $this->getActionClass();
             $frontDirName = str_replace('_wizmobile_action', '', strtolower(get_class($actionClass)));
