@@ -158,12 +158,16 @@ if (! class_exists('WizMobile')) {
                     // exchange view
                     $this->_exchangeTheme();
                     $this->_exchangeTemplateSet();
+                    // exchange render system
+                    $this->_exchangeRenderSystem();
                 } else {
+                    // emoji filter
+                    ob_start(array($this, '_filterEmojiForUnknown'));
+	                // add delegate
+	                $xcRoot->mDelegateManager->add('XoopsTpl.New' , array($this , 'unknownTpl')) ;
                     ini_set('default_charset', _CHARSET);
                     header('Content-Type:text/html; charset=' . _CHARSET);
                 }
-                // exchange render system
-                $this->_exchangeRenderSystem();
             }
         }
 
@@ -223,15 +227,15 @@ if (! class_exists('WizMobile')) {
             // exchange render system
             $user = & Wizin_User::getSingleton();
             $xcRoot =& XCube_Root::getSingleton();
-            if ($user->bIsMobile) {
-                $xcRoot->mDelegateManager->add('LegacyThemeHandler.GetInstalledThemes',
-                    'LegacyWizMobileRender_DelegateFunctions::getInstalledThemes',
-                    XOOPS_TRUST_PATH . '/modules/wizmobile/class/DelegateFunctions.class.php');
-            }
-            // if access area is not admin area, exchange render system
+            $xcRoot->mDelegateManager->add('LegacyThemeHandler.GetInstalledThemes',
+                'LegacyWizMobileRender_DelegateFunctions::getInstalledThemes',
+                XOOPS_TRUST_PATH . '/modules/wizmobile/class/DelegateFunctions.class.php');
             if (! class_exists('Legacy_AdminControllerStrategy')) {
+                // user area
                 $renderSystem = $xcRoot->mContext->mBaseRenderSystemName;
                 $xcRoot->overrideSiteConfig(array($renderSystem => $xcRoot->mSiteConfig['Legacy_WizMobileRenderSystem']));
+            } else {
+                // admin area
             }
         }
 
@@ -382,6 +386,16 @@ if (! class_exists('WizMobile')) {
             $frontDirName = str_replace('_wizmobile_action', '', strtolower(get_class($actionClass)));
             $params = array(XOOPS_URL . '/modules/' . $frontDirName . '/images/emoticons');
             $filter->addOutputFilter(array($filter, 'filterOutputPictogramMobile'), $params);
+        }
+
+        function _filterEmojiForUnknown($buf)
+        {
+            $actionClass =& $this->getActionClass();
+            $frontDirName = str_replace('_wizmobile_action', '', strtolower(get_class($actionClass)));
+            $filter =& Wizin_Filter_Mobile::getSingleton();
+            $buf = $filter->filterOutputPictogramMobile($buf, XOOPS_URL .'/modules/' .
+                $frontDirName . '/images/emoticons');
+            return $buf;
         }
 
         function checkSessionFixation()
@@ -638,6 +652,44 @@ if (! class_exists('WizMobile')) {
                     $xcRoot->mContext->setThemeName($themes[$groupid][$mid]);
                 }
             }
+        }
+
+        function unknownTpl(& $xoopsTpl)
+        {
+            $wizMobile = & WizMobile::getSingleton();
+            $actionClass =& $wizMobile->getActionClass();
+            $configs = $actionClass->getConfigs();
+            if (! empty($configs['emoji_support']) && $configs['emoji_support']['wmc_value'] === '1') {
+                if (! class_exists('Wizin_Filter_Pictogram') && intval(PHP_VERSION) >= 5) {
+                    if (file_exists(WIZIN_ROOT_PATH .'/src/filter/Pictogram.class.php')) {
+                        require WIZIN_ROOT_PATH .'/src/filter/Pictogram.class.php';
+                    }
+                }
+                if (class_exists('Wizin_Filter_Pictogram')) {
+                    $xoopsTpl->register_prefilter(array($wizMobile, 'filterEmojiSupport'));
+                }
+            }
+        }
+
+        function filterEmojiSupport($tplSource, & $xoopsTpl)
+        {
+            $wizMobile = & WizMobile::getSingleton();
+            $actionClass =& $wizMobile->getActionClass();
+            $frontDirName = str_replace('_wizmobile_action', '', strtolower(get_class($actionClass)));
+            $tplFile = basename($xoopsTpl->_current_file);
+            $tplFileArray = explode(':', $tplFile);
+            if (count($tplFileArray) > 1) {
+                $tplFile = array_pop($tplFileArray);
+            }
+            switch ($tplFile) {
+                case 'legacy_misc_smilies.html':
+                    $tplSource = '<{include file=db:' .$frontDirName .'_emoji_misc_smilies.html}>' . "\n";
+                    break;
+                case 'legacy_xoopsform_opt_smileys.html':
+                    $tplSource = '<{include file=db:' .$frontDirName .'_emoji_xoopsform_opt_smileys.html}>' . "\n";
+                    break;
+            }
+            return $tplSource;
         }
     }
 }

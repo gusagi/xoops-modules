@@ -1,0 +1,50 @@
+<{php}>
+global $xoopsTpl;
+$emj_list = array(
+140,141,142,143,144,1021,1022,1023,1024,1025,1026,1027,1029,1030,1031,1032,
+1033,1034,1035,1071,1072,1076,145,156,150,151,152,157,158,162,163,164,
+146,155,147,149,136,137,138,139,154,153,1028,86,87,88,85,84,
+1,2,3,4,5,6,8,1052,172,100,101,1068,1069,1070,1073,1074,
+9,10,11,12,13,14,15,16,17,18,19,20,80,81,82,83,
+1011,75,110,105,106,107,74,1012,76,103,1054,1056,1058,1059,1060,1061,
+115,116,123,125,126,127,128,129,130,131,132,133,134,1038,1039,1043,
+1010,113,114,119,120,135,1041,1044,59,104,89,90,48,49,50,94,
+38,39,40,41,42,43,44,1051,1053,45,46,47,1046,1048,66,67,
+1040,22,23,24,25,26,27,28,51,52,53,54,55,56,57,58,
+61,62,63,65,68,69,70,71,72,73,1063,1075,1066,1062,1019,1064,
+1065,77,79,91,92,1003,1005,1016,1015,1008,167,176,95,96,97,98,
+30,31,32,33,34,35,36,37,1018,102
+);
+$this->_tpl_vars['emj_list'] = $emj_list;
+<{/php}>
+
+<div class="xoopsOptSmaillies">
+  <script type="text/javascript">
+  <!--
+  <{foreach from=$smilesArr item=smiles}>
+    document.write('<a href="#" onclick=\'xoopsCodeSmilie("<{$element->getId()}>", "<{$smiles->getShow("code")}>"); return false;\'><img src=\'<{$smarty.const.XOOPS_UPLOAD_URL}>/<{$smiles->getShow("smile_url")}>\' alt=\'<{$smiles->mVars.emotion.value|escape}>\'  title=\'<{$smiles->mVars.emotion.value|escape}>\' /><\/a> ') ;
+  <{/foreach}>
+    document.write(' &nbsp;[<a href=\'#moresmiley\' onclick=\'javascript:openWithSelfMain("<{$xoops_url}>/misc.php?action=showpopups&amp;type=smilies&amp;target=<{$element->getId()}>", "smilies", 300, 500);\'><{$smarty.const._MORE}><\/a>]' ) ;
+  //-->
+  </script>
+  <noscript>
+    <p><{$smarty.const._MB_LEGACY_SMAILY_CANNOT}></p>
+  </noscript>
+</div>
+<script type="text/javascript"><!--//
+function wizMobileEmoji(id, emjCode) {
+  var revisedMessage;
+  var textareaDom = xoopsGetElementById(id);
+  xoopsInsertText(textareaDom, "[emj:"+emjCode+"]");
+  textareaDom.focus();
+  return;
+}
+// -->
+</script>
+<input type="checkbox" id="emoji_onoff" onclick="if(this.checked){xoopsGetElementById('emoji_buttons_pre').style.display='block'}else{xoopsGetElementById('emoji_buttons_pre').style.display='none'};" /><label for="emoji_onoff"><{"WIZMOBILE_LANG_EMOTICON"|wiz_constant}></label>
+<div id="emoji_buttons_pre" style="display:none;">
+  <{foreach item=emjid key=count from=$emj_list}>
+    <a href="#" onclick='wizMobileEmoji("<{$element->getId()}>", "<{$emjid}>"); return false;'>[emj:<{$emjid}>]</a>
+    <{if ($count+1) is div by 16}><br /><{/if}>
+  <{/foreach}>
+</div>

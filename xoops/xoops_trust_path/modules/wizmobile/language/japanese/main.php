@@ -58,7 +58,8 @@ Wizin_Util::define('WIZMOBILE_MSG_RESIZED_IMAGE_DIR_NOT_EXISTS', XOOPS_ROOT_PATH
 Wizin_Util::define('WIZMOBILE_MSG_RESIZED_IMAGE_DIR_NOT_WRITABLE', XOOPS_ROOT_PATH . '/uploads/wizmobile に書き込み権限がないため、画像のリサイズ機能は無効となっています');
 Wizin_Util::define('WIZMOBILE_MSG_DOM_NOT_EXISTS', 'DOM拡張が存在しないため、ページ分割機能は無効となっています');
 Wizin_Util::define('WIZMOBILE_MSG_SIMPLEXML_NOT_EXISTS', 'SimpleXMLが存在しないため、ページ分割機能は無効となっています');
-Wizin_Util::define('WIZMOBILE_MSG_PICTOGRAM_LIB_NOT_EXISTS', 'PEARパッケージ"Text_Pictogram_Mobile"が存在しないため、絵文字フィルター機能は無効となっています');
+Wizin_Util::define('WIZMOBILE_MSG_JSON_EXT_NOT_EXISTS', 'JSON拡張モジュール（PHP5.2.0以降で利用可能）が見つからないため、絵文字フィルター機能は無効となっています');
+Wizin_Util::define('WIZMOBILE_MSG_PICTOGRAM_LIB_NOT_EXISTS', 'PEARパッケージ"Text_Pictogram_Mobile"が見つからないため、絵文字フィルター機能は無効となっています');
 Wizin_Util::define('WIZMOBILE_MSG_PLZ_PICTOGRAM_LIB_INSTALL', 'pearコマンドでインストールするか、xoops_trust_path/wizin/lib/PEARの下に展開して下さい');
 
 // main area / register uniq id
@@ -162,6 +163,8 @@ Wizin_Util::define('WIZMOBILE_LANG_PAGER', 'ページ分割');
 Wizin_Util::define('WIZMOBILE_LANG_PAGER_DESC', '携帯からのアクセスで、コンテンツ部分のページ分割を行う場合は、有効を選択して下さい');
 Wizin_Util::define('WIZMOBILE_LANG_CONTENT_TYPE', 'コンテンツタイプ');
 Wizin_Util::define('WIZMOBILE_LANG_CONTENT_TYPE_DESC', '携帯からのアクセスに対して、コンテンツを送出するタイプを選択して下さい');
+Wizin_Util::define('WIZMOBILE_LANG_EMOJI_SUPPORT', '絵文字入力支援');
+Wizin_Util::define('WIZMOBILE_LANG_EMOJI_SUPPORT_DESC', '絵文字の入力支援を利用する場合は、有効を選択して下さい');
 
 
 //
@@ -174,6 +177,7 @@ Wizin_Util::define('WIZMOBILE_LANG_DELETE', '削除');
 Wizin_Util::define('WIZMOBILE_LANG_ENABLE', '有効');
 Wizin_Util::define('WIZMOBILE_LANG_DISABLE', '無効');
 Wizin_Util::define('WIZMOBILE_LANG_NONE_SETTING', '設定なし');
+Wizin_Util::define('WIZMOBILE_LANG_EMOTICON', '絵文字');
 
 //
 // language for theme

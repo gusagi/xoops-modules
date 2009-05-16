@@ -140,6 +140,27 @@
           <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;"><{"WIZMOBILE_LANG_CONTENT_TYPE_DESC"|wiz_constant}></div>
         </td>
       </tr>
+      <{* EmojiSupport *}>
+      <tr class="<{cycle values="odd,even"}>">
+        <td>
+          <div style="font-size: 110%; font-weight: bolder;"><{"WIZMOBILE_LANG_EMOJI_SUPPORT"|wiz_constant}></div>
+        </td>
+        <td>
+          <span style="margin: 0 0.5em 0 0.5em;">
+            <label>
+              <input type="radio" name="wmc_item[emoji_support]" value="1" <{if $configs.emoji_support.wmc_value == 1}>checked="checked"<{/if}> />
+              <{"WIZMOBILE_LANG_ENABLE"|wiz_constant}>
+            </label>
+          </span>
+          <span style="margin: 0 0.5em 0 0.5em;">
+            <label>
+              <input type="radio" name="wmc_item[emoji_support]" value="0" <{if $configs.emoji_support.wmc_value == 0}>checked="checked"<{/if}>/>
+              <{"WIZMOBILE_LANG_DISABLE"|wiz_constant}>
+            </label>
+          </span>
+          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;"><{"WIZMOBILE_LANG_EMOJI_SUPPORT_DESC"|wiz_constant}></div>
+        </td>
+      </tr>
     </table>
     <div style="text-align: center; width: 100%; margin: auto;">
       <input type="hidden" name="act" value="GeneralSetting" />

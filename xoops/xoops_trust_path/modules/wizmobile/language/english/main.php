@@ -58,7 +58,8 @@ Wizin_Util::define('WIZMOBILE_MSG_RESIZED_IMAGE_DIR_NOT_EXISTS', 'Because ' . XO
 Wizin_Util::define('WIZMOBILE_MSG_RESIZED_IMAGE_DIR_NOT_WRITABLE', 'Because ' . XOOPS_ROOT_PATH . '/uploads/wizmobile directory is not writable, resize function of the image has become invalid.');
 Wizin_Util::define('WIZMOBILE_MSG_DOM_NOT_EXISTS', 'Because DOMDocument class does not exist, page divided function has become invalid.');
 Wizin_Util::define('WIZMOBILE_MSG_SIMPLEXML_NOT_EXISTS', 'Because SimpleXMLElement class does not exist, page divided function has become invalid.');
-Wizin_Util::define('WIZMOBILE_MSG_PICTOGRAM_LIB_NOT_EXISTS', 'Pictogram filter for portable telephone has become invalid, because PEAR package "Text_Pictogram_Mobile" does not exist.');
+Wizin_Util::define('WIZMOBILE_MSG_JSON_EXT_NOT_EXISTS', 'Emoticon filter has become invalid, because JSON extension is disabled.');
+Wizin_Util::define('WIZMOBILE_MSG_PICTOGRAM_LIB_NOT_EXISTS', 'Emoticon filter has become invalid, because PEAR package "Text_Pictogram_Mobile" does not exist.');
 Wizin_Util::define('WIZMOBILE_MSG_PLZ_PICTOGRAM_LIB_INSTALL', 'Please install by "pear install" or upload into xoops_trust_path/wizin/lib/PEAR.');
 
 // main area / register uniq id
@@ -159,9 +160,11 @@ Wizin_Util::define('WIZMOBILE_LANG_LOOKUP_DESC', 'Lookup host name, you verify w
 Wizin_Util::define('WIZMOBILE_LANG_OTHERMOBILE', 'Correspondence of other mobile terminals');
 Wizin_Util::define('WIZMOBILE_LANG_OTHERMOBILE_DESC', 'When it corresponds portably vis-a-vis the terminal of part such as smart phone, please select enable');
 Wizin_Util::define('WIZMOBILE_LANG_PAGER', 'Page division');
-Wizin_Util::define('WIZMOBILE_LANG_PAGER_DESC', 'If page division is done, please select enable');
+Wizin_Util::define('WIZMOBILE_LANG_PAGER_DESC', 'If you would like to enable pagenate, please select enable');
 Wizin_Util::define('WIZMOBILE_LANG_CONTENT_TYPE', 'Content-type');
 Wizin_Util::define('WIZMOBILE_LANG_CONTENT_TYPE_DESC', 'Whether access from mobile, please select the type which forwards the contents');
+Wizin_Util::define('WIZMOBILE_LANG_EMOJI_SUPPORT', 'Emoticon input support');
+Wizin_Util::define('WIZMOBILE_LANG_EMOJI_SUPPORT_DESC', 'If you would like to enable emoticon input support, please check "Enable".');
 
 
 //
@@ -174,6 +177,7 @@ Wizin_Util::define('WIZMOBILE_LANG_DELETE', 'Delete');
 Wizin_Util::define('WIZMOBILE_LANG_ENABLE', 'Enable');
 Wizin_Util::define('WIZMOBILE_LANG_DISABLE', 'Disable');
 Wizin_Util::define('WIZMOBILE_LANG_NONE_SETTING', 'None');
+Wizin_Util::define('WIZMOBILE_LANG_EMOTICON', 'Emoticon');
 
 //
 // language for theme

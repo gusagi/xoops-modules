@@ -64,11 +64,7 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
 
         function renderTheme(&$target)
         {
-            // init process
-            $user =& Wizin_User::getSingleton();
-            if ($user->bIsMobile) {
-                $this->_renderThemeMobile($target);
-            }
+            $this->_renderThemeMobile($target);
             parent::renderTheme($target);
         }
 

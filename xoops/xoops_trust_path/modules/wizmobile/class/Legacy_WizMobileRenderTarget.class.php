@@ -78,6 +78,5 @@ if(! class_exists('Legacy_WizMobileDialogRenderTarget')) {
             parent::setResult($result);
             $wizMobile->renderContents();
         }
-
     }
 }

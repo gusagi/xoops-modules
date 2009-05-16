@@ -54,7 +54,8 @@ if (strtolower($method) === 'post') {
     $db =& XoopsDatabaseFactory::getDatabaseConnection();
     $configTable = $db->prefix($this->_sFrontDirName . '_configs');
     $now = date('Y-m-d H:i:s');
-    $allowItems = array('login', 'theme', 'template_set', 'lookup', 'othermobile', 'pager', 'content_type');
+    $allowItems = array('login', 'theme', 'template_set', 'lookup', 'othermobile',
+        'pager', 'content_type', 'emoji_support');
     $sqlArray = array();
     $requestItems = (! empty($_REQUEST['wmc_item']) && is_array($_REQUEST['wmc_item'])) ?
         $_REQUEST['wmc_item']: array();
