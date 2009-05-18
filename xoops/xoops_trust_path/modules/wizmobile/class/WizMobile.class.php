@@ -366,7 +366,8 @@ if (! class_exists('WizMobile')) {
                 $params = array(XOOPS_URL, WIZMOBILE_CURRENT_URI);
                 $filter->addOutputFilter(array($filter, 'filterTransSid'), $params);
             }
-            $params = array(XOOPS_URL, WIZMOBILE_CURRENT_URI, XOOPS_ROOT_PATH, XOOPS_ROOT_PATH . '/uploads/wizmobile');
+            $params = array(XOOPS_URL, WIZMOBILE_CURRENT_URI, XOOPS_ROOT_PATH,
+                XOOPS_ROOT_PATH .'/uploads/wizmobile', $user->iWidth);
             $filter->addOutputFilter(array($filter, 'filterOptimizeMobile'), $params);
             $params = array($user->sEncoding, $user->sCharset);
             $filter->addOutputFilter(array($filter, 'filterOutputEncoding'), $params);
