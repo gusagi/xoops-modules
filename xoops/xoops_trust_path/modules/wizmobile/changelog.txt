@@ -1,12 +1,12 @@
 ----------------------------------
-[2009-05-16 Ver 0.40 -> 0.41]
+[2009-05-18 Ver 0.40 -> 0.41]
 - Fixed bug about visible mobile theme when not mobile client access.(thx mbxoops)
 - Fixed bug about admin sidemenu notice message.
 - Fixed bug about some column's data type.(thx key and yufoufu)
 - Fixed bug about parse error on php4.(thx toshikun)
 - Fixed bug about get block process twice.(thx masahiro)
 - Added emoji input support.(thx mbxoops)
-- 'Wizin' updated from '0.42' to '0.44'.
+- 'Wizin' updated from '0.42' to '0.45'.
 ----------------------------------
 [2009-04-18 Ver 0.35 -> 0.40]
 - Fixed bug about sensitive upper-cese with module dirname.(thx naoto_is)
