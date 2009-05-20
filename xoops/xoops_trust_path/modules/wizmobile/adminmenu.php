@@ -41,9 +41,9 @@ if ($scriptFileName === __FILE__) {
 $frontDirname = basename(dirname($frontFile));
 require dirname(__FILE__) . '/init.php';
 
-$xcRoot =& XCube_Root::getSingleton();
-$currentVersion = $xcRoot->mContext->mModule->mXoopsModule->getVar('version');
-$currentVersion = intval($currentVersion);
+$handler =& xoops_gethandler('module');
+$module =& $handler->getByDirname($frontDirname);
+$version =& $module->getVar('version');
 
 $adminmenu = array();
 $adminmenu[] = array(
@@ -56,14 +56,14 @@ $adminmenu[] = array(
     'link' => 'admin/admin.php?act=BlockSetting',
     'show' => true,
 );
-if ($currentVersion >= 30) {
+if (intval($version) >= 30) {
     $adminmenu[] = array(
         'title' => Wizin_Util::constant('WIZMOBILE_LANG_MODULE_CONTROL'),
         'link' => 'admin/admin.php?act=ModuleSetting',
         'show' => true,
    );
 }
-if ($currentVersion >= 40) {
+if (intval($version) >= 40) {
     $adminmenu[] = array(
         'title' => Wizin_Util::constant('WIZMOBILE_LANG_THEME_CONTROL'),
         'link' => 'admin/admin.php?act=ThemeSetting',
