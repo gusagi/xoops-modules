@@ -1,6 +1,7 @@
 ----------------------------------
 [2009-05-19 Ver 0.41 -> 0.42]
 - Fixed bug about non-object function called error when accessed site top.(thx mock)
+- 'Wizin' updated from '0.46' to '0.47'.
 ----------------------------------
 [2009-05-19 Ver 0.40 -> 0.41]
 - Fixed bug about visible mobile theme when not mobile client access.(thx mbxoops)
