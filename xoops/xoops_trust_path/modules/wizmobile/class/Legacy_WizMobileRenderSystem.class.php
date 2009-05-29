@@ -217,17 +217,20 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
                         $blocks[$wmb_bid] = $loadedBlocks[$wmb_bid];
                     } else {
                         $blockObject =& $blockHandler->get($wmb_bid);
-                        $blockProcedure =& Legacy_Utils::createBlockProcedure($blockObject);
-                        if ($blockProcedure->prepare() !== false) {
-                            // get block contents
-                            $block = $this->_getMobileBlockContents($blockProcedure);
-                            if (! empty($block)) {
-                                $blocks[$wmb_bid] = $this->_getMobileBlockContents($blockProcedure);
+                        $show_func = $blockObject->getVar('show_func');
+                        if (! function_exists($show_func)) {
+                            $blockProcedure =& Legacy_Utils::createBlockProcedure($blockObject);
+                            if ($blockProcedure->prepare() !== false) {
+                                // get block contents
+                                $block = $this->_getMobileBlockContents($blockProcedure);
+                                if (! empty($block)) {
+                                    $blocks[$wmb_bid] = $this->_getMobileBlockContents($blockProcedure);
+                                }
+                                unset($block);
                             }
-                            unset($block);
+                            unset($blockProcedure);
                         }
                         unset($blockObject);
-                        unset($blockProcedure);
                     }
                 }
             }
