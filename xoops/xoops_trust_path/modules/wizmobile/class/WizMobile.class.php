@@ -349,7 +349,9 @@ if (! class_exists('WizMobile')) {
             $this->_filterMobile($filter, $contents);
             $actionClass =& $this->getActionClass();
             $configs = $actionClass->getConfigs();
-            if (! empty($configs['content_type']) && $configs['content_type']['wmc_value'] === '1') {
+            if ($user->sContentType !== '') {
+                $contentType = $user->sContentType;
+            } else if (! empty($configs['content_type']) && $configs['content_type']['wmc_value'] === '1') {
                 $contentType = 'application/xhtml+xml';
             } else {
                 $contentType = 'text/html';
@@ -369,6 +371,8 @@ if (! class_exists('WizMobile')) {
             $params = array(XOOPS_URL, WIZMOBILE_CURRENT_URI, XOOPS_ROOT_PATH,
                 XOOPS_ROOT_PATH .'/uploads/wizmobile', $user->iWidth);
             $filter->addOutputFilter(array($filter, 'filterOptimizeMobile'), $params);
+            $params = array(XOOPS_ROOT_PATH, XOOPS_URL);
+            $filter->addOutputFilter(array($filter, 'filterCssMobile'), $params);
             $params = array($user->sEncoding, $user->sCharset);
             $filter->addOutputFilter(array($filter, 'filterOutputEncoding'), $params);
             $actionClass =& $this->getActionClass();
@@ -384,6 +388,13 @@ if (! class_exists('WizMobile')) {
             $filter =& Wizin_Filter_Mobile::getSingleton();
             $buf = $filter->filterOutputPictogramMobile($buf, XOOPS_URL .'/modules/' .
                 $frontDirName . '/images/emoticons');
+            // add mobile link discovery tag
+            $pattern = '(<link)([^>]*)(media=)([\"\'])(handheld)([\"\'])([^>]*)(>)';
+            if (! preg_match("/" .$pattern ."/i", $buf)) {
+                $mobileLinkDiscovery = '<link rel="alternate" media="handheld" type="text/html"' .
+                    ' href="' .WIZMOBILE_CURRENT_URI .'" />';
+                $buf = str_replace('</head>', $mobileLinkDiscovery .'</head>', $buf);
+            }
             return $buf;
         }
 
@@ -398,52 +409,6 @@ if (! class_exists('WizMobile')) {
                 header("HTTP/1.1 404 Not Found");
                 exit();
             }
-        }
-
-        function directRedirect($tplSource, & $xoopsTpl)
-        {
-            $tplFile = basename($xoopsTpl->_current_file);
-            $tplFileArray = explode(':', $tplFile);
-            if (count($tplFileArray) > 1) {
-                $tplFile = array_pop($tplFileArray);
-            }
-            if ($tplFile === 'system_redirect.html' || $tplFile === 'legacy_redirect.html') {
-                $url = $xoopsTpl->get_template_vars('url');
-                $url = urldecode($url);
-                $url = str_replace('&amp;', '&', $url);
-                $url = strtr($url, array('?&' => '?', '&&' => '&'));
-                $sessionName = ini_get('session.name');
-                if (! empty($_GET[$sessionName]) || ! empty($_POST[$sessionName])) {
-                    if (! strpos($url, $sessionName)) {
-                        $user =& Wizin_User::getSingleton();
-                        $urlFirstChar = substr($url, 0, 1);
-                        if (! $user->bCookie) {
-                            if (strpos($url, XOOPS_URL) === 0 || $urlFirstChar === '.' ||
-                                    $urlFirstChar === '/' || $urlFirstChar === '#') {
-                                if (!strstr($url, '?')) {
-                                    $connector = '?';
-                                } else {
-                                    $connector = '&';
-                                }
-                                if (strstr($url, '#')) {
-                                    $urlArray = explode('#', $url);
-                                    $url = $urlArray[0] . $connector . SID;
-                                    if (! empty($urlArray[1])) {
-                                        $url .= '#' . $urlArray[1];
-                                    }
-                                } else {
-                                    $url .= $connector . SID;
-                                }
-                            }
-                        }
-                    }
-                }
-                $message = $xoopsTpl->get_template_vars('message');
-                $_SESSION['redirect_message'] = $message;
-                header("Location: " . $url);
-                exit();
-            }
-            return $tplSource;
         }
 
         function assignVars(& $xoopsTpl)
@@ -479,8 +444,7 @@ if (! class_exists('WizMobile')) {
         {
             $wizMobile = & WizMobile::getSingleton();
             $user = & Wizin_User::getSingleton();
-            $xoopsTpl->register_postfilter(array($wizMobile, 'directRedirect'));
-            $xoopsTpl->register_postfilter(array($wizMobile, 'filterMainMenu'));
+            $xoopsTpl->register_postfilter(array($wizMobile, 'mobileTplPostfilter'));
             $xoopsTpl->compile_id .= '_' . $user->sCarrier;
             $actionClass =& $wizMobile->getActionClass();
             $configs = $actionClass->getConfigs();
@@ -502,17 +466,81 @@ if (! class_exists('WizMobile')) {
             return $string;
         }
 
-        function filterMainMenu($tplSource, & $xoopsTpl)
+        function mobileTplPostfilter($tplSource, & $xoopsTpl)
         {
+            $wizMobile = & WizMobile::getSingleton();
+            $actionClass =& $wizMobile->getActionClass();
+            $frontDirName = str_replace('_wizmobile_action', '', strtolower(get_class($actionClass)));
             $tplFile = basename($xoopsTpl->_current_file);
             $tplFileArray = explode(':', $tplFile);
             if (count($tplFileArray) > 1) {
                 $tplFile = array_pop($tplFileArray);
             }
-            if ($tplFile === 'legacy_block_mainmenu.html' || $tplFile === 'system_block_mainmenu') {
-                $tplSource = '<?php WizMobile::modifyMainMenu($this); ?>' . "\n" . $tplSource;
+            switch ($tplFile) {
+                case 'legacy_block_mainmenu.html':
+                case 'system_block_mainmenu.html':
+                    $tplSource = $wizMobile->filterMainMenu($tplSource);
+                    break;
+                case 'legacy_redirect.html':
+                case 'system_redirect.html':
+                    $wizMobile->directRedirect($xoopsTpl);
+                    break;
+                case 'legacy_xoopsform_dhtmltextarea.html':
+                case 'system_xoopsform_dhtmltextarea.html':
+                    $tplSource = $wizMobile->filterTextarea($tplSource, $frontDirName);
+                    break;
             }
             return $tplSource;
+        }
+
+        function filterMainMenu($tplSource)
+        {
+            $tplSource = '<?php WizMobile::modifyMainMenu($this); ?>' . "\n" . $tplSource;
+            return $tplSource;
+        }
+
+        function filterTextarea($tplSource, $frontDirName)
+        {
+            $tplSource = '<{include file=db:' .$frontDirName .'_mobile_xoopsform_dhtmltextarea.html}>' . "\n";
+            return $tplSource;
+        }
+
+        function directRedirect($xoopsTpl)
+        {
+            $url = $xoopsTpl->get_template_vars('url');
+            $url = urldecode($url);
+            $url = str_replace('&amp;', '&', $url);
+            $url = strtr($url, array('?&' => '?', '&&' => '&'));
+            $sessionName = ini_get('session.name');
+            if (! empty($_GET[$sessionName]) || ! empty($_POST[$sessionName])) {
+                if (! strpos($url, $sessionName)) {
+                    $user =& Wizin_User::getSingleton();
+                    $urlFirstChar = substr($url, 0, 1);
+                    if (! $user->bCookie) {
+                        if (strpos($url, XOOPS_URL) === 0 || $urlFirstChar === '.' ||
+                                $urlFirstChar === '/' || $urlFirstChar === '#') {
+                            if (!strstr($url, '?')) {
+                                $connector = '?';
+                            } else {
+                                $connector = '&';
+                            }
+                            if (strstr($url, '#')) {
+                                $urlArray = explode('#', $url);
+                                $url = $urlArray[0] . $connector . SID;
+                                if (! empty($urlArray[1])) {
+                                    $url .= '#' . $urlArray[1];
+                                }
+                            } else {
+                                $url .= $connector . SID;
+                            }
+                        }
+                    }
+                }
+            }
+            $message = $xoopsTpl->get_template_vars('message');
+            $_SESSION['redirect_message'] = $message;
+            header("Location: " . $url);
+            exit();
         }
 
         function modifyMainMenu(& $xoopsTpl)
@@ -647,23 +675,14 @@ if (! class_exists('WizMobile')) {
         {
             $wizMobile = & WizMobile::getSingleton();
             $actionClass =& $wizMobile->getActionClass();
-            $configs = $actionClass->getConfigs();
-            if (! empty($configs['emoji_support']) && $configs['emoji_support']['wmc_value'] === '1') {
-                if (! class_exists('Wizin_Filter_Pictogram') && intval(PHP_VERSION) >= 5) {
-                    if (file_exists(WIZIN_ROOT_PATH .'/src/filter/Pictogram.class.php')) {
-                        require WIZIN_ROOT_PATH .'/src/filter/Pictogram.class.php';
-                    }
-                }
-                if (class_exists('Wizin_Filter_Pictogram')) {
-                    $xoopsTpl->register_prefilter(array($wizMobile, 'filterEmojiSupport'));
-                }
-            }
+            $xoopsTpl->register_prefilter(array($wizMobile, 'unknownTplPrefilter'));
         }
 
-        function filterEmojiSupport($tplSource, & $xoopsTpl)
+        function unknownTplPrefilter($tplSource, & $xoopsTpl)
         {
             $wizMobile = & WizMobile::getSingleton();
             $actionClass =& $wizMobile->getActionClass();
+            $configs = $actionClass->getConfigs();
             $frontDirName = str_replace('_wizmobile_action', '', strtolower(get_class($actionClass)));
             $tplFile = basename($xoopsTpl->_current_file);
             $tplFileArray = explode(':', $tplFile);
@@ -672,11 +691,30 @@ if (! class_exists('WizMobile')) {
             }
             switch ($tplFile) {
                 case 'legacy_misc_smilies.html':
-                    $tplSource = '<{include file=db:' .$frontDirName .'_emoji_misc_smilies.html}>' . "\n";
+                    $tplSource = $this->filterEmojiSupport($tplSource, $frontDirName, $configs, true);
                     break;
                 case 'legacy_xoopsform_opt_smileys.html':
-                    $tplSource = '<{include file=db:' .$frontDirName .'_emoji_xoopsform_opt_smileys.html}>' . "\n";
+                    $tplSource = $this->filterEmojiSupport($tplSource, $frontDirName, $configs, false);
                     break;
+            }
+            return $tplSource;
+        }
+
+        function filterEmojiSupport($tplSource, $frontDirName, $configs, $smily = false)
+        {
+            if (! empty($configs['emoji_support']) && $configs['emoji_support']['wmc_value'] === '1') {
+                if (! class_exists('Wizin_Filter_Pictogram') && intval(PHP_VERSION) >= 5) {
+                    if (file_exists(WIZIN_ROOT_PATH .'/src/filter/Pictogram.class.php')) {
+                        require WIZIN_ROOT_PATH .'/src/filter/Pictogram.class.php';
+                    }
+                }
+                if (class_exists('Wizin_Filter_Pictogram')) {
+                    if ($smily) {
+                        $tplSource = '<{include file=db:' .$frontDirName .'_emoji_misc_smilies.html}>' . "\n";
+                    } else {
+                        $tplSource = '<{include file=db:' .$frontDirName .'_emoji_xoopsform_opt_smileys.html}>' . "\n";
+                    }
+                }
             }
             return $tplSource;
         }
