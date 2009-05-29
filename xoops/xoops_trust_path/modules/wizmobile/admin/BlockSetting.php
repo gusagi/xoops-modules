@@ -53,13 +53,13 @@ foreach (array_keys($newBlocks) as $key) {
     $bid = $newBlocks[$key]['bid'];
     $existsBlocks[] = $bid;
     $newBlocks[$key]['wmb_bid'] = $newBlocks[$key]['bid'];
-    $newBlocks[$key]['wmb_visible'] = null;
+    $newBlocks[$key]['wmb_visible'] = $newBlocks[$key]['visible'];
     $newBlocks[$key]['wmb_weight'] = 0;
     if (in_array($newBlocks[$key]['bid'], $wizmobileBlockKeys)) {
         $newBlocks[$key]['wmb_visible'] = $wizmobileBlocks[$bid]['wmb_visible'];
         $newBlocks[$key]['wmb_weight'] = $wizmobileBlocks[$bid]['wmb_weight'];
     }
-    if ($newBlocks[$key]['wmb_visible'] != 0) {
+    if ($newBlocks[$key]['wmb_visible'] != WIZMOBILE_BLOCK_INVISIBLE) {
         $index = $newBlocks[$key]['wmb_visible'] .'_' .$newBlocks[$key]['wmb_weight'] .'_' .
             $newBlocks[$key]['mid'] .'_' .$newBlocks[$key]['bid'];
     } else {
