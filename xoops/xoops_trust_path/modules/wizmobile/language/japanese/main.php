@@ -61,6 +61,10 @@ Wizin_Util::define('WIZMOBILE_MSG_SIMPLEXML_NOT_EXISTS', 'SimpleXML¤¬Â¸ºß¤·¤Ê¤¤¤
 Wizin_Util::define('WIZMOBILE_MSG_JSON_EXT_NOT_EXISTS', 'JSON³ÈÄ¥¥â¥¸¥å¡¼¥ë¡ÊPHP5.2.0°Ê¹ß¤ÇÍøÍÑ²ÄÇ½¡Ë¤¬¸«¤Ä¤«¤é¤Ê¤¤¤¿¤á¡¢³¨Ê¸»ú¥Õ¥£¥ë¥¿¡¼µ¡Ç½¤ÏÌµ¸ú¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹');
 Wizin_Util::define('WIZMOBILE_MSG_PICTOGRAM_LIB_NOT_EXISTS', 'PEAR¥Ñ¥Ã¥±¡¼¥¸"Text_Pictogram_Mobile"¤¬¸«¤Ä¤«¤é¤Ê¤¤¤¿¤á¡¢³¨Ê¸»ú¥Õ¥£¥ë¥¿¡¼µ¡Ç½¤ÏÌµ¸ú¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹');
 Wizin_Util::define('WIZMOBILE_MSG_PLZ_PICTOGRAM_LIB_INSTALL', 'pear¥³¥Þ¥ó¥É¤Ç¥¤¥ó¥¹¥È¡¼¥ë¤¹¤ë¤«¡¢xoops_trust_path/wizin/lib/PEAR¤Î²¼¤ËÅ¸³«¤·¤Æ²¼¤µ¤¤');
+Wizin_Util::define('WIZMOBILE_MSG_CSS_XPATH_NOT_EXISTS', 'PEAR¥Ñ¥Ã¥±¡¼¥¸"HTML_CSS_Selector2XPath"¤¬¸«¤Ä¤«¤é¤Ê¤¤¤¿¤á¡¢CSS¥Õ¥£¥ë¥¿¡¼µ¡Ç½¤ÏÌµ¸ú¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹');
+Wizin_Util::define('WIZMOBILE_MSG_CSS_COMMON_NOT_EXISTS', 'PEAR¥Ñ¥Ã¥±¡¼¥¸"HTML_Common"¤¬¸«¤Ä¤«¤é¤Ê¤¤¤¿¤á¡¢CSS¥Õ¥£¥ë¥¿¡¼µ¡Ç½¤ÏÌµ¸ú¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹');
+Wizin_Util::define('WIZMOBILE_MSG_CSS_NOT_EXISTS', 'PEAR¥Ñ¥Ã¥±¡¼¥¸"HTML_CSS"¤¬¸«¤Ä¤«¤é¤Ê¤¤¤¿¤á¡¢CSS¥Õ¥£¥ë¥¿¡¼µ¡Ç½¤ÏÌµ¸ú¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹');
+Wizin_Util::define('WIZMOBILE_MSG_CSS_MOBILE_NOT_EXISTS', 'PEAR¥Ñ¥Ã¥±¡¼¥¸"HTML_CSS_Mobile"¤¬¸«¤Ä¤«¤é¤Ê¤¤¤¿¤á¡¢CSS¥Õ¥£¥ë¥¿¡¼µ¡Ç½¤ÏÌµ¸ú¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹');
 
 // main area / register uniq id
 Wizin_Util::define('WIZMOBILE_MSG_REGISTER_UNIQID_SUCCESS', 'µ¡¼ïID¤Î%s¤¬´°Î»¤·¤Þ¤·¤¿');
@@ -116,6 +120,7 @@ Wizin_Util::define('WIZMOBILE_LANG_EXCHANGE_CONTROLLER', '¥³¥ó¥È¥í¡¼¥é¤Î´¹Áõ');
 Wizin_Util::define('WIZMOBILE_LANG_IMAGE_RESIZE', '²èÁü¤Î¥ê¥µ¥¤¥º');
 Wizin_Util::define('WIZMOBILE_LANG_PARTITION_PAGE', '¥Ú¡¼¥¸Ê¬³ä');
 Wizin_Util::define('WIZMOBILE_LANG_PICTOGRAM_FILTER', '³¨Ê¸»ú¥Õ¥£¥ë¥¿¡¼');
+Wizin_Util::define('WIZMOBILE_LANG_CSS_FILTER', 'CSS¥Õ¥£¥ë¥¿¡¼');
 
 // block setting
 Wizin_Util::define('WIZMOBILE_LANG_BLOCK_SETTING', '¥Ö¥í¥Ã¥¯¤ÎÀßÄê');

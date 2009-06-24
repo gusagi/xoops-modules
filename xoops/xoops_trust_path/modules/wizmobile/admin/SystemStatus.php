@@ -125,6 +125,34 @@ if (class_exists('Wizin_Filter_Pictogram')) {
         $systemStatus['pictogramFilter']['messages'][] = Wizin_Util::constant('WIZMOBILE_MSG_JSON_EXT_NOT_EXISTS');
     }
 }
+// CSS filter
+if (! class_exists('Wizin_Filter_Css') && intval(PHP_VERSION) >= 5) {
+    if (file_exists(WIZIN_ROOT_PATH .'/src/filter/Css.class.php')) {
+        require WIZIN_ROOT_PATH .'/src/filter/Css.class.php';
+    }
+}
+if (class_exists('Wizin_Filter_Css')) {
+    $systemStatus['cssFilter']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_ENABLE');
+} else {
+    $systemStatus['cssFilter']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_DISABLE');
+    if (! class_exists('HTML_CSS_Selector2XPath')) {
+        $systemStatus['cssFilter']['messages'][] =
+            Wizin_Util::constant('WIZMOBILE_MSG_CSS_XPATH_NOT_EXISTS');
+    }
+    if (! class_exists('HTML_Common')) {
+        $systemStatus['cssFilter']['messages'][] =
+            Wizin_Util::constant('WIZMOBILE_MSG_CSS_COMMON_NOT_EXISTS');
+    }
+    if (! class_exists('HTML_CSS')) {
+        $systemStatus['cssFilter']['messages'][] =
+            Wizin_Util::constant('WIZMOBILE_MSG_CSS_NOT_EXISTS');
+    }
+    if (class_exists('HTML_CSS_Selector2XPath') && class_exists('HTML_CSS') &&
+            ! class_exists('HTML_CSS_Mobile')) {
+        $systemStatus['cssFilter']['messages'][] =
+            Wizin_Util::constant('WIZMOBILE_MSG_CSS_MOBILE_NOT_EXISTS');
+    }
+}
 
 //
 // render admin view

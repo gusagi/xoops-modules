@@ -61,6 +61,10 @@ Wizin_Util::define('WIZMOBILE_MSG_SIMPLEXML_NOT_EXISTS', 'SimpleXMLが存在し�
 Wizin_Util::define('WIZMOBILE_MSG_JSON_EXT_NOT_EXISTS', 'JSON拡張モジュール（PHP5.2.0以降で利用可能）が見つからないため、絵文字フィルター機能は無効となっています');
 Wizin_Util::define('WIZMOBILE_MSG_PICTOGRAM_LIB_NOT_EXISTS', 'PEARパッケージ"Text_Pictogram_Mobile"が見つからないため、絵文字フィルター機能は無効となっています');
 Wizin_Util::define('WIZMOBILE_MSG_PLZ_PICTOGRAM_LIB_INSTALL', 'pearコマンドでインストールするか、xoops_trust_path/wizin/lib/PEARの下に展開して下さい');
+Wizin_Util::define('WIZMOBILE_MSG_CSS_XPATH_NOT_EXISTS', 'PEARパッケージ"HTML_CSS_Selector2XPath"が見つからないため、CSSフィルター機能は無効となっています');
+Wizin_Util::define('WIZMOBILE_MSG_CSS_COMMON_NOT_EXISTS', 'PEARパッケージ"HTML_Common"が見つからないため、CSSフィルター機能は無効となっています');
+Wizin_Util::define('WIZMOBILE_MSG_CSS_NOT_EXISTS', 'PEARパッケージ"HTML_CSS"が見つからないため、CSSフィルター機能は無効となっています');
+Wizin_Util::define('WIZMOBILE_MSG_CSS_MOBILE_NOT_EXISTS', 'PEARパッケージ"HTML_CSS_Mobile"が見つからないため、CSSフィルター機能は無効となっています');
 
 // main area / register uniq id
 Wizin_Util::define('WIZMOBILE_MSG_REGISTER_UNIQID_SUCCESS', '機種IDの%sが完了しました');
@@ -116,6 +120,7 @@ Wizin_Util::define('WIZMOBILE_LANG_EXCHANGE_CONTROLLER', 'コントローラの�
 Wizin_Util::define('WIZMOBILE_LANG_IMAGE_RESIZE', '画像のリサイズ');
 Wizin_Util::define('WIZMOBILE_LANG_PARTITION_PAGE', 'ページ分割');
 Wizin_Util::define('WIZMOBILE_LANG_PICTOGRAM_FILTER', '絵文字フィルター');
+Wizin_Util::define('WIZMOBILE_LANG_CSS_FILTER', 'CSSフィルター');
 
 // block setting
 Wizin_Util::define('WIZMOBILE_LANG_BLOCK_SETTING', 'ブロックの設定');

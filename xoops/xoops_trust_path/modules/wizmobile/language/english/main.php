@@ -61,6 +61,12 @@ Wizin_Util::define('WIZMOBILE_MSG_SIMPLEXML_NOT_EXISTS', 'Because SimpleXMLEleme
 Wizin_Util::define('WIZMOBILE_MSG_JSON_EXT_NOT_EXISTS', 'Emoticon filter has become invalid, because JSON extension is disabled.');
 Wizin_Util::define('WIZMOBILE_MSG_PICTOGRAM_LIB_NOT_EXISTS', 'Emoticon filter has become invalid, because PEAR package "Text_Pictogram_Mobile" does not exist.');
 Wizin_Util::define('WIZMOBILE_MSG_PLZ_PICTOGRAM_LIB_INSTALL', 'Please install by "pear install" or upload into xoops_trust_path/wizin/lib/PEAR.');
+Wizin_Util::define('WIZMOBILE_MSG_CSS_XPATH_NOT_EXISTS', 'Css filter has become invalid, because PEAR package "HTML_CSS_Selector2XPath" does not exist.');
+Wizin_Util::define('WIZMOBILE_MSG_CSS_COMMON_NOT_EXISTS', 'Css filter has become invalid, because PEAR package "HTML_Common" does not exist.');
+Wizin_Util::define('WIZMOBILE_MSG_CSS_NOT_EXISTS', 'Css filter has become invalid, because PEAR package "HTML_CSS" does not exist.');
+Wizin_Util::define('WIZMOBILE_MSG_CSS_MOBILE_NOT_EXISTS', 'Css filter has become invalid, because PEAR package "HTML_CSS_Mobile" does not exist.');
+Wizin_Util::define('WIZMOBILE_MSG_CSS_MOBILE_NOT_EXISTS', 'PEARパッケージ"HTML_CSS_Mobile"が見つからないため、CSSフィルター機能は無効となっています');
+
 
 // main area / register uniq id
 Wizin_Util::define('WIZMOBILE_MSG_REGISTER_UNIQID_SUCCESS', '%s of terminal specific ID completed.');
@@ -116,6 +122,7 @@ Wizin_Util::define('WIZMOBILE_LANG_EXCHANGE_CONTROLLER', 'Exchange Controller');
 Wizin_Util::define('WIZMOBILE_LANG_IMAGE_RESIZE', 'Resize of image');
 Wizin_Util::define('WIZMOBILE_LANG_PARTITION_PAGE', 'Page division');
 Wizin_Util::define('WIZMOBILE_LANG_PICTOGRAM_FILTER', 'Pictogram filter for portable telephone');
+Wizin_Util::define('WIZMOBILE_LANG_CSS_FILTER', 'Css filter for portable telephone');
 
 // block setting
 Wizin_Util::define('WIZMOBILE_LANG_BLOCK_SETTING', 'Block setting');

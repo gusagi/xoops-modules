@@ -52,5 +52,17 @@
         <span style="margin-left: 2.5em;"><{$itm_message}></span><br />
       <{/foreach}>
     </div>
+
+    <!-- Css Filter -->
+    <div>
+      <span><{"WIZMOBILE_LANG_CSS_FILTER"|wiz_constant}></span>
+      <br />
+      <span style="margin-left: 1em; color: <{if $systemStatus.cssFilter.result == "WIZMOBILE_LANG_ENABLE"|wiz_constant}>#0000ff<{else}>#ff0000<{/if}>;">&raquo;&nbsp;
+        <{$systemStatus.cssFilter.result}>
+      </span><br />
+      <{foreach name="fe_message" key="key_message" item="itm_message" from=$systemStatus.cssFilter.messages}>
+        <span style="margin-left: 2.5em;"><{$itm_message}></span><br />
+      <{/foreach}>
+    </div>
   </fieldset>
 </div>
