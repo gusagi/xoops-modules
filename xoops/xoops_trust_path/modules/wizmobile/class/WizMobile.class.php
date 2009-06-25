@@ -438,6 +438,9 @@ if (! class_exists('WizMobile')) {
             }
             $xoopsTpl->assign('wizmobile_contentsType', $contentType);
             $xoopsTpl->assign('wizmobile_headerTag', $headerTag);
+            $config_handler =& xoops_gethandler('config');
+            $userModuleConfig =& $config_handler->getConfigsByDirname('user');
+            $xoopsTpl->assign('wizmobile_userModuleConfig', $userModuleConfig);
         }
 
         function mobileTpl(& $xoopsTpl)
