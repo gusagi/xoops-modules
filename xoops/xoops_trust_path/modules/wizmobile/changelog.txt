@@ -5,7 +5,7 @@
 - Added xoopsform_dhtmltextarea template for mobile.
 - Added css filter call.
 - Modified (refactoring) filter logic.
-- 'Wizin' updated from '0.47' to '0.48'.
+- 'Wizin' updated from '0.47' to '0.49'.
 ----------------------------------
 [2009-05-19 Ver 0.41 -> 0.42]
 - Fixed bug about non-object function called error when accessed site top.(thx mock)
