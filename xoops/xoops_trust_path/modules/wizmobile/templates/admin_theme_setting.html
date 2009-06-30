@@ -20,17 +20,17 @@
     <table class="outer" style="margin-bottom: 1em; width: 500px;">
       <tr>
         <td>&nbsp;</td>
-        <{foreach name=fe_modules item=itm_modules key=key_modules from=$modules}>
+        <{foreach name=fe_groups item=itm_groups key=key_groups from=$groups}>
           <th style="background-color: #d3d3d3; color: #404040; width: 170px;">
-            <{$itm_modules.name}>
+            <{$itm_groups.name}>
           </th>
         <{/foreach}>
       </tr>
-      <{foreach name=fe_groups item=itm_groups key=key_groups from=$groups}>
+      <{foreach name=fe_modules item=itm_modules key=key_modules from=$modules}>
         <{strip}>
         <tr class="<{cycle values="even,odd"}>">
-          <th style="background-color: #d3d3d3; color: #404040; width: 160px;"><{$itm_groups.name}></th>
-          <{foreach name=fe_modules item=itm_modules key=key_modules from=$modules}>
+          <th style="background-color: #d3d3d3; color: #404040; width: 160px;"><{$itm_modules.name}></th>
+          <{foreach name=fe_groups item=itm_groups key=key_groups from=$groups}>
             <td style="width: 170px;">
               <select name="wmt_theme[<{$key_groups}>][<{$key_modules}>]">
                 <option value="" style="min-width: 120px;"><{"WIZMOBILE_LANG_NONE_SETTING"|wiz_constant}></option>

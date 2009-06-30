@@ -69,6 +69,19 @@ $groups[-1] = array('groupid' => -1, 'name' => _GUESTS);
 $modules = array();
 $modules[0] = array('mid' => 0, 'name' => _AD_LEGACY_LANG_TOPPAGE);
 $modules[-1] = array('mid' => -1, 'name' => _AD_LEGACY_LANG_ALL_MODULES);
+$db =& XoopsDatabaseFactory::getDatabaseConnection();
+$moduleTable = $db->prefix('modules');
+$sql = "SELECT `mid`, `name`, `dirname` FROM `$moduleTable` WHERE `isactive` = 1 ORDER BY mid;";
+if ($resource = $db->query($sql)) {
+    while ($result = $db->fetchArray($resource)) {
+        $mid = intval($result['mid']);
+        $modules[$mid] = array(
+            'mid' => $mid,
+            'name' => $result['name'],
+            'dirname' => $result['dirname'],
+        );
+    }
+}
 
 // register and redirect
 $method = getenv('REQUEST_METHOD');
