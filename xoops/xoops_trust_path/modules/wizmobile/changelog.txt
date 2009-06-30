@@ -1,10 +1,11 @@
 ----------------------------------
-[2009-06-25 Ver 0.42 -> 0.43]
+[2009-06-30 Ver 0.42 -> 0.43]
 - Fixed bug about visible default value on BlockSetting.
 - Fixed bug about get block process twice when block has no contents.(thx masahiro)
 - Added xoopsform_dhtmltextarea template for mobile.
 - Added css filter call.
 - Modified (refactoring) filter logic.
+- Modified theme override logic.
 - Assign 'user' module config for template.
 - Modified 'user' module config check in Login action.
 - 'Wizin' updated from '0.47' to '0.49'.
