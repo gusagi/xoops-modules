@@ -661,15 +661,20 @@ if (! class_exists('WizMobile')) {
                 $groupid = -1;
             }
             if (isset($xcRoot->mContext->mModule) && is_object($xcRoot->mContext->mModule)) {
-                $mid = -1;
+                $mid = $xcRoot->mContext->mModule->mXoopsModule->getVar('mid');
             } else {
                 $mid = 0;
             }
-            if (isset($themes[$groupid]) && isset($themes[$groupid][$mid])) {
-                if (file_exists(XOOPS_THEME_PATH . '/' . $themes[$groupid][$mid]) &&
-                        is_dir(XOOPS_THEME_PATH . '/' . $themes[$groupid][$mid]) &&
-                        file_exists(XOOPS_THEME_PATH . '/' . $themes[$groupid][$mid] . '/theme.html')) {
-                    $xcRoot->mContext->setThemeName($themes[$groupid][$mid]);
+            if (isset($themes[$groupid])) {
+                if (isset($themes[$groupid][$mid])) {
+                    $theme = $themes[$groupid][$mid];
+                } else if ($mid !== 0) {
+                    $theme = $themes[$groupid][-1];
+                }
+                if (file_exists(XOOPS_THEME_PATH .'/' .$theme) &&
+                        is_dir(XOOPS_THEME_PATH . '/' .$theme) &&
+                        file_exists(XOOPS_THEME_PATH . '/' .$theme .'/theme.html')) {
+                    $xcRoot->mContext->setThemeName($theme);
                 }
             }
         }
