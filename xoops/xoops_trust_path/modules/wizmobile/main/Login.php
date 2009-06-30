@@ -41,11 +41,6 @@ if ($scriptFileName === __FILE__) {
 $xcRoot =& XCube_Root::getSingleton();
 $wizMobile =& WizMobile::getSingleton();
 $configs = $this->getConfigs();
-if (! empty($configs['lookup']) && $configs['lookup']['wmc_value'] === '1') {
-    $lookup = true;
-} else {
-    $lookup = false;
-}
 $renderTarget =& $xcRoot->mContext->mModule->getRenderTarget();
 $frontDirname = str_replace('_wizmobile_action', '', strtolower(get_class($this)));
 $tplFile = $frontDirname . '_main_login.html';
