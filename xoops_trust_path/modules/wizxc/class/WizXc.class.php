@@ -65,9 +65,15 @@ if (! class_exists('WizXc')) {
 
         function _define()
         {
-            define('WIZIN_URL', XOOPS_URL);
-            define('WIZIN_CACHE_DIR', XOOPS_TRUST_PATH . '/cache');
-            //define('WIZIN_PEAR_DIR', XOOPS_TRUST_PATH . '/PEAR');
+            if (! defined('WIZIN_URL')) {
+                define('WIZIN_URL', XOOPS_URL);
+            }
+            if (! defined('WIZIN_CACHE_DIR')) {
+                define('WIZIN_CACHE_DIR', XOOPS_TRUST_PATH . '/cache');
+            }
+            //if (! defined('WIZIN_PEAR_DIR')) {
+            //    define('WIZIN_PEAR_DIR', XOOPS_TRUST_PATH . '/PEAR');
+            //}
             $wizin =& Wizin::getSingleton();
             $parseUrl = parse_url(XOOPS_URL);
             if (! empty($parseUrl['path'])) {
