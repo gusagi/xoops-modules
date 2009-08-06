@@ -1,4 +1,7 @@
 ----------------------------------
+[2009-08-06 Ver 0.30]
+- Fixed bug about notice message will be displayed.
+----------------------------------
 [2009-05-11 Ver 0.29]
 - Fixed bug about unnecessary escape when 'magic_quote_gpc' is enable.
 ----------------------------------
