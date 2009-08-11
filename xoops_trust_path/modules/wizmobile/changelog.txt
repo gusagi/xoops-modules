@@ -1,7 +1,8 @@
 ----------------------------------
-[2009-08-06 Ver 0.42 -> 0.43]
+[2009-08-11 Ver 0.42 -> 0.43]
 - Fixed bug about visible default value on BlockSetting.
 - Fixed bug about get block process twice when block has no contents.(thx masahiro)
+- Fixed bug about infinite redirect when session timeout.
 - Added xoopsform_dhtmltextarea template for mobile.
 - Added css filter call.
 - Modified (refactoring) filter logic.
