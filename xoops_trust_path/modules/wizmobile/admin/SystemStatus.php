@@ -118,11 +118,12 @@ if (class_exists('Wizin_Filter_Pictogram')) {
     $systemStatus['pictogramFilter']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_ENABLE');
 } else {
     $systemStatus['pictogramFilter']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_DISABLE');
-    if (floatval(PHP_VERSION) >= 5.2 && function_exists('json_encode')) {
+    if (function_exists('json_decode')) {
         $systemStatus['pictogramFilter']['messages'][] = Wizin_Util::constant('WIZMOBILE_MSG_PICTOGRAM_LIB_NOT_EXISTS');
         $systemStatus['pictogramFilter']['messages'][] = Wizin_Util::constant('WIZMOBILE_MSG_PLZ_PICTOGRAM_LIB_INSTALL');
     } else {
         $systemStatus['pictogramFilter']['messages'][] = Wizin_Util::constant('WIZMOBILE_MSG_JSON_EXT_NOT_EXISTS');
+        $systemStatus['pictogramFilter']['messages'][] = Wizin_Util::constant('WIZMOBILE_MSG_PLZ_JSPHON_INSTALL');
     }
 }
 // CSS filter

@@ -59,6 +59,7 @@ Wizin_Util::define('WIZMOBILE_MSG_RESIZED_IMAGE_DIR_NOT_WRITABLE', XOOPS_ROOT_PA
 Wizin_Util::define('WIZMOBILE_MSG_DOM_NOT_EXISTS', 'DOM拡張が存在しないため、ページ分割機能は無効となっています');
 Wizin_Util::define('WIZMOBILE_MSG_SIMPLEXML_NOT_EXISTS', 'SimpleXMLが存在しないため、ページ分割機能は無効となっています');
 Wizin_Util::define('WIZMOBILE_MSG_JSON_EXT_NOT_EXISTS', 'JSON拡張モジュール（PHP5.2.0以降で利用可能）が見つからないため、絵文字フィルター機能は無効となっています');
+Wizin_Util::define('WIZMOBILE_MSG_PLZ_JSPHON_INSTALL', 'coderepos.orgからJsphon-1.0.1.tgzを取得して、xoops_trust_path/wizin/lib/PEARの下に展開して下さい');
 Wizin_Util::define('WIZMOBILE_MSG_PICTOGRAM_LIB_NOT_EXISTS', 'PEARパッケージ"Text_Pictogram_Mobile"が見つからないため、絵文字フィルター機能は無効となっています');
 Wizin_Util::define('WIZMOBILE_MSG_PLZ_PICTOGRAM_LIB_INSTALL', 'pearコマンドでインストールするか、xoops_trust_path/wizin/lib/PEARの下に展開して下さい');
 Wizin_Util::define('WIZMOBILE_MSG_CSS_XPATH_NOT_EXISTS', 'PEARパッケージ"HTML_CSS_Selector2XPath"が見つからないため、CSSフィルター機能は無効となっています');
