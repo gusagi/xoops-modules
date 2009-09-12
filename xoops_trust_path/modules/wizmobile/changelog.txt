@@ -1,4 +1,8 @@
 ----------------------------------
+[2009-09-13 Ver 0.43 -> 0.44]
+- Fixed bug about duplicate constant in english language file.
+- 'Wizin' updated from '0.49' to '0.50'.
+----------------------------------
 [2009-08-11 Ver 0.42 -> 0.43]
 - Fixed bug about visible default value on BlockSetting.
 - Fixed bug about get block process twice when block has no contents.(thx masahiro)
