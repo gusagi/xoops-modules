@@ -1,6 +1,7 @@
 ----------------------------------
-[2009-09-13 Ver 0.43 -> 0.44]
+[2009-09-14 Ver 0.43 -> 0.44]
 - Fixed bug about duplicate constant in english language file.
+- Fixed bug about get block object with deleted block id.
 - 'Wizin' updated from '0.49' to '0.50'.
 ----------------------------------
 [2009-08-11 Ver 0.42 -> 0.43]

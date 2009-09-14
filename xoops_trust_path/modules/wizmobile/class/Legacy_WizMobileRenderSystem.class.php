@@ -217,6 +217,9 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
                         $blocks[$wmb_bid] = $loadedBlocks[$wmb_bid];
                     } else {
                         $blockObject =& $blockHandler->get($wmb_bid);
+                        if (! isset($blockObject) || ! is_object($blockObject)) {
+                            continue;
+                        }
                         $show_func = $blockObject->getVar('show_func');
                         if (! function_exists($show_func)) {
                             $blockProcedure =& Legacy_Utils::createBlockProcedure($blockObject);
