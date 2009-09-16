@@ -282,7 +282,6 @@ if (! class_exists('WizMobile')) {
         function directLoginSuccess()
         {
             $xcRoot =& XCube_Root::getSingleton();
-            $xcRoot->mSession->regenerate();
             $user = & Wizin_User::getSingleton();
             $url = (! $user->bCookie) ? XOOPS_URL. '/' . '?' . SID : XOOPS_URL;
             $_SESSION['redirect_message'] = XCube_Utils::formatMessage(_MD_LEGACY_MESSAGE_LOGIN_SUCCESS,
