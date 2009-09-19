@@ -123,9 +123,10 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
             $this->mXoopsTpl->assign('blocks', $blocks);
             // get selected block
             if ($mobileBid !== 0) {
-                $selectBlock = $this->_getMobileBlocks($mobileBid);
+                $_blocks = $this->_getMobileBlocks($mobileBid);
+                $selectBlock = $_blocks[$mobileBid];
                 if (! empty($selectBlock)) {
-                    $this->mXoopsTpl->assign('selectBlock', array_shift($selectBlock));
+                    $this->mXoopsTpl->assign('selectBlock', $selectBlock);
                 }
             }
             // display sub menu
@@ -168,9 +169,13 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
         function _getMobileBlocks($wizmobileBlockKeys = '')
         {
             // init process
-            $blocks = array();
+            static $blocks;
+            if (! isset($blocks)) {
+                $blocks = array();
+            }
             if (empty($wizmobileBlockKeys)) {
-                return $blocks;
+                $return = array();
+                return $return;
             } else if (! is_array($wizmobileBlockKeys)) {
                 $wizmobileBlockKeys = (array)$wizmobileBlockKeys;
             }
@@ -213,7 +218,8 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
             // get block objects
             foreach ($wizmobileBlockKeys as $wmb_bid) {
                 if (in_array($wmb_bid, $blockids)) {
-                    if (in_array($wmb_bid, $loadedBlockIds)) {
+                    if (isset($blocks[$wmb_bid])) {
+                    } else if (in_array($wmb_bid, $loadedBlockIds)) {
                         $blocks[$wmb_bid] = $loadedBlocks[$wmb_bid];
                     } else {
                         $blockObject =& $blockHandler->get($wmb_bid);
