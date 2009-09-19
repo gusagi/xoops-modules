@@ -65,6 +65,9 @@ if (! class_exists('WizXc')) {
 
         function _define()
         {
+            if (! defined('WIZIN_SALT')) {
+                define('WIZIN_SALT', XOOPS_SALT);
+            }
             if (! defined('WIZIN_URL')) {
                 define('WIZIN_URL', XOOPS_URL);
             }

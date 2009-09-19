@@ -179,8 +179,8 @@ if (strtolower($method) === 'post') {
     }
     unset($sqlArray);
     WizXc_Util::clearCompiledCache();
-    touch(XOOPS_TRUST_PATH . '/cache/wizmobile_theme_flg_' . Wizin_Util::salt(XOOPS_SALT));
-    $cacheObject = new Wizin_Cache('wizmobile_theme_cache_', Wizin_Util::salt(XOOPS_SALT));
+    touch(XOOPS_TRUST_PATH . '/cache/wizmobile_theme_flg_' . Wizin_Util::fprefix());
+    $cacheObject = new Wizin_Cache('wizmobile_theme_cache_', Wizin_Util::fprefix());
     $cacheObject->clear();
     $cacheObject->save($params);
 

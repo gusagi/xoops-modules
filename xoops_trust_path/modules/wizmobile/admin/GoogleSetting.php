@@ -84,8 +84,8 @@ if (strtolower($method) === 'post') {
     }
     unset($sqlArray);
     WizXc_Util::clearCompiledCache();
-    touch(XOOPS_TRUST_PATH . '/cache/wizmobile_ads_flg_' . Wizin_Util::salt(XOOPS_SALT));
-    $cacheObject = new Wizin_Cache('wizmobile_ads_cache_', Wizin_Util::salt(XOOPS_SALT));
+    touch(XOOPS_TRUST_PATH . '/cache/wizmobile_ads_flg_' . Wizin_Util::fprefix());
+    $cacheObject = new Wizin_Cache('wizmobile_ads_cache_', Wizin_Util::fprefix());
     $cacheObject->clear();
     $params = $this->googleAdsParams($requestItems['adsense_code']);
     $cacheObject->save($params);
