@@ -3,6 +3,8 @@
 - Added external link confirm action.
 - Added config item 'trust_ip' and 'session_lifetime'.
 - Modified session check logic.
+- 'Wizin' updated from '0.52' to '0.53'.
+- 'WizXc' module updated from '0.30' to '0.31'.
 ----------------------------------
 [2009-09-14 Ver 0.43 -> 0.44]
 - Fixed bug about duplicate constant in english language file.
