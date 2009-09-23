@@ -65,9 +65,6 @@ if (! class_exists('WizXc')) {
 
         function _define()
         {
-            if (! defined('WIZIN_SALT')) {
-                define('WIZIN_SALT', XOOPS_SALT);
-            }
             if (! defined('WIZIN_URL')) {
                 define('WIZIN_URL', XOOPS_URL);
             }
@@ -80,7 +77,8 @@ if (! class_exists('WizXc')) {
             $wizin =& Wizin::getSingleton();
             $parseUrl = parse_url(XOOPS_URL);
             if (! empty($parseUrl['path'])) {
-                define('WIZXC_CURRENT_URI', str_replace($parseUrl['path'], '', XOOPS_URL) . getenv('REQUEST_URI'));
+                define('WIZXC_CURRENT_URI', str_replace($parseUrl['path'], '', XOOPS_URL) .
+                    getenv('REQUEST_URI'));
             } else {
                 define('WIZXC_CURRENT_URI', XOOPS_URL . getenv('REQUEST_URI'));
             }
@@ -95,7 +93,7 @@ if (! class_exists('WizXc')) {
         function _setup()
         {
             Wizin::getSingleton();
-            Wizin_Util::salt(XOOPS_SALT);
+            Wizin::salt(XOOPS_SALT);
         }
 
         function _init()
