@@ -1,0 +1,26 @@
+<{if $wizmobileExtUrl !== ''}>
+  <h2><{"WIZMOBILE_LANG_EXTLINK_CONFIRM"|wiz_constant}></h2>
+  <div>
+    <a href="<{$wizmobileExtUrl}>"><{"WIZMOBILE_LANG_EXTLINK_GO_EXTERNAL"|wiz_constant}></a>
+  </div>
+  <div>
+    <a href="<{$wizmobileBackUrl}>"><{"WIZMOBILE_LANG_EXTLINK_BACK_INTERNAL"|wiz_constant}></a>
+  </div>
+  <hr />
+  <div>
+    <span style="font-weight: bold; font-size: 120%;">
+      <{"WIZMOBILE_LANG_EXTLINK_URL_DISPLAY"|wiz_constant}>
+    </span><br />
+      <{$wizmobileExtUrl}>
+  </div>
+  <div>
+    <form action="<{$xoops_url}>/modules/<{$wizmobile_dirname}>/index.php">
+      <span style="font-weight: bold; font-size: 120%;">
+        <{"WIZMOBILE_LANG_EXTLINK_URL_COPY"|wiz_constant}>
+      </span><br />
+      <input type="text" style="width: 90%;" value="<{$wizmobileExtUrl}>" />
+    </form>
+  </div>
+<{else}>
+  <h2><{"WIZMOBILE_LANG_EXTLINK_INVALID"|wiz_constant}></h2>
+<{/if}>
