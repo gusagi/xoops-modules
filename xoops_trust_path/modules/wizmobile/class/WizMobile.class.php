@@ -56,6 +56,7 @@ if (! class_exists('WizMobile')) {
             require_once XOOPS_TRUST_PATH . '/wizin/src/Wizin_User.class.php';
             require_once XOOPS_TRUST_PATH . '/wizin/src/filter/Mobile.class.php';
             require_once XOOPS_TRUST_PATH . '/wizin/src/util/Web.class.php';
+            require_once XOOPS_TRUST_PATH . '/wizin/src/Wizin_Crypt.class.php';
         }
 
         function _define()
@@ -98,10 +99,15 @@ if (! class_exists('WizMobile')) {
                 define('WIZMOBILE_CURRENT_URI', WIZXC_CURRENT_URI);
                 define('WIZMOBILE_BID_CONNECTOR', WIZXC_URI_CONNECTOR);
             }
+            // external link param
+            define('WIZMOBILE_EXTLINK_KEY', Wizin_Util::cipher(XOOPS_SALT));
+            define('WIZMOBILE_EXTLINK_EXTKEY', 'ext');
+            define('WIZMOBILE_EXTLINK_BACKKEY', 'back');
         }
 
         function _setup()
         {
+            $this->_replaceLinkMode = true;
         }
 
         function _init()
@@ -148,11 +154,9 @@ if (! class_exists('WizMobile')) {
 	                // add delegate
 	                $xcRoot->mDelegateManager->add('XoopsTpl.New' , array($this , 'mobileTpl')) ;
                     // set session ini
-                    if (! $user->bCookie) {
-                        ini_set('session.use_cookies', "0");
-                        ini_set('session.use_only_cookies', "0");
-                        ini_set('session.use_trans_sid', "0");
-                    }
+                    ini_set('session.use_cookies', "0");
+                    ini_set('session.use_only_cookies', "0");
+                    ini_set('session.use_trans_sid', "0");
                     // call input filter
                     $this->_inputFilter();
                     // exchange view
@@ -187,18 +191,60 @@ if (! class_exists('WizMobile')) {
         function checkMobileSession()
         {
             $xcRoot =& XCube_Root::getSingleton();
-            $userAgent = getenv('HTTP_USER_AGENT');
             $user = & Wizin_User::getSingleton();
+            /**
+             * Truly cell phone?
+             */
+            $actionClass =& $this->getActionClass();
+            $configs = $actionClass->getConfigs();
+            // if 'lookup' config value is 1, skip this check!
+            if (empty($configs['lookup']) || $configs['lookup']['wmc_value'] !== '1') {
+                $skipFlg = false;
+                if (isset($configs['trust_ip']) && isset($configs['trust_ip']['wmc_value']) &&
+                        $configs['trust_ip']['wmc_value'] !== '') {
+                    $trustIps = explode('|', $configs['trust_ip']['wmc_value']);
+                    foreach ($trustIps as $trustIp) {
+                        if (preg_match("/$trustIp/", getenv('REMOTE_ADDR'))) {
+                            $skipFlg = true;
+                            break;
+                        }
+                    }
+                }
+                if ($skipFlg === false) {
+                    $user->checkClient(true);
+                    if (! $user->bIsMobile && is_object($xcRoot->mContext->mXoopsUser)) {
+                        WizXc_Util::sessionDestroy();
+                        session_regenerate_id();
+                        $_SESSION['WIZ_SESSION_ZERO_POINT'] = time();
+                    }
+                    // reset user client info
+                    $user->checkClient(false);
+                }
+            }
+            /**
+             * Truly accessd user?
+             */
+            $userAgent = getenv('HTTP_USER_AGENT');
             if (empty($_SESSION['WIZ_USER_AGENT'])) {
+                session_regenerate_id();
                 $_SESSION['WIZ_USER_AGENT'] = $userAgent;
             } else if ($_SESSION['WIZ_USER_AGENT'] !== $userAgent) {
                 WizXc_Util::sessionDestroy();
                 $_SESSION['redirect_message'] = Wizin_Util::constant('WIZMOBILE_MSG_SESSION_LIMIT_TIME');
                 $_SESSION['WIZ_SESSION_ZERO_POINT'] = time();
-                $url = (! $user->bCookie) ? XOOPS_URL. '/' . '?' . SID : XOOPS_URL;
-                header("Location: " . $url);
+                header("Location: " . XOOPS_URL .'/?' .SID);
                 exit();
             }
+            /**
+             * Time limit of session all right?
+             */
+            $sessionLifetime = 15;
+            if (isset($configs['session_lifetime']) &&
+                    isset($configs['session_lifetime']['wmc_value']) &&
+                    $configs['session_lifetime']['wmc_value'] !== '') {
+                $sessionLifetime = intval($configs['session_lifetime']['wmc_value']);
+            }
+            $sessionLifetime = $sessionLifetime * 60;
             if (empty($_SESSION['WIZ_SESSION_ZERO_POINT'])) {
                 $_SESSION['WIZ_SESSION_ZERO_POINT'] = time();
             } else if ($_SESSION['WIZ_SESSION_ZERO_POINT'] < time() - 300) {
@@ -209,15 +255,14 @@ if (! class_exists('WizMobile')) {
                 $_SESSION['WIZ_SESSION_ZERO_POINT'] = time();
             }
             if (! empty($_SESSION['WIZ_SESSION_LAST_ACCESS']) &&
-                $_SESSION['WIZ_SESSION_LAST_ACCESS'] < time() - 900 &&
-                is_object($xcRoot->mContext->mXoopsUser)) {
+                    $_SESSION['WIZ_SESSION_LAST_ACCESS'] < time() - $sessionLifetime &&
+                    is_object($xcRoot->mContext->mXoopsUser)) {
                 WizXc_Util::sessionDestroy();
                 session_regenerate_id();
                 $_SESSION['redirect_message'] = Wizin_Util::constant('WIZMOBILE_MSG_SESSION_LIMIT_TIME');
                 $_SESSION['WIZ_SESSION_ZERO_POINT'] = time();
                 $_SESSION['WIZ_SESSION_LAST_ACCESS'] = time();
-                $url = (! $user->bCookie) ? XOOPS_URL. '/' . '?' . SID : XOOPS_URL;
-                header("Location: " . $url);
+                header("Location: " .XOOPS_URL .'/?' .SID);
                 exit();
             }
             $_SESSION['WIZ_SESSION_LAST_ACCESS'] = time();
@@ -283,10 +328,9 @@ if (! class_exists('WizMobile')) {
         {
             $xcRoot =& XCube_Root::getSingleton();
             $user = & Wizin_User::getSingleton();
-            $url = (! $user->bCookie) ? XOOPS_URL. '/' . '?' . SID : XOOPS_URL;
             $_SESSION['redirect_message'] = XCube_Utils::formatMessage(_MD_LEGACY_MESSAGE_LOGIN_SUCCESS,
                 $xcRoot->mContext->mXoopsUser->get('uname'));
-            header("Location: " . $url);
+            header("Location: " .XOOPS_URL .'/?' .SID);
             exit();
         }
 
@@ -295,9 +339,8 @@ if (! class_exists('WizMobile')) {
             $xcRoot =& XCube_Root::getSingleton();
             $xcRoot->mSession->regenerate();
             $user = & Wizin_User::getSingleton();
-            $url = (! $user->bCookie) ? XOOPS_URL. '/' . '?' . SID : XOOPS_URL;
             $_SESSION['redirect_message'] = _MD_LEGACY_ERROR_INCORRECTLOGIN;
-            header("Location: " . $url);
+            header("Location: " .XOOPS_URL .'/?' .SID);
             exit();
         }
 
@@ -307,37 +350,33 @@ if (! class_exists('WizMobile')) {
             $xcRoot =& XCube_Root::getSingleton();
             $xcRoot->mSession->regenerate();
             $user = & Wizin_User::getSingleton();
-            $url = (! $user->bCookie) ? XOOPS_URL. '/' . '?' . SID : XOOPS_URL;
             $_SESSION['redirect_message'] = htmlspecialchars(_MD_LEGACY_MESSAGE_LOGGEDOUT, ENT_QUOTES) . '<br />';
             $_SESSION['redirect_message'] .= htmlspecialchars(_MD_LEGACY_MESSAGE_THANKYOUFORVISIT, ENT_QUOTES);
-            header("Location: " . $url);
+            header("Location: " .XOOPS_URL .'/?' .SID);
             exit();
         }
 
         function denyAccessLoginPage()
         {
             $user = & Wizin_User::getSingleton();
-            $url = (! $user->bCookie) ? XOOPS_URL. '/' . '?' . SID : XOOPS_URL;
             $_SESSION['redirect_message'] = Wizin_Util::constant('WIZMOBILE_MSG_DENY_LOGIN_PAGE');
-            header("Location: " . $url);
+            header("Location: " .XOOPS_URL .'/?' .SID);
             exit();
         }
 
         function denyAccessAdminArea()
         {
             $user = & Wizin_User::getSingleton();
-            $url = (! $user->bCookie) ? XOOPS_URL. '/' . '?' . SID : XOOPS_URL;
             $_SESSION['redirect_message'] = Wizin_Util::constant('WIZMOBILE_MSG_DENY_ADMIN_AREA');
-            header("Location: " . $url);
+            header("Location: " .XOOPS_URL .'/?' .SID);
             exit();
         }
 
         function denyAccessModuleArea()
         {
             $user = & Wizin_User::getSingleton();
-            $url = (! $user->bCookie) ? XOOPS_URL. '/' . '?' . SID : XOOPS_URL;
             $_SESSION['redirect_message'] = Wizin_Util::constant('WIZMOBILE_MSG_DENY_ACCESS_MODULE_PAGE');
-            header("Location: " . $url);
+            header("Location: " .XOOPS_URL .'/?' .SID);
             exit();
         }
 
@@ -364,20 +403,41 @@ if (! class_exists('WizMobile')) {
         function _filterMobile(& $filter, & $contents)
         {
             $user = & Wizin_User::getSingleton();
-            if (! $user->bCookie) {
-                $params = array(XOOPS_URL, WIZMOBILE_CURRENT_URI);
-                $filter->addOutputFilter(array($filter, 'filterTransSid'), $params);
+            $actionClass =& $this->getActionClass();
+            $frontDirName = str_replace('_wizmobile_action', '', strtolower(get_class($actionClass)));
+            if (! $user->bIsBot && $this->_replaceLinkMode) {
+                $params = array(
+                    array(
+                        'baseUri' => XOOPS_URL,
+                        'currentUri' => WIZXC_CURRENT_URI,
+                        'extlinkKey' => WIZMOBILE_EXTLINK_KEY,
+                        'extConfirmUrl' => XOOPS_URL .'/modules/' .
+                            $frontDirName .'/?act=ExtConfirm',
+                        'extKey' => WIZMOBILE_EXTLINK_EXTKEY,
+                        'backKey' => WIZMOBILE_EXTLINK_BACKKEY,
+                    )
+                );
+                $filter->addOutputFilter(array($filter, 'filterReplaceLinks'), $params);
             }
-            $params = array(XOOPS_URL, WIZMOBILE_CURRENT_URI, XOOPS_ROOT_PATH,
-                XOOPS_ROOT_PATH .'/uploads/wizmobile', $user->iWidth);
+            $params = array(
+                array(
+                    'baseUri' => XOOPS_URL,
+                    'currentUri' => WIZMOBILE_CURRENT_URI,
+                    'basePath' => XOOPS_ROOT_PATH,
+                    'createDir' => XOOPS_ROOT_PATH .'/uploads/wizmobile',
+                    'maxWidth' => $user->iWidth
+                )
+            );
             $filter->addOutputFilter(array($filter, 'filterOptimizeMobile'), $params);
             $params = array(XOOPS_ROOT_PATH, XOOPS_URL);
             $filter->addOutputFilter(array($filter, 'filterCssMobile'), $params);
             $params = array($user->sEncoding, $user->sCharset);
             $filter->addOutputFilter(array($filter, 'filterOutputEncoding'), $params);
-            $actionClass =& $this->getActionClass();
-            $frontDirName = str_replace('_wizmobile_action', '', strtolower(get_class($actionClass)));
-            $params = array(XOOPS_URL . '/modules/' . $frontDirName . '/images/emoticons');
+            $params = array(
+                array(
+                    'pictImgDir' => XOOPS_URL .'/modules/' .$frontDirName .'/images/emoticons'
+                )
+            );
             $filter->addOutputFilter(array($filter, 'filterOutputPictogramMobile'), $params);
         }
 
@@ -386,8 +446,10 @@ if (! class_exists('WizMobile')) {
             $actionClass =& $this->getActionClass();
             $frontDirName = str_replace('_wizmobile_action', '', strtolower(get_class($actionClass)));
             $filter =& Wizin_Filter_Mobile::getSingleton();
-            $buf = $filter->filterOutputPictogramMobile($buf, XOOPS_URL .'/modules/' .
-                $frontDirName . '/images/emoticons');
+            $params = array(
+                'pictImgDir' => XOOPS_URL .'/modules/' .$frontDirName .'/images/emoticons'
+            );
+            $buf = $filter->filterOutputPictogramMobile($buf, $params);
             // add mobile link discovery tag
             $pattern = '(<link)([^>]*)(media=)([\"\'])(handheld)([\"\'])([^>]*)(>)';
             if (! preg_match("/" .$pattern ."/i", $buf)) {
@@ -519,23 +581,21 @@ if (! class_exists('WizMobile')) {
                 if (! strpos($url, $sessionName)) {
                     $user =& Wizin_User::getSingleton();
                     $urlFirstChar = substr($url, 0, 1);
-                    if (! $user->bCookie) {
-                        if (strpos($url, XOOPS_URL) === 0 || $urlFirstChar === '.' ||
-                                $urlFirstChar === '/' || $urlFirstChar === '#') {
-                            if (!strstr($url, '?')) {
-                                $connector = '?';
-                            } else {
-                                $connector = '&';
+                    if (strpos($url, XOOPS_URL) === 0 || $urlFirstChar === '.' ||
+                            $urlFirstChar === '/' || $urlFirstChar === '#') {
+                        if (!strstr($url, '?')) {
+                            $connector = '?';
+                        } else {
+                            $connector = '&';
+                        }
+                        if (strstr($url, '#')) {
+                            $urlArray = explode('#', $url);
+                            $url = $urlArray[0] . $connector . SID;
+                            if (! empty($urlArray[1])) {
+                                $url .= '#' . $urlArray[1];
                             }
-                            if (strstr($url, '#')) {
-                                $urlArray = explode('#', $url);
-                                $url = $urlArray[0] . $connector . SID;
-                                if (! empty($urlArray[1])) {
-                                    $url .= '#' . $urlArray[1];
-                                }
-                            } else {
-                                $url .= $connector . SID;
-                            }
+                        } else {
+                            $url .= $connector . SID;
                         }
                     }
                 }
@@ -565,11 +625,11 @@ if (! class_exists('WizMobile')) {
 
         function googleAds()
         {
-            $flgFile = XOOPS_TRUST_PATH . '/cache/wizmobile_ads_flg_' . Wizin_Util::salt(XOOPS_SALT);
+            $flgFile = XOOPS_TRUST_PATH . '/cache/wizmobile_ads_flg_' . Wizin_Util::fprefix();
             if (! file_exists($flgFile)) {
                 touch($flgFile);
             }
-            $cacheObject = new Wizin_Cache('wizmobile_ads_cache_', Wizin_Util::salt(XOOPS_SALT));
+            $cacheObject = new Wizin_Cache('wizmobile_ads_cache_', Wizin_Util::fprefix());
             if ($cacheObject->isCached($flgFile)) {
                 $params = $cacheObject->load();
             } else {
@@ -634,6 +694,14 @@ if (! class_exists('WizMobile')) {
             }
             $adsTag = Wizin_Util_Web::getContentsByHttp($adsUrl);
             $adsTag = mb_convert_encoding($adsTag, mb_internal_encoding(), $user->sEncoding);
+            $pattern = '(<a)([^>]*)(href=)([\"\'])([^\"\']*)([\"\'])([^>]*)(>)';
+            preg_match_all("/" .$pattern ."/i", $adsTag, $matches, PREG_SET_ORDER);
+            if (! empty($matches)) {
+                foreach ($matches as $key => $match) {
+                    $adsTag = str_replace($match[3] .$match[4] .$match[5] .$match[6],
+                        $match[3] .$match[4] .'@' .$match[5] .'@' .$match[6], $adsTag);
+                }
+            }
             return $adsTag;
         }
 
@@ -642,11 +710,11 @@ if (! class_exists('WizMobile')) {
             // init process
             $xcRoot =& XCube_Root::getSingleton();
             // get theme setting by cache
-            $flgFile = XOOPS_TRUST_PATH . '/cache/wizmobile_theme_flg_' . Wizin_Util::salt(XOOPS_SALT);
+            $flgFile = XOOPS_TRUST_PATH . '/cache/wizmobile_theme_flg_' . Wizin_Util::fprefix();
             if (! file_exists($flgFile)) {
                 touch($flgFile);
             }
-            $cacheObject = new Wizin_Cache('wizmobile_theme_cache_', Wizin_Util::salt(XOOPS_SALT));
+            $cacheObject = new Wizin_Cache('wizmobile_theme_cache_', Wizin_Util::fprefix());
             if ($cacheObject->isCached($flgFile)) {
                 $themes = $cacheObject->load();
             } else {
@@ -725,6 +793,10 @@ if (! class_exists('WizMobile')) {
                 }
             }
             return $tplSource;
+        }
+
+        function setReplaceLinkMode($mode = true) {
+            $this->_replaceLinkMode = $mode;
         }
     }
 }
