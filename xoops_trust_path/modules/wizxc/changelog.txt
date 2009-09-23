@@ -1,4 +1,7 @@
 ----------------------------------
+[2009-09-24 Ver 0.31]
+- Removed constant define, and modified init process.
+----------------------------------
 [2009-08-06 Ver 0.30]
 - Fixed bug about notice message will be displayed.
 ----------------------------------
