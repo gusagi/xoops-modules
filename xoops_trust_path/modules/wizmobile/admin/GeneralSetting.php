@@ -55,7 +55,7 @@ if (strtolower($method) === 'post') {
     $configTable = $db->prefix($this->_sFrontDirName . '_configs');
     $now = date('Y-m-d H:i:s');
     $allowItems = array('login', 'theme', 'template_set', 'lookup', 'othermobile',
-        'pager', 'content_type', 'emoji_support');
+        'pager', 'content_type', 'emoji_support', 'trust_ip', 'session_lifetime');
     $sqlArray = array();
     $requestItems = (! empty($_REQUEST['wmc_item']) && is_array($_REQUEST['wmc_item'])) ?
         $_REQUEST['wmc_item']: array();

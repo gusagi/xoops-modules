@@ -9,7 +9,9 @@
       <{* Login *}>
       <tr class="<{cycle values="odd,even"}>">
         <td>
-          <div style="font-size: 110%; font-weight: bolder;"><{"WIZMOBILE_LANG_LOGIN"|wiz_constant}></div>
+          <div style="font-size: 110%; font-weight: bolder;">
+            <{"WIZMOBILE_LANG_LOGIN"|wiz_constant}>
+          </div>
         </td>
         <td>
           <span style="margin: 0 0.5em 0 0.5em;">
@@ -24,13 +26,17 @@
               <{"WIZMOBILE_LANG_DISABLE"|wiz_constant}>
             </label>
           </span>
-          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;"><{"WIZMOBILE_LANG_LOGIN_DESC"|wiz_constant}></div>
+          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;">
+            <{"WIZMOBILE_LANG_LOGIN_DESC"|wiz_constant}>
+          </div>
         </td>
       </tr>
       <{* Theme *}>
       <tr class="<{cycle values="odd,even"}>">
         <td>
-          <div style="font-size: 110%; font-weight: bolder;"><{"WIZMOBILE_LANG_THEME"|wiz_constant}></div>
+          <div style="font-size: 110%; font-weight: bolder;">
+            <{"WIZMOBILE_LANG_THEME"|wiz_constant}>
+          </div>
         </td>
         <td>
           <select name="wmc_item[theme]">
@@ -38,13 +44,17 @@
               <option value="<{$itm_themes}>" style="min-width: 120px;" <{if $configs.theme.wmc_value == $itm_themes}>selected="selected"<{/if}> ><{$itm_themes}></option>
             <{/foreach}>
           </select>
-          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;"><{"WIZMOBILE_LANG_THEME_DESC"|wiz_constant}></div>
+          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;">
+            <{"WIZMOBILE_LANG_THEME_DESC"|wiz_constant}>
+          </div>
         </td>
       </tr>
       <{* Template set *}>
       <tr class="<{cycle values="odd,even"}>">
         <td>
-          <div style="font-size: 110%; font-weight: bolder;"><{"WIZMOBILE_LANG_TPLSET"|wiz_constant}></div>
+          <div style="font-size: 110%; font-weight: bolder;">
+            <{"WIZMOBILE_LANG_TPLSET"|wiz_constant}>
+          </div>
         </td>
         <td>
           <select name="wmc_item[template_set]">
@@ -53,13 +63,17 @@
               <option value="<{$itm_tplsets.tplset_id}>" style="min-width: 120px;" <{if $configs.template_set.wmc_value == $itm_tplsets.tplset_id}>selected="selected"<{/if}> ><{$itm_tplsets.tplset_name}></option>
             <{/foreach}>
           </select>
-          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;"><{"WIZMOBILE_LANG_TPLSET_DESC"|wiz_constant}></div>
+          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;">
+            <{"WIZMOBILE_LANG_TPLSET_DESC"|wiz_constant}>
+          </div>
         </td>
       </tr>
       <{* Lookup *}>
       <tr class="<{cycle values="odd,even"}>">
         <td>
-          <div style="font-size: 110%; font-weight: bolder;"><{"WIZMOBILE_LANG_LOOKUP"|wiz_constant}></div>
+          <div style="font-size: 110%; font-weight: bolder;">
+            <{"WIZMOBILE_LANG_LOOKUP"|wiz_constant}>
+          </div>
         </td>
         <td>
           <span style="margin: 0 0.5em 0 0.5em;">
@@ -74,13 +88,17 @@
               <{"WIZMOBILE_LANG_DISABLE"|wiz_constant}>
             </label>
           </span>
-          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;"><{"WIZMOBILE_LANG_LOOKUP_DESC"|wiz_constant}></div>
+          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;">
+            <{"WIZMOBILE_LANG_LOOKUP_DESC"|wiz_constant}>
+          </div>
         </td>
       </tr>
       <{* OtherMobile *}>
       <tr class="<{cycle values="odd,even"}>">
         <td>
-          <div style="font-size: 110%; font-weight: bolder;"><{"WIZMOBILE_LANG_OTHERMOBILE"|wiz_constant}></div>
+          <div style="font-size: 110%; font-weight: bolder;">
+            <{"WIZMOBILE_LANG_OTHERMOBILE"|wiz_constant}>
+          </div>
         </td>
         <td>
           <span style="margin: 0 0.5em 0 0.5em;">
@@ -95,13 +113,17 @@
               <{"WIZMOBILE_LANG_DISABLE"|wiz_constant}>
             </label>
           </span>
-          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;"><{"WIZMOBILE_LANG_OTHERMOBILE_DESC"|wiz_constant}></div>
+          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;">
+            <{"WIZMOBILE_LANG_OTHERMOBILE_DESC"|wiz_constant}>
+          </div>
         </td>
       </tr>
       <{* Pager *}>
       <tr class="<{cycle values="odd,even"}>">
         <td>
-          <div style="font-size: 110%; font-weight: bolder;"><{"WIZMOBILE_LANG_PAGER"|wiz_constant}></div>
+          <div style="font-size: 110%; font-weight: bolder;">
+            <{"WIZMOBILE_LANG_PAGER"|wiz_constant}>
+          </div>
         </td>
         <td>
           <span style="margin: 0 0.5em 0 0.5em;">
@@ -116,13 +138,17 @@
               <{"WIZMOBILE_LANG_DISABLE"|wiz_constant}>
             </label>
           </span>
-          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;"><{"WIZMOBILE_LANG_PAGER_DESC"|wiz_constant}></div>
+          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;">
+            <{"WIZMOBILE_LANG_PAGER_DESC"|wiz_constant}>
+          </div>
         </td>
       </tr>
       <{* Content-Type *}>
       <tr class="<{cycle values="odd,even"}>">
         <td>
-          <div style="font-size: 110%; font-weight: bolder;"><{"WIZMOBILE_LANG_CONTENT_TYPE"|wiz_constant}></div>
+          <div style="font-size: 110%; font-weight: bolder;">
+            <{"WIZMOBILE_LANG_CONTENT_TYPE"|wiz_constant}>
+          </div>
         </td>
         <td>
           <span style="margin: 0 0.5em 0 0.5em;">
@@ -137,13 +163,17 @@
               html
             </label>
           </span>
-          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;"><{"WIZMOBILE_LANG_CONTENT_TYPE_DESC"|wiz_constant}></div>
+          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;">
+            <{"WIZMOBILE_LANG_CONTENT_TYPE_DESC"|wiz_constant}>
+          </div>
         </td>
       </tr>
       <{* EmojiSupport *}>
       <tr class="<{cycle values="odd,even"}>">
         <td>
-          <div style="font-size: 110%; font-weight: bolder;"><{"WIZMOBILE_LANG_EMOJI_SUPPORT"|wiz_constant}></div>
+          <div style="font-size: 110%; font-weight: bolder;">
+            <{"WIZMOBILE_LANG_EMOJI_SUPPORT"|wiz_constant}>
+          </div>
         </td>
         <td>
           <span style="margin: 0 0.5em 0 0.5em;">
@@ -158,9 +188,47 @@
               <{"WIZMOBILE_LANG_DISABLE"|wiz_constant}>
             </label>
           </span>
-          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;"><{"WIZMOBILE_LANG_EMOJI_SUPPORT_DESC"|wiz_constant}></div>
+          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;">
+            <{"WIZMOBILE_LANG_EMOJI_SUPPORT_DESC"|wiz_constant}>
+          </div>
         </td>
       </tr>
+
+
+      <{* TrustIP *}>
+      <tr class="<{cycle values="odd,even"}>">
+        <td>
+          <div style="font-size: 110%; font-weight: bolder;">
+            <{"WIZMOBILE_LANG_TRUST_IP"|wiz_constant}>
+          </div>
+        </td>
+        <td>
+          <textarea name="wmc_item[trust_ip]" style="width: 24em; height: 3em;"><{$configs.trust_ip.wmc_value|escape}></textarea>
+          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;">
+            <{"WIZMOBILE_LANG_TRUST_IP_DESC"|wiz_constant}><br />
+            <span style="color: #ff0000"><{"WIZMOBILE_MSG_TRUST_IP_NOTICE"|wiz_constant}></span>
+          </div>
+        </td>
+      </tr>
+
+      <{* SessionLifetime *}>
+      <tr class="<{cycle values="odd,even"}>">
+        <td>
+          <div style="font-size: 110%; font-weight: bolder;">
+            <{"WIZMOBILE_LANG_SESSION_LIFETIME"|wiz_constant}>
+          </div>
+        </td>
+        <td>
+          <input type="text" name="wmc_item[session_lifetime]" style="width: 4em;" value="<{$configs.session_lifetime.wmc_value|escape}>" />
+          <{"WIZMOBILE_LANG_MINUTE"|wiz_constant}>
+          <div style="font-size: 90%; font-weight: lighter; margin: 0.5em 0 0 2em;">
+            <{"WIZMOBILE_LANG_SESSION_LIFETIME_DESC"|wiz_constant}><br />
+            <span style="color: #ff0000"><{"WIZMOBILE_MSG_SESSION_LIFETIME_NOTICE"|wiz_constant}></span>
+          </div>
+        </td>
+      </tr>
+
+
     </table>
     <div style="text-align: center; width: 100%; margin: auto;">
       <input type="hidden" name="act" value="GeneralSetting" />
