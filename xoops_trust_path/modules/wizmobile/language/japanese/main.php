@@ -31,15 +31,15 @@
  *
  */
 
-//
-// module info
-//
+/**
+ * module info
+ */
 Wizin_Util::define('WIZMOBILE_MODINFO_NAME', '携帯対応モジュール');
 Wizin_Util::define('WIZMOBILE_MODINFO_DESC', 'XOOPS Cube Legacyで構築したサイトを携帯でも利用可能にするモジュール');
 
-//
-// message
-//
+/**
+ * message
+ */
 
 // main area / all
 Wizin_Util::define('WIZMOBILE_MSG_DENY_LOGIN_PAGE', '申し訳ありませんが、このサイトは携帯からはログイン出来ません<br />PCでの操作をお願い致します');
@@ -94,21 +94,30 @@ Wizin_Util::define('WIZMOBILE_MSG_UPDATE_GENERAL_SETTING_SUCCESS', '一般設定の更
 Wizin_Util::define('WIZMOBILE_MSG_UPDATE_GENERAL_SETTING_FAILED', '一般設定の更新に失敗しました');
 
 
-//
-// error message
-//
+/**
+ * error message
+ */
 Wizin_Util::define('WIZMOBILE_ERR_PHP_VERSION', 'このモジュールは、PHP4.4以上でなければインストール出来ません');
 Wizin_Util::define('WIZMOBILE_ERR_TICKET_NOT_FOUND', 'ワンタイムチケットが見つかりません<br />お手数ですが、もう一度操作をお願いします');
 
-//
-// language for main area
-//
+/**
+ * language for main area
+ */
+// main area / login
 Wizin_Util::define('WIZMOBILE_LANG_SIMPLE_LOGIN', '簡単ログイン');
 Wizin_Util::define('WIZMOBILE_LANG_REGISTER_UNIQID', '機種ID登録');
 
-//
-// language for admin area
-//
+// main area / extconfirm
+Wizin_Util::define('WIZMOBILE_LANG_EXTLINK_CONFIRM', '別のサイトに移動しようとしています');
+Wizin_Util::define('WIZMOBILE_LANG_EXTLINK_INVALID', 'リンク先の取得に失敗しました');
+Wizin_Util::define('WIZMOBILE_LANG_EXTLINK_URL_DISPLAY', 'リンク先URL');
+Wizin_Util::define('WIZMOBILE_LANG_EXTLINK_URL_COPY', 'URLをコピー');
+Wizin_Util::define('WIZMOBILE_LANG_EXTLINK_GO_EXTERNAL', 'リンク先に移動する');
+Wizin_Util::define('WIZMOBILE_LANG_EXTLINK_BACK_INTERNAL', '元のページに戻る');
+
+/**
+ * language for admin area
+ */
 Wizin_Util::define('WIZMOBILE_LANG_SYSTEM_STATUS', 'システムの状況');
 Wizin_Util::define('WIZMOBILE_LANG_BLOCK_CONTROL', 'ブロック制御');
 Wizin_Util::define('WIZMOBILE_LANG_MODULE_CONTROL', 'モジュール制御');
@@ -171,11 +180,18 @@ Wizin_Util::define('WIZMOBILE_LANG_CONTENT_TYPE', 'コンテンツタイプ');
 Wizin_Util::define('WIZMOBILE_LANG_CONTENT_TYPE_DESC', '携帯からのアクセスに対して、コンテンツを送出するタイプを選択して下さい');
 Wizin_Util::define('WIZMOBILE_LANG_EMOJI_SUPPORT', '絵文字入力支援');
 Wizin_Util::define('WIZMOBILE_LANG_EMOJI_SUPPORT_DESC', '絵文字の入力支援を利用する場合は、有効を選択して下さい');
+Wizin_Util::define('WIZMOBILE_LANG_TRUST_IP', '信用できるIP');
+Wizin_Util::define('WIZMOBILE_LANG_TRUST_IP_DESC', 'セッションの厳密なチェックを行わないIPアドレス<br />| で区切って記述して下さい。正規表現も利用可能です');
+Wizin_Util::define('WIZMOBILE_MSG_TRUST_IP_NOTICE', 'ここで設定したIPアドレス以外からのアクセスでは、実機でない限りセッションは強制的に破棄されます');
+Wizin_Util::define('WIZMOBILE_LANG_SESSION_LIFETIME', 'セッション生存時間');
+Wizin_Util::define('WIZMOBILE_LANG_SESSION_LIFETIME_DESC', 'アクセスがない状態でセッションが維持される時間を分単位で指定して下さい<br />初期値は15分です');
+Wizin_Util::define('WIZMOBILE_MSG_SESSION_LIFETIME_NOTICE', '値を大きくするほどセッションハイジャックの危険性が上がりますのでご注意下さい');
 
 
-//
-// language for all area
-//
+
+/**
+ * language for all area
+ */
 Wizin_Util::define('WIZMOBILE_LANG_SETTING', '設定');
 Wizin_Util::define('WIZMOBILE_LANG_REGISTER', '登録');
 Wizin_Util::define('WIZMOBILE_LANG_UPDATE', '更新');
@@ -184,10 +200,11 @@ Wizin_Util::define('WIZMOBILE_LANG_ENABLE', '有効');
 Wizin_Util::define('WIZMOBILE_LANG_DISABLE', '無効');
 Wizin_Util::define('WIZMOBILE_LANG_NONE_SETTING', '設定なし');
 Wizin_Util::define('WIZMOBILE_LANG_EMOTICON', '絵文字');
+Wizin_Util::define('WIZMOBILE_LANG_MINUTE', '分');
 
-//
-// language for theme
-//
+/**
+ * language for theme
+ */
 Wizin_Util::define('WIZMOBILE_LANG_LOGIN', 'ログイン');
 Wizin_Util::define('WIZMOBILE_LANG_LOGOUT', 'ログアウト');
 Wizin_Util::define('WIZMOBILE_LANG_PAGE_TOP', '▲上へ');

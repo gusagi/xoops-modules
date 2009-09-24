@@ -31,15 +31,15 @@
  *
  */
 
-//
-// module info
-//
+/**
+ * module info
+ */
 Wizin_Util::define('WIZMOBILE_MODINFO_NAME', 'WizMobile');
 Wizin_Util::define('WIZMOBILE_MODINFO_DESC', 'Web site which with XOOPS Cube Legacy was made can be utilized by the portable telephone.');
 
-//
-// message
-//
+/**
+ * message
+ */
 
 // main area / all
 Wizin_Util::define('WIZMOBILE_MSG_DENY_LOGIN_PAGE', 'Sorry, it cannot login from the portable telephone,<br /> we request the operation with PC');
@@ -94,21 +94,30 @@ Wizin_Util::define('WIZMOBILE_MSG_UPDATE_GENERAL_SETTING_SUCCESS', 'Update of ge
 Wizin_Util::define('WIZMOBILE_MSG_UPDATE_GENERAL_SETTING_FAILED', 'It failed in update of generality setting.');
 
 
-//
-// error message
-//
+/**
+ * error message
+ */
 Wizin_Util::define('WIZMOBILE_ERR_PHP_VERSION', 'Sorry, this module cannot install, because it needs PHP4.4.X or upper version.');
 Wizin_Util::define('WIZMOBILE_ERR_TICKET_NOT_FOUND', 'The one-time ticket is not found.<br />Sorry, but we ask operation once more, please.');
 
-//
-// language for main area
-//
+/**
+ * language for main area
+ */
+// main area / login
 Wizin_Util::define('WIZMOBILE_LANG_SIMPLE_LOGIN', 'Simple Login');
 Wizin_Util::define('WIZMOBILE_LANG_REGISTER_UNIQID', 'Register terminal specific ID');
 
-//
-// language for admin area
-//
+// main area / extconfirm
+Wizin_Util::define('WIZMOBILE_LANG_EXTLINK_CONFIRM', 'It will be go to other web site.');
+Wizin_Util::define('WIZMOBILE_LANG_EXTLINK_INVALID', 'It failed in get url of external link.');
+Wizin_Util::define('WIZMOBILE_LANG_EXTLINK_URL_DISPLAY', 'URL');
+Wizin_Util::define('WIZMOBILE_LANG_EXTLINK_URL_COPY', 'Copy URL');
+Wizin_Util::define('WIZMOBILE_LANG_EXTLINK_GO_EXTERNAL', 'Go to other web site.');
+Wizin_Util::define('WIZMOBILE_LANG_EXTLINK_BACK_INTERNAL', 'Back to before page.');
+
+/**
+ * language for admin area
+ */
 Wizin_Util::define('WIZMOBILE_LANG_SYSTEM_STATUS', 'System status');
 Wizin_Util::define('WIZMOBILE_LANG_BLOCK_CONTROL', 'Block control');
 Wizin_Util::define('WIZMOBILE_LANG_MODULE_CONTROL', 'Module control');
@@ -171,11 +180,17 @@ Wizin_Util::define('WIZMOBILE_LANG_CONTENT_TYPE', 'Content-type');
 Wizin_Util::define('WIZMOBILE_LANG_CONTENT_TYPE_DESC', 'Whether access from mobile, please select the type which forwards the contents');
 Wizin_Util::define('WIZMOBILE_LANG_EMOJI_SUPPORT', 'Emoticon input support');
 Wizin_Util::define('WIZMOBILE_LANG_EMOJI_SUPPORT_DESC', 'If you would like to enable emoticon input support, please check "Enable".');
+Wizin_Util::define('WIZMOBILE_LANG_TRUST_IP', 'Trust IP');
+Wizin_Util::define('WIZMOBILE_LANG_TRUST_IP_DESC', 'The IP address which does not check session strictly<br />Dividing with |, please describe. Also regular expression is available.');
+Wizin_Util::define('WIZMOBILE_MSG_TRUST_IP_NOTICE', 'If with access from other than the IP address which is set here, it is not cell phone, session is cancelled mandatorily');
+Wizin_Util::define('WIZMOBILE_LANG_SESSION_LIFETIME', 'Session lifetime');
+Wizin_Util::define('WIZMOBILE_LANG_SESSION_LIFETIME_DESC', 'Please appoint the time when session is maintained when it does not have access.<br />Initial value is 15 minutes');
+Wizin_Util::define('WIZMOBILE_MSG_SESSION_LIFETIME_NOTICE', 'Because danger of the extent session hijack which enlarges value rises note.');
 
 
-//
-// language for all area
-//
+/**
+ * language for all area
+ */
 Wizin_Util::define('WIZMOBILE_LANG_SETTING', 'Setting');
 Wizin_Util::define('WIZMOBILE_LANG_REGISTER', 'Register');
 Wizin_Util::define('WIZMOBILE_LANG_UPDATE', 'Update');
@@ -184,10 +199,11 @@ Wizin_Util::define('WIZMOBILE_LANG_ENABLE', 'Enable');
 Wizin_Util::define('WIZMOBILE_LANG_DISABLE', 'Disable');
 Wizin_Util::define('WIZMOBILE_LANG_NONE_SETTING', 'None');
 Wizin_Util::define('WIZMOBILE_LANG_EMOTICON', 'Emoticon');
+Wizin_Util::define('WIZMOBILE_LANG_MINUTE', 'Minutes');
 
-//
-// language for theme
-//
+/**
+ * language for theme
+ */
 Wizin_Util::define('WIZMOBILE_LANG_LOGIN', 'Login');
 Wizin_Util::define('WIZMOBILE_LANG_LOGOUT', 'Logout');
 Wizin_Util::define('WIZMOBILE_LANG_PAGE_TOP', 'Page Top');
