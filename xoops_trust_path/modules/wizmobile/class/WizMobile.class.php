@@ -240,8 +240,7 @@ if (! class_exists('WizMobile')) {
              */
             $sessionLifetime = 15;
             if (isset($configs['session_lifetime']) &&
-                    isset($configs['session_lifetime']['wmc_value']) &&
-                    $configs['session_lifetime']['wmc_value'] !== '') {
+                    ! empty($configs['session_lifetime']['wmc_value'])) {
                 $sessionLifetime = intval($configs['session_lifetime']['wmc_value']);
             }
             $sessionLifetime = $sessionLifetime * 60;
