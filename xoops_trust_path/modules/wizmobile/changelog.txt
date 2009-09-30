@@ -1,5 +1,6 @@
 ----------------------------------
-[2009-09-24 Ver 0.44 -> 0.50]
+[2009-09-30 Ver 0.44 -> 0.50]
+- Fixed bug about block show-function exist check.
 - Added external link confirm action.
 - Added config item 'trust_ip' and 'session_lifetime'.
 - Modified session check logic.
