@@ -151,8 +151,12 @@ if (! class_exists('WizMobile')) {
                     $user->bIsMobile = $otherMobile;
                 }
                 if ($user->bIsMobile) {
-	                // add delegate
-	                $xcRoot->mDelegateManager->add('XoopsTpl.New' , array($this , 'mobileTpl')) ;
+                    // add delegate
+                    $xcRoot->mDelegateManager->add('XoopsTpl.New' , array($this , 'mobileTpl')) ;
+                    $xcRoot->mController->mSetBlockCachePolicy->add(array($this, 'disableCache'),
+	                    XCUBE_DELEGATE_PRIORITY_FIRST + 11);
+                    $xcRoot->mController->mSetModuleCachePolicy->add(array($this, 'disableCache'),
+                        XCUBE_DELEGATE_PRIORITY_FIRST + 11);
                     // set session ini
                     ini_set('session.use_cookies', "0");
                     ini_set('session.use_only_cookies', "0");
@@ -794,8 +798,14 @@ if (! class_exists('WizMobile')) {
             return $tplSource;
         }
 
-        function setReplaceLinkMode($mode = true) {
+        function setReplaceLinkMode($mode = true)
+        {
             $this->_replaceLinkMode = $mode;
+        }
+
+        function disableCache(&$cacheInfo)
+        {
+            $cacheInfo->setEnableCache(false);
         }
     }
 }

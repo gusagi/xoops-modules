@@ -1,5 +1,6 @@
 ----------------------------------
 [2009-10-03 Ver 0.44 -> 0.50]
+- Added function for disable cache with cell phone access.(thx aki1222 and GIJOE)
 - Added external link confirm action.
 - Added config item 'trust_ip' and 'session_lifetime'.
 - Modified session check logic.
