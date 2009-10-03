@@ -1,8 +1,9 @@
 ----------------------------------
-[2009-09-24 Ver 0.44 -> 0.50]
+[2009-10-03 Ver 0.44 -> 0.50]
 - Added external link confirm action.
 - Added config item 'trust_ip' and 'session_lifetime'.
 - Modified session check logic.
+- Modiifed preload (divide function).
 - 'Wizin' updated from '0.52' to '0.53'.
 - 'WizXc' module updated from '0.30' to '0.31'.
 ----------------------------------

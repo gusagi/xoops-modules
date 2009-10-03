@@ -57,49 +57,56 @@ if (! class_exists('WizMobile_Preload')) {
             $wizMobile =& WizMobile::getSingleton();
             $user = & Wizin_User::getSingleton();
             if ($user->bIsMobile) {
-                $xcRoot =& XCube_Root::getSingleton();
-                $wizMobileAction =& $wizMobile->getActionClass();
-                // deny access module check
-                $xoopsModule =& $xcRoot->mContext->mXoopsModule;
-                if (isset($xoopsModule) && is_object($xoopsModule)) {
-                    $mid = $xoopsModule->getVar('mid');
-                    $denyAccessModules = $wizMobileAction->getDenyAccessModules();
-                    if (in_array($mid, $denyAccessModules)) {
-                        $wizMobile->denyAccessModuleArea();
-                    }
-                }
-                $configs = $wizMobileAction->getConfigs();
-                // add delegate
-                if ((empty($configs['login']) || $configs['login']['wmc_value'] !== '1') &&
-                        ! is_object($xcRoot->mContext->mXoopsUser)) {
-                    $xcRoot->mDelegateManager->add('Legacypage.User.Access',
-                        array($wizMobile, 'denyAccessLoginPage'), XCUBE_DELEGATE_PRIORITY_FIRST);
-                }
-                $xcRoot->mDelegateManager->add('Site.CheckLogin.Success', array($wizMobile, 'directLoginSuccess'),
-                    XCUBE_DELEGATE_PRIORITY_FINAL + 1);
-                $xcRoot->mDelegateManager->add('Site.CheckLogin.Success', array($wizMobile, 'resetUserTheme'),
-                    XCUBE_DELEGATE_PRIORITY_FINAL - 1);
-                $xcRoot->mDelegateManager->add('Site.CheckLogin.Fail', array($wizMobile, 'directLoginFail'));
-                $xcRoot->mDelegateManager->add('Site.Logout.Success', array($wizMobile, 'directLogout'),
-                    XCUBE_DELEGATE_PRIORITY_FINAL + 1);
-                $xcRoot->mDelegateManager->add('Site.Logout.Fail', array($wizMobile, 'directLogout'),
-                    XCUBE_DELEGATE_PRIORITY_FINAL + 1);
-                $xcRoot->mDelegateManager->add('Legacy_AdminControllerStrategy.SetupBlock',
-                    array($wizMobile, 'denyAccessAdminArea'), XCUBE_DELEGATE_PRIORITY_FIRST);
-                // overwrite comment mode
-                if (isset($xcRoot->mContext->mXoopsUser) && is_object($xcRoot->mContext->mXoopsUser)) {
-                    $xcRoot->mContext->mXoopsUser->setVar('umode', 'flat');
-                } else {
-                    $GLOBALS['xoopsConfig']['com_mode'] = 'flat';
-                }
-                // check session security
-                if (! $user->bIsBot) {
-                    // check session
-                    $wizMobile->checkMobileSession();
-                }
-                // exchange theme
-                $wizMobile->overrideTheme();
+                $this->_mobileFilter();
             }
+        }
+
+        function _mobileFilter()
+        {
+            $xcRoot =& XCube_Root::getSingleton();
+            $wizMobile =& WizMobile::getSingleton();
+            $user = & Wizin_User::getSingleton();
+            $wizMobileAction =& $wizMobile->getActionClass();
+            // deny access module check
+            $xoopsModule =& $xcRoot->mContext->mXoopsModule;
+            if (isset($xoopsModule) && is_object($xoopsModule)) {
+                $mid = $xoopsModule->getVar('mid');
+                $denyAccessModules = $wizMobileAction->getDenyAccessModules();
+                if (in_array($mid, $denyAccessModules)) {
+                    $wizMobile->denyAccessModuleArea();
+                }
+            }
+            $configs = $wizMobileAction->getConfigs();
+            // add delegate
+            if ((empty($configs['login']) || $configs['login']['wmc_value'] !== '1') &&
+                    ! is_object($xcRoot->mContext->mXoopsUser)) {
+                $xcRoot->mDelegateManager->add('Legacypage.User.Access',
+                    array($wizMobile, 'denyAccessLoginPage'), XCUBE_DELEGATE_PRIORITY_FIRST);
+            }
+            $xcRoot->mDelegateManager->add('Site.CheckLogin.Success', array($wizMobile, 'directLoginSuccess'),
+                XCUBE_DELEGATE_PRIORITY_FINAL + 1);
+            $xcRoot->mDelegateManager->add('Site.CheckLogin.Success', array($wizMobile, 'resetUserTheme'),
+                XCUBE_DELEGATE_PRIORITY_FINAL - 1);
+            $xcRoot->mDelegateManager->add('Site.CheckLogin.Fail', array($wizMobile, 'directLoginFail'));
+            $xcRoot->mDelegateManager->add('Site.Logout.Success', array($wizMobile, 'directLogout'),
+                XCUBE_DELEGATE_PRIORITY_FINAL + 1);
+            $xcRoot->mDelegateManager->add('Site.Logout.Fail', array($wizMobile, 'directLogout'),
+                XCUBE_DELEGATE_PRIORITY_FINAL + 1);
+            $xcRoot->mDelegateManager->add('Legacy_AdminControllerStrategy.SetupBlock',
+                array($wizMobile, 'denyAccessAdminArea'), XCUBE_DELEGATE_PRIORITY_FIRST);
+            // overwrite comment mode
+            if (isset($xcRoot->mContext->mXoopsUser) && is_object($xcRoot->mContext->mXoopsUser)) {
+                $xcRoot->mContext->mXoopsUser->setVar('umode', 'flat');
+            } else {
+                $GLOBALS['xoopsConfig']['com_mode'] = 'flat';
+            }
+            // check session security
+            if (! $user->bIsBot) {
+                // check session
+                $wizMobile->checkMobileSession();
+            }
+            // exchange theme
+            $wizMobile->overrideTheme();
         }
     }
 }
