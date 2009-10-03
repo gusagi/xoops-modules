@@ -227,7 +227,7 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
                             continue;
                         }
                         $show_func = $blockObject->getVar('show_func');
-                        if (! function_exists($show_func)) {
+                        if (function_exists($show_func)) {
                             $blockProcedure =& Legacy_Utils::createBlockProcedure($blockObject);
                             if ($blockProcedure->prepare() !== false) {
                                 // get block contents
