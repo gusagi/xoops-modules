@@ -63,7 +63,8 @@ if (! class_exists('WizMobile')) {
         {
             // block display mode
             define('WIZMOBILE_BLOCK_INVISIBLE', 0);
-            define('WIZMOBILE_BLOCK_VISIBLE', 1);
+            define('WIZMOBILE_BLOCK_VISIBLE_TITLE', 1);
+            define('WIZMOBILE_BLOCK_VISIBLE_ALL', 2);
             // connector string and current uri
             if (WIZXC_URI_CONNECTOR === '&') {
                 if (! empty($_REQUEST['mobilebid'])) {
@@ -408,11 +409,16 @@ if (! class_exists('WizMobile')) {
             $user = & Wizin_User::getSingleton();
             $actionClass =& $this->getActionClass();
             $frontDirName = str_replace('_wizmobile_action', '', strtolower(get_class($actionClass)));
+            $pattern = '(' .SID .')(&|&amp;)?';
+            $currentUri = preg_replace('/' . $pattern . '/', '', WIZXC_CURRENT_URI);
+            if (substr($currentUri, -1, 1) === '?' || substr($currentUri, -1, 1) === '&') {
+                $currentUri = substr($currentUri, 0, strlen($currentUri) - 1);
+            }
             if (! $user->bIsBot && $this->_replaceLinkMode) {
                 $params = array(
                     array(
                         'baseUri' => XOOPS_URL,
-                        'currentUri' => WIZXC_CURRENT_URI,
+                        'currentUri' => $currentUri,
                         'extlinkKey' => WIZMOBILE_EXTLINK_KEY,
                         'extConfirmUrl' => XOOPS_URL .'/modules/' .
                             $frontDirName .'/?act=ExtConfirm',
@@ -425,10 +431,10 @@ if (! class_exists('WizMobile')) {
             $params = array(
                 array(
                     'baseUri' => XOOPS_URL,
-                    'currentUri' => WIZMOBILE_CURRENT_URI,
+                    'currentUri' => $currentUri,
                     'basePath' => XOOPS_ROOT_PATH,
                     'createDir' => XOOPS_ROOT_PATH .'/uploads/wizmobile',
-                    'maxWidth' => $user->iWidth
+                    'maxWidth' => $user->iWidth - 20
                 )
             );
             $filter->addOutputFilter(array($filter, 'filterOptimizeMobile'), $params);
@@ -465,7 +471,8 @@ if (! class_exists('WizMobile')) {
 
         function checkSessionFixation()
         {
-            if (strpos($_SERVER['REQUEST_URI'], session_name()) !== false && strpos(WIZXC_CURRENT_URI, XOOPS_URL . '/user.php') !== 0) {
+            if (strpos($_SERVER['REQUEST_URI'], session_name()) !== false &&
+                    strpos(WIZXC_CURRENT_URI, XOOPS_URL . '/user.php') !== 0) {
                 $urlArray = explode(session_name(), WIZXC_CURRENT_URI);
                 $url = $urlArray[0];
                 if (substr($url, -1, 1) === '?' || substr($url, -1, 1) === '&') {

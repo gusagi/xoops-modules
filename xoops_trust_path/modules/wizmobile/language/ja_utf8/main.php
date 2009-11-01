@@ -103,6 +103,9 @@ Wizin_Util::define('WIZMOBILE_ERR_TICKET_NOT_FOUND', 'ワンタイムチケッ�
 /**
  * language for main area
  */
+// main area / all
+Wizin_Util::define('WIZMOBILE_LANG_DISPLAY_BLOCK_CONTENTS', 'ブロックの内容を表示する');
+
 // main area / login
 Wizin_Util::define('WIZMOBILE_LANG_SIMPLE_LOGIN', '簡単ログイン');
 Wizin_Util::define('WIZMOBILE_LANG_REGISTER_UNIQID', '機種ID登録');
@@ -138,6 +141,8 @@ Wizin_Util::define('WIZMOBILE_LANG_BLOCK_TITLE', 'ブロックタイトル');
 Wizin_Util::define('WIZMOBILE_LANG_MODULE_NAME', 'モジュール名');
 Wizin_Util::define('WIZMOBILE_LANG_DIRNAME', 'ディレクトリ');
 Wizin_Util::define('WIZMOBILE_LANG_VISIBLE', '表示');
+Wizin_Util::define('WIZMOBILE_LANG_VISIBLE_TITLE', 'タイトルのみ表示');
+Wizin_Util::define('WIZMOBILE_LANG_VISIBLE_ALL', '全て表示');
 Wizin_Util::define('WIZMOBILE_LANG_INVISIBLE', '非表示');
 Wizin_Util::define('WIZMOBILE_LANG_WEIGHT', '並び順');
 

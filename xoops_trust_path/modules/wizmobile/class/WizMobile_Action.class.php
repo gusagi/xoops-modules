@@ -91,15 +91,48 @@ if (! class_exists('WizMobile_Action')) {
             return $blocks;
         }
 
-        function getWizMobileBlocks($visible = '')
+        function getWizMobileBlocks($visibles = '')
         {
             $blocks = array();
             $db =& XoopsDatabaseFactory::getDatabaseConnection();
             $blockTable = $db->prefix($this->_sFrontDirName . '_blocks');
             // TODO : use ORM
             $sql = "SELECT * FROM `$blockTable` WHERE `wmb_delete_datetime` = '0000-00-00 00:00:00'";
-            if ($visible !== '') {
-                $sql .= " AND `wmb_visible` = " . intval($visible);
+            if ($visibles !== '') {
+                $sql .= " AND `wmb_visible` IN ( ";
+                if (! is_array($visibles)) {
+                    $visibles = array($visibles);
+                }
+                array_walk($visibles, 'intval');
+                $sql .= implode(',', $visibles) ." ) ";
+            }
+            $sql .= " ORDER BY `$blockTable`.`wmb_visible` DESC, `$blockTable`.`wmb_weight`, " .
+                " `$blockTable`.`wmb_bid`";
+            if ($resource = $db->query($sql)) {
+                while ($result = $db->fetchArray($resource)) {
+                    if ($result !== false && ! empty($result)) {
+                        $wmb_bid = intval($result['wmb_bid']);
+                        $blocks[$wmb_bid] = $result;
+                    }
+                }
+            }
+            return $blocks;
+        }
+
+        function getWizMobileBlocksById($ids = '')
+        {
+            $blocks = array();
+            $db =& XoopsDatabaseFactory::getDatabaseConnection();
+            $blockTable = $db->prefix($this->_sFrontDirName . '_blocks');
+            // TODO : use ORM
+            $sql = "SELECT * FROM `$blockTable` WHERE `wmb_delete_datetime` = '0000-00-00 00:00:00'";
+            if ($ids !== '') {
+                $sql .= " AND `wmb_bid` IN ( ";
+                if (! is_array($ids)) {
+                    $ids = array($ids);
+                }
+                array_walk($ids, 'intval');
+                $sql .= implode(',', $ids) ." ) ";
             }
             $sql .= " ORDER BY `$blockTable`.`wmb_visible` DESC, `$blockTable`.`wmb_weight`, " .
                 " `$blockTable`.`wmb_bid`";

@@ -103,6 +103,9 @@ Wizin_Util::define('WIZMOBILE_ERR_TICKET_NOT_FOUND', 'The one-time ticket is not
 /**
  * language for main area
  */
+// main area / all
+Wizin_Util::define('WIZMOBILE_LANG_DISPLAY_BLOCK_CONTENTS', 'Display Contents of block');
+
 // main area / login
 Wizin_Util::define('WIZMOBILE_LANG_SIMPLE_LOGIN', 'Simple Login');
 Wizin_Util::define('WIZMOBILE_LANG_REGISTER_UNIQID', 'Register terminal specific ID');
@@ -138,6 +141,8 @@ Wizin_Util::define('WIZMOBILE_LANG_BLOCK_TITLE', 'Block title');
 Wizin_Util::define('WIZMOBILE_LANG_MODULE_NAME', 'Module name');
 Wizin_Util::define('WIZMOBILE_LANG_DIRNAME', 'Directory');
 Wizin_Util::define('WIZMOBILE_LANG_VISIBLE', 'Visible');
+Wizin_Util::define('WIZMOBILE_LANG_VISIBLE_TITLE', 'Visible only title');
+Wizin_Util::define('WIZMOBILE_LANG_VISIBLE_ALL', 'Visible all');
 Wizin_Util::define('WIZMOBILE_LANG_INVISIBLE', 'Invisible');
 Wizin_Util::define('WIZMOBILE_LANG_WEIGHT', 'Weight');
 

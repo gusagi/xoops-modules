@@ -117,13 +117,16 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
             // deprecated logic <<
 
             // get block
-            $wizmobileBlocks = $wizMobileAction->getWizMobileBlocks(WIZMOBILE_BLOCK_VISIBLE);
-            $wizmobileBlockKeys = array_keys($wizmobileBlocks);
-            $blocks = $this->_getMobileBlocks($wizmobileBlockKeys);
+            $wizmobileBlocks = $wizMobileAction->getWizMobileBlocks(
+                array(WIZMOBILE_BLOCK_VISIBLE_TITLE, WIZMOBILE_BLOCK_VISIBLE_ALL)
+            );
+            $blocks = $this->_getMobileBlocks($wizmobileBlocks);
             $this->mXoopsTpl->assign('blocks', $blocks);
             // get selected block
             if ($mobileBid !== 0) {
-                $_blocks = $this->_getMobileBlocks($mobileBid);
+                $_blocks = $this->_getMobileBlocks(
+                    $wizMobileAction->getWizMobileBlocksById($mobileBid)
+                );
                 $selectBlock = $_blocks[$mobileBid];
                 if (! empty($selectBlock)) {
                     $this->mXoopsTpl->assign('selectBlock', $selectBlock);
@@ -166,18 +169,16 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
             }
         }
 
-        function _getMobileBlocks($wizmobileBlockKeys = '')
+        function _getMobileBlocks($wizmobileBlocks = '')
         {
             // init process
             static $blocks;
             if (! isset($blocks)) {
                 $blocks = array();
             }
-            if (empty($wizmobileBlockKeys)) {
+            if (empty($wizmobileBlocks)) {
                 $return = array();
                 return $return;
-            } else if (! is_array($wizmobileBlockKeys)) {
-                $wizmobileBlockKeys = (array)$wizmobileBlockKeys;
             }
             $xcRoot =& XCube_Root::getSingleton();
             $groups = is_object($xcRoot->mContext->mXoopsUser) ?
@@ -216,11 +217,13 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
             $loadedBlockIds = array_keys($loadedBlocks);
 
             // get block objects
-            foreach ($wizmobileBlockKeys as $wmb_bid) {
+            foreach ($wizmobileBlocks as $wizmobileBlock) {
+                $wmb_bid = $wizmobileBlock['wmb_bid'];
                 if (in_array($wmb_bid, $blockids)) {
                     if (isset($blocks[$wmb_bid])) {
                     } else if (in_array($wmb_bid, $loadedBlockIds)) {
                         $blocks[$wmb_bid] = $loadedBlocks[$wmb_bid];
+                        $blocks[$wmb_bid]['wmb_visible'] = $wizmobileBlock['wmb_visible'];
                     } else {
                         $blockObject =& $blockHandler->get($wmb_bid);
                         if (! isset($blockObject) || ! is_object($blockObject)) {
@@ -234,6 +237,7 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
                                 $block = $this->_getMobileBlockContents($blockProcedure);
                                 if (! empty($block)) {
                                     $blocks[$wmb_bid] = $this->_getMobileBlockContents($blockProcedure);
+                                    $blocks[$wmb_bid]['wmb_visible'] = $wizmobileBlock['wmb_visible'];
                                 }
                                 unset($block);
                             }
@@ -247,8 +251,6 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
             // end process
             unset($groups);
             unset($blockids);
-            unset($wizmobileBlocks);
-            unset($wizmobileBlockKeys);
             unset($loadedBlockIds);
             return $blocks;
         }

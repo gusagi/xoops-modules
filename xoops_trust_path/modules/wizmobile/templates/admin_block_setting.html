@@ -32,16 +32,20 @@
         </td>
         <td>
           <label>
-            <input type="radio" name="wmb_visible[<{$itm_blocks.bid}>]" value="<{$smarty.const.WIZMOBILE_BLOCK_VISIBLE}>"<{if $itm_blocks.wmb_visible == $smarty.const.WIZMOBILE_BLOCK_VISIBLE}> checked="checked"<{/if}> />
-            <{"WIZMOBILE_LANG_VISIBLE"|wiz_constant}>
-          </label>
+            <input type="radio" name="wmb_visible[<{$itm_blocks.bid}>]" value="<{$smarty.const.WIZMOBILE_BLOCK_VISIBLE_TITLE}>"<{if $itm_blocks.wmb_visible == $smarty.const.WIZMOBILE_BLOCK_VISIBLE_TITLE}> checked="checked"<{/if}> />
+            <{"WIZMOBILE_LANG_VISIBLE_TITLE"|wiz_constant}>
+          </label><br />
+          <label>
+            <input type="radio" name="wmb_visible[<{$itm_blocks.bid}>]" value="<{$smarty.const.WIZMOBILE_BLOCK_VISIBLE_ALL}>"<{if $itm_blocks.wmb_visible == $smarty.const.WIZMOBILE_BLOCK_VISIBLE_ALL}> checked="checked"<{/if}> />
+            <{"WIZMOBILE_LANG_VISIBLE_ALL"|wiz_constant}>
+          </label><br />
           <label>
             <input type="radio" name="wmb_visible[<{$itm_blocks.bid}>]" value="<{$smarty.const.WIZMOBILE_BLOCK_INVISIBLE}>"<{if $itm_blocks.wmb_visible == $smarty.const.WIZMOBILE_BLOCK_INVISIBLE}> checked="checked"<{/if}> />
             <{"WIZMOBILE_LANG_INVISIBLE"|wiz_constant}>
           </label>
         </td>
         <td>
-          <input type="text" name="wmb_weight[<{$itm_blocks.bid}>]" value="<{$itm_blocks.wmb_weight}>" style="width: 4em;" />
+          <input type="text" name="wmb_weight[<{$itm_blocks.bid}>]" value="<{$itm_blocks.wmb_weight}>" style="width: 3em;" />
         </td>
       </tr>
       <{/foreach}>
