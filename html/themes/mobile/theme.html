@@ -63,26 +63,48 @@
 
 <{* blocks area(from) *}>
 <div style="font-size: 0.7em; text-align: left; margin-left: 5px;">
-<ul style="line-height: 120%;">
-<{foreach name="blocks" item=block from=$blocks}>
-<{if $block.title|regex_replace:"/.*none/":"none" ne "none"}>
-  <li><a href="<{$smarty.const.WIZMOBILE_CURRENT_URI|escape}><{$smarty.const.WIZMOBILE_BID_CONNECTOR}>mobilebid=<{$block.id}>"><{$block.title}></a></li>
-<{/if}>
-<{/foreach}>
-</ul>
+  <ul style="line-height: 120%;">
+    <{foreach name="blocks" item=block from=$blocks}>
+      <{if $block.wmb_visible === '1'}>
+        <{if $block.id === $smarty.get.mobilebid}>
+          <{assign var='selected_bid' value=$block.id}>
+        <{/if}>
+        <{if $block.title|regex_replace:"/.*none/":"none" ne "none"}>
+          <li><a href="<{$smarty.const.WIZMOBILE_CURRENT_URI|escape}><{$smarty.const.WIZMOBILE_BID_CONNECTOR}>mobilebid=<{$block.id}>"><{$block.title}></a></li>
+        <{/if}>
+      <{/if}>
+    <{/foreach}>
+  </ul>
+  <{if $selected_bid != ""}>
+    <hr />
+    <{if $blocks.$selected_bid.title|regex_replace:"/.*none/":"none" ne "none"}>
+      <div style="font-size: 0.8em; text-align: left;">
+        <{$blocks.$selected_bid.title}>
+      </div>
+    <{/if}>
+    <div style="padding-left: 5px;">
+      <{$blocks.$selected_bid.content}>
+    </div>
+  <{/if}>
 </div>
-<{* blocks area(to) *}>
 
-<{* block contents area(from) *}>
-<{if $selectBlock != ''}>
-<div style="font-size: 0.8em; text-align: left; border-top: 1px solid;">
-  <{$selectBlock.title}>
+<div style="font-size: 0.7em; text-align: left; margin-left: 5px;">
+  <{foreach name="blocks" item=block from=$blocks}>
+    <{if $block.wmb_visible === '2'}>
+      <hr />
+      <{if $block.title|regex_replace:"/.*none/":"none" ne "none"}>
+        <div style="font-size: 0.8em; text-align: left;">
+          <{$block.title}>
+        </div>
+      <{/if}>
+      <div style="padding-left: 5px;">
+        <{$block.content}>
+      </div>
+    <{/if}>
+  <{/foreach}>
 </div>
-<div style="font-size: 0.7em; text-align: left; padding-left: 1em;">
-  <{$selectBlock.content}>
-</div>
-<{/if}>
-<{* block contents area(to) *}>
+<hr />
+<{* blocks area(to) *}>
 
 <{* submenu contents area(from) *}>
 <{if $wizMobileModuleSubLinks}>
