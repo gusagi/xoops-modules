@@ -61,6 +61,8 @@ if (! class_exists('WizMobile')) {
 
         function _define()
         {
+            // spec file download url
+            define('WIZIN_SPEC_DOWNLOAD_URL', 'http://www.gusagi.com/uploads/ke-tai_list.csv');
             // block display mode
             define('WIZMOBILE_BLOCK_INVISIBLE', 0);
             define('WIZMOBILE_BLOCK_VISIBLE_TITLE', 1);
