@@ -193,7 +193,6 @@ Wizin_Util::define('WIZMOBILE_LANG_SESSION_LIFETIME_DESC', 'アクセスがない状態で
 Wizin_Util::define('WIZMOBILE_MSG_SESSION_LIFETIME_NOTICE', '値を大きくするほどセッションハイジャックの危険性が上がりますのでご注意下さい');
 
 
-
 /**
  * language for all area
  */
