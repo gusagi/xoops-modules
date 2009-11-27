@@ -133,7 +133,14 @@ if (! class_exists('Wizin_Filter_Css') && intval(PHP_VERSION) >= 5) {
     }
 }
 if (class_exists('Wizin_Filter_Css')) {
-    $systemStatus['cssFilter']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_ENABLE');
+    $configs = $this->getConfigs();
+    if (! empty($configs['css_filter']) && $configs['css_filter']['wmc_value'] === '1') {
+        $systemStatus['cssFilter']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_ENABLE');
+    } else {
+        $systemStatus['cssFilter']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_DISABLE');
+        $systemStatus['cssFilter']['messages'][] =
+            Wizin_Util::constant('WIZMOBILE_MSG_DISABLE_BY_GENERAL_SETTINGS');
+    }
 } else {
     $systemStatus['cssFilter']['result'] = Wizin_Util::constant('WIZMOBILE_LANG_DISABLE');
     if (! class_exists('HTML_CSS_Selector2XPath')) {

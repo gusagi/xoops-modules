@@ -66,6 +66,7 @@ Wizin_Util::define('WIZMOBILE_MSG_CSS_XPATH_NOT_EXISTS', 'PEAR¥Ñ¥Ã¥±¡¼¥¸"HTML_CS
 Wizin_Util::define('WIZMOBILE_MSG_CSS_COMMON_NOT_EXISTS', 'PEAR¥Ñ¥Ã¥±¡¼¥¸"HTML_Common"¤¬¸«¤Ä¤«¤é¤Ê¤¤¤¿¤á¡¢CSS¥Õ¥£¥ë¥¿¡¼µ¡Ç½¤ÏÌµ¸ú¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹');
 Wizin_Util::define('WIZMOBILE_MSG_CSS_NOT_EXISTS', 'PEAR¥Ñ¥Ã¥±¡¼¥¸"HTML_CSS"¤¬¸«¤Ä¤«¤é¤Ê¤¤¤¿¤á¡¢CSS¥Õ¥£¥ë¥¿¡¼µ¡Ç½¤ÏÌµ¸ú¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹');
 Wizin_Util::define('WIZMOBILE_MSG_CSS_MOBILE_NOT_EXISTS', 'PEAR¥Ñ¥Ã¥±¡¼¥¸"HTML_CSS_Mobile"¤¬¸«¤Ä¤«¤é¤Ê¤¤¤¿¤á¡¢CSS¥Õ¥£¥ë¥¿¡¼µ¡Ç½¤ÏÌµ¸ú¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹');
+Wizin_Util::define('WIZMOBILE_MSG_DISABLE_BY_GENERAL_SETTINGS', '°ìÈÌÀßÄê¤Ë¤è¤êÌµ¸ú¤È¤Ê¤Ã¤Æ¤¤¤Þ¤¹');
 
 // main area / register uniq id
 Wizin_Util::define('WIZMOBILE_MSG_REGISTER_UNIQID_SUCCESS', 'µ¡¼ïID¤Î%s¤¬´°Î»¤·¤Þ¤·¤¿');
@@ -191,6 +192,8 @@ Wizin_Util::define('WIZMOBILE_MSG_TRUST_IP_NOTICE', '¤³¤³¤ÇÀßÄê¤·¤¿IP¥¢¥É¥ì¥¹°Ê³
 Wizin_Util::define('WIZMOBILE_LANG_SESSION_LIFETIME', '¥»¥Ã¥·¥ç¥óÀ¸Â¸»þ´Ö');
 Wizin_Util::define('WIZMOBILE_LANG_SESSION_LIFETIME_DESC', '¥¢¥¯¥»¥¹¤¬¤Ê¤¤¾õÂÖ¤Ç¥»¥Ã¥·¥ç¥ó¤¬°Ý»ý¤µ¤ì¤ë»þ´Ö¤òÊ¬Ã±°Ì¤Ç»ØÄê¤·¤Æ²¼¤µ¤¤<br />½é´üÃÍ¤Ï15Ê¬¤Ç¤¹');
 Wizin_Util::define('WIZMOBILE_MSG_SESSION_LIFETIME_NOTICE', 'ÃÍ¤òÂç¤­¤¯¤¹¤ë¤Û¤É¥»¥Ã¥·¥ç¥ó¥Ï¥¤¥¸¥ã¥Ã¥¯¤Î´í¸±À­¤¬¾å¤¬¤ê¤Þ¤¹¤Î¤Ç¤´Ãí°Õ²¼¤µ¤¤');
+Wizin_Util::define('WIZMOBILE_LANG_CSS_FILTER', Wizin_Util::constant('WIZMOBILE_LANG_CSS_FILTER'));
+Wizin_Util::define('WIZMOBILE_LANG_CSS_FILTER_DESC', 'CSS¥Õ¥£¥ë¥¿¡¼¤òÍ­¸ú¤Ë¤¹¤ë¤«ÀßÄê¤·¤Æ²¼¤µ¤¤');
 
 
 /**

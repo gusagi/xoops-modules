@@ -66,6 +66,7 @@ Wizin_Util::define('WIZMOBILE_MSG_CSS_XPATH_NOT_EXISTS', 'Css filter has become 
 Wizin_Util::define('WIZMOBILE_MSG_CSS_COMMON_NOT_EXISTS', 'Css filter has become invalid, because PEAR package "HTML_Common" does not exist.');
 Wizin_Util::define('WIZMOBILE_MSG_CSS_NOT_EXISTS', 'Css filter has become invalid, because PEAR package "HTML_CSS" does not exist.');
 Wizin_Util::define('WIZMOBILE_MSG_CSS_MOBILE_NOT_EXISTS', 'Css filter has become invalid, because PEAR package "HTML_CSS_Mobile" does not exist.');
+Wizin_Util::define('WIZMOBILE_MSG_DISABLE_BY_GENERAL_SETTINGS', 'It has become invalid depending upon generality setting');
 
 // main area / register uniq id
 Wizin_Util::define('WIZMOBILE_MSG_REGISTER_UNIQID_SUCCESS', '%s of terminal specific ID completed.');
@@ -191,6 +192,8 @@ Wizin_Util::define('WIZMOBILE_MSG_TRUST_IP_NOTICE', 'If with access from other t
 Wizin_Util::define('WIZMOBILE_LANG_SESSION_LIFETIME', 'Session lifetime');
 Wizin_Util::define('WIZMOBILE_LANG_SESSION_LIFETIME_DESC', 'Please appoint the time when session is maintained when it does not have access.<br />Initial value is 15 minutes');
 Wizin_Util::define('WIZMOBILE_MSG_SESSION_LIFETIME_NOTICE', 'Because danger of the extent session hijack which enlarges value rises note.');
+Wizin_Util::define('WIZMOBILE_LANG_CSS_FILTER', Wizin_Util::constant('WIZMOBILE_LANG_CSS_FILTER'));
+Wizin_Util::define('WIZMOBILE_LANG_CSS_FILTER_DESC', 'If you would like to enable css filter, please check "Enable".');
 
 
 /**

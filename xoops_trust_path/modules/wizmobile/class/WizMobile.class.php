@@ -410,6 +410,7 @@ if (! class_exists('WizMobile')) {
         {
             $user = & Wizin_User::getSingleton();
             $actionClass =& $this->getActionClass();
+            $configs = $actionClass->getConfigs();
             $frontDirName = str_replace('_wizmobile_action', '', strtolower(get_class($actionClass)));
             $pattern = '(' .SID .')(&|&amp;)?';
             $currentUri = preg_replace('/' . $pattern . '/', '', WIZXC_CURRENT_URI);
@@ -440,8 +441,10 @@ if (! class_exists('WizMobile')) {
                 )
             );
             $filter->addOutputFilter(array($filter, 'filterOptimizeMobile'), $params);
-            $params = array(XOOPS_ROOT_PATH, XOOPS_URL);
-            $filter->addOutputFilter(array($filter, 'filterCssMobile'), $params);
+            if (! empty($configs['css_filter']) && $configs['css_filter']['wmc_value'] === '1') {
+                $params = array(XOOPS_ROOT_PATH, XOOPS_URL);
+                $filter->addOutputFilter(array($filter, 'filterCssMobile'), $params);
+            }
             $params = array($user->sEncoding, $user->sCharset);
             $filter->addOutputFilter(array($filter, 'filterOutputEncoding'), $params);
             $params = array(

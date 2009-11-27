@@ -66,6 +66,7 @@ Wizin_Util::define('WIZMOBILE_MSG_CSS_XPATH_NOT_EXISTS', 'PEARパッケージ"HT
 Wizin_Util::define('WIZMOBILE_MSG_CSS_COMMON_NOT_EXISTS', 'PEARパッケージ"HTML_Common"が見つからないため、CSSフィルター機能は無効となっています');
 Wizin_Util::define('WIZMOBILE_MSG_CSS_NOT_EXISTS', 'PEARパッケージ"HTML_CSS"が見つからないため、CSSフィルター機能は無効となっています');
 Wizin_Util::define('WIZMOBILE_MSG_CSS_MOBILE_NOT_EXISTS', 'PEARパッケージ"HTML_CSS_Mobile"が見つからないため、CSSフィルター機能は無効となっています');
+Wizin_Util::define('WIZMOBILE_MSG_DISABLE_BY_GENERAL_SETTINGS', '一般設定により無効となっています');
 
 // main area / register uniq id
 Wizin_Util::define('WIZMOBILE_MSG_REGISTER_UNIQID_SUCCESS', '機種IDの%sが完了しました');
@@ -191,6 +192,8 @@ Wizin_Util::define('WIZMOBILE_MSG_TRUST_IP_NOTICE', 'ここで設定したIPア�
 Wizin_Util::define('WIZMOBILE_LANG_SESSION_LIFETIME', 'セッション生存時間');
 Wizin_Util::define('WIZMOBILE_LANG_SESSION_LIFETIME_DESC', 'アクセスがない状態でセッションが維持される時間を分単位で指定して下さい<br />初期値は15分です');
 Wizin_Util::define('WIZMOBILE_MSG_SESSION_LIFETIME_NOTICE', '値を大きくするほどセッションハイジャックの危険性が上がりますのでご注意下さい');
+Wizin_Util::define('WIZMOBILE_LANG_CSS_FILTER', Wizin_Util::constant('WIZMOBILE_LANG_CSS_FILTER'));
+Wizin_Util::define('WIZMOBILE_LANG_CSS_FILTER_DESC', 'CSSフィルターを有効にするか設定して下さい');
 
 
 /**
