@@ -163,8 +163,8 @@ if (! class_exists('WizMobile')) {
                     }
                     $host = trim($host);
                     $host = array_shift(explode(':', $host));
-                    $parseUrl = parse_url(XOOPS_URL);
-                    if ($host !== $parseUrl['host']) {
+                    $serverName = getenv('SERVER_NAME');
+                    if ($host !== $serverName) {
                         header('HTTP/1.1 400 Bad Request');
                         exit('400 Bad Request');
                     }
