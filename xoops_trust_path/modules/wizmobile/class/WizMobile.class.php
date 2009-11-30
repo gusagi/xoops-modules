@@ -161,6 +161,7 @@ if (! class_exists('WizMobile')) {
                     } else {
                         $host = $_SERVER['HTTP_HOST'];
                     }
+                    $host = trim($host);
                     $host = array_shift(explode(':', $host));
                     $parseUrl = parse_url(XOOPS_URL);
                     if ($host !== $parseUrl['host']) {
