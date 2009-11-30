@@ -154,6 +154,19 @@ if (! class_exists('WizMobile')) {
                     $user->bIsMobile = $otherMobile;
                 }
                 if ($user->bIsMobile) {
+                    // anti DNS Rebinding(Temporarily, only mobile)
+                    if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+                        $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
+                        $host = array_shift(explode(',', $host));
+                    } else {
+                        $host = $_SERVER['HTTP_HOST'];
+                    }
+                    $host = array_shift(explode(':', $host));
+                    $parseUrl = parse_url(XOOPS_URL);
+                    if ($host !== $parseUrl['host']) {
+                        header('HTTP/1.1 400 Bad Request');
+                        exit('400 Bad Request');
+                    }
                     // add delegate
                     $xcRoot->mDelegateManager->add('XoopsTpl.New' , array($this , 'mobileTpl')) ;
                     $xcRoot->mController->mSetBlockCachePolicy->add(array($this, 'disableCache'),
