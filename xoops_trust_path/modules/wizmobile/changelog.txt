@@ -5,7 +5,7 @@
 - Added css filter flag in admin.php?act=GeneralSetting.
 - Added Gticket check into simple login action for security.
 - Added host check for DNS Rebinding.
-- 'Wizin' updated from '0.53' to '0.60'.
+- 'Wizin' updated from '0.53' to '0.61'.
 ----------------------------------
 [2009-10-03 Ver 0.44 -> 0.50]
 - Fixed bug about block show-function exist check.
