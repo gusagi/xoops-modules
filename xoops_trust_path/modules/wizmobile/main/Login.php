@@ -60,6 +60,11 @@ if (strtolower($method) === 'post') {
 	        require_once XOOPS_ROOT_PATH . '/modules/legacy/language/' . $language . '/main.php';
 	    }
 	}
+    $gTicket = new XoopsGTicket();
+    if (! $gTicket->check(true, $this->_sFrontDirName, false)) {
+        $xcRoot->mController->executeRedirect(XOOPS_URL .'/modules/' .$frontDirname .'/index.php?act=Login',
+            2, sprintf(Wizin_Util::constant('WIZMOBILE_ERR_TICKET_NOT_FOUND')));
+    }
     $db =& XoopsDatabaseFactory::getDatabaseConnection();
     $user = & Wizin_User::getSingleton();
     $user->checkClient(true);

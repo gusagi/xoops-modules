@@ -3,6 +3,7 @@
 - Modified block render process.
 - Added constant for download 'ke-tai_list.csv'.(special thanks ke-tai.org!)
 - Added css filter flag in admin.php?act=GeneralSetting.
+- Added Gticket check into simple login action for security.
 - 'Wizin' updated from '0.53' to '0.60'.
 ----------------------------------
 [2009-10-03 Ver 0.44 -> 0.50]
