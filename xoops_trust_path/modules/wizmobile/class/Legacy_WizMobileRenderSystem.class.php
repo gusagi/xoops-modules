@@ -149,20 +149,35 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
                         // assign submenu(string.)
                         $subMenuContents .= '<a href="' . XOOPS_URL . '/modules/' . htmlspecialchars($dirname, ENT_QUOTES) .
                             '/">[' . htmlspecialchars($modname, ENT_QUOTES) . ']</a>&nbsp;';
-                        $subLinks = $xoopsModule->subLink();
-                        foreach ($subLinks as $index => $subLink) {
-                            if ($index !== 0) {
-                                $subMenuContents .= "&nbsp;/&nbsp;";
+                        $moduleHandler =& xoops_gethandler('module');
+                        $criteria = new CriteriaCompo(new Criteria('hasmain', 1));
+                        $criteria->add(new Criteria('isactive', 1));
+                        $criteria->add(new Criteria('weight', 0, '>'));
+                        $modules =& $moduleHandler->getObjects($criteria, true);
+                        $modulepermHandler =& xoops_gethandler('groupperm');
+                        $groups = is_object($xcRoot->mContext->mXoopsUser) ?
+                            $xcRoot->mContext->mXoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+                        $readAllowed = $modulepermHandler->getItemIds('module_read', $groups);
+                        foreach (array_keys($modules) as $moduleIndex) {
+                            if (in_array($moduleIndex, $readAllowed) === true) {
+                                if($modules[$moduleIndex]->getVar('dirname') === $xoopsModule->getVar('dirname')){
+                                    $subLinks =& $modules[$moduleIndex]->subLink();
+                                    foreach ($subLinks as $index => $subLink) {
+                                        if ($index !== 0) {
+                                            $subMenuContents .= " / ";
+                                        }
+                                        $subMenuContents .= '<a href="' . $subLink['url'] . '">' . $subLink['name'] . '</a>';
+                                    }
+                                    $this->mXoopsTpl->assign('wizMobileSubMenuContents', $subMenuContents);
+                                    // deprecated logic <<
+                                    // assign submenu(not string.)
+                                    if (! empty($subLinks)) {
+                                        $this->mXoopsTpl->assign('wizMobileModuleSubLinks', $subLinks);
+                                    } else {
+                                        $this->mXoopsTpl->assign('wizMobileModuleSubLinks', '');
+                                    }
+                                }
                             }
-                            $subMenuContents .= '<a href="' . $subLink['url'] . '">' . $subLink['name'] . '</a>';
-                        }
-                        $this->mXoopsTpl->assign('wizMobileSubMenuContents', $subMenuContents);
-                        // deprecated logic <<
-                        // assign submenu(not string.)
-                        if (! empty($subLinks)) {
-                            $this->mXoopsTpl->assign('wizMobileModuleSubLinks', $subLinks);
-                        } else {
-                            $this->mXoopsTpl->assign('wizMobileModuleSubLinks', '');
                         }
                     }
                 }
