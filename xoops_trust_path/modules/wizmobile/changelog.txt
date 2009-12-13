@@ -1,4 +1,8 @@
 ----------------------------------
+[2009-12-14 Ver 0.51 -> 0.52]
+- modified sublik logic
+- 'Wizin' updated from '0.61' to '0.63'
+----------------------------------
 [2009-12-01 Ver 0.50 -> 0.51]
 - Modified block render process.
 - Added constant for download 'ke-tai_list.csv'.(special thanks ke-tai.org!)
