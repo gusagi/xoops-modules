@@ -2,7 +2,7 @@
 [2010-02-06 Ver 0.51 -> 0.52]
 - modified sublik logic
 - Fixed bug about RewriteRule in .htaccess for pico.(thx takahasi)
-- 'Wizin' updated from '0.61' to '0.63'
+- 'Wizin' updated from '0.61' to '0.64'
 ----------------------------------
 [2009-12-01 Ver 0.50 -> 0.51]
 - Modified block render process.
