@@ -222,8 +222,8 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
             $legacy_BlockContents =& $xcRoot->mContext->mAttributes['legacy_BlockContents'];
             $loadedBlocks = array();
             if (! empty($legacy_BlockContents)) {
-                foreach ($legacy_BlockContents as $index => $blockArea) {
-                    foreach ($blockArea as $key => $block) {
+                foreach ($legacy_BlockContents as $index => & $blockArea) {
+                    foreach ($blockArea as $key => & $block) {
                         $blockId = $block['id'];
                         $loadedBlocks[$blockId] = $block;
                     }
@@ -245,19 +245,17 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
                             continue;
                         }
                         $show_func = $blockObject->getVar('show_func');
-                        if (function_exists($show_func)) {
-                            $blockProcedure =& Legacy_Utils::createBlockProcedure($blockObject);
-                            if ($blockProcedure->prepare() !== false) {
-                                // get block contents
-                                $block = $this->_getMobileBlockContents($blockProcedure);
-                                if (! empty($block)) {
-                                    $blocks[$wmb_bid] = $this->_getMobileBlockContents($blockProcedure);
-                                    $blocks[$wmb_bid]['wmb_visible'] = $wizmobileBlock['wmb_visible'];
-                                }
-                                unset($block);
+                        $blockProcedure =& Legacy_Utils::createBlockProcedure($blockObject);
+                        if ($blockProcedure->prepare() !== false) {
+                            // get block contents
+                            $block = $this->_getMobileBlockContents($blockProcedure);
+                            if (! empty($block)) {
+                                $blocks[$wmb_bid] = $this->_getMobileBlockContents($blockProcedure);
+                                $blocks[$wmb_bid]['wmb_visible'] = $wizmobileBlock['wmb_visible'];
                             }
-                            unset($blockProcedure);
+                            unset($block);
                         }
+                        unset($blockProcedure);
                         unset($blockObject);
                     }
                 }

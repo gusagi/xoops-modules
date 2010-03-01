@@ -3,6 +3,7 @@
 - modified sublik logic
 - Fixed bug about RewriteRule in .htaccess for pico.(thx takahasi)
 - Fixed bug about default display block is not displayed
+- Fixed bug about mobile only block is not displayed
 - 'Wizin' updated from '0.61' to '0.65'
 ----------------------------------
 [2009-12-01 Ver 0.50 -> 0.51]
