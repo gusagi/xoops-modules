@@ -62,53 +62,63 @@
 <{* page navi(to) *}>
 
 <{* blocks area(from) *}>
-<div style="font-size: 0.7em; text-align: left; margin-left: 5px;">
-  <ul style="line-height: 120%;">
-    <{foreach name="blocks" item=block from=$blocks}>
-      <{if $block.wmb_visible === '1'}>
-        <{if $block.id === $smarty.get.mobilebid}>
-          <{assign var='selected_bid' value=$block.id}>
-        <{/if}>
-        <{if $block.title|regex_replace:"/.*none/":"none" ne "none"}>
-          <li><a href="<{$smarty.const.WIZMOBILE_CURRENT_URI|escape}><{$smarty.const.WIZMOBILE_BID_CONNECTOR}>mobilebid=<{$block.id}>"><{$block.title}></a></li>
-        <{/if}>
-      <{/if}>
-    <{/foreach}>
-  </ul>
-</div>
-
-<div style="font-size: 0.7em; text-align: left; margin-left: 5px;">
-  <{foreach name="blocks" item=block from=$blocks}>
-    <{if $block.wmb_visible === '2'}>
+<{assign var='selected_bid' value=0}>
+<{foreach name="blocks" item=block from=$blocks}>
+  <{if $block.wmb_visible === '1'}>
+    <{if $selected_bid === 0}>
+      <{assign var='selected_bid' value=$block.id}>
+      <div style="font-size: 0.7em; text-align: left; margin-left: 5px;">
+        <ul style="line-height: 120%;">
+    <{/if}>
+    <{if $block.title|regex_replace:"/.*none/":"none" ne "none"}>
+      <li><a href="<{$smarty.const.WIZMOBILE_CURRENT_URI|escape}><{$smarty.const.WIZMOBILE_BID_CONNECTOR}>mobilebid=<{$block.id}>"><{$block.title}></a></li>
+    <{/if}>
+    <{if $selected_bid !== 0}>
+        </ul>
+      </div>
       <hr />
-      <{if $block.title|regex_replace:"/.*none/":"none" ne "none"}>
-        <div style="font-size: 0.8em; text-align: left;">
-          <{$block.title}>
-        </div>
-      <{/if}>
-      <div style="padding-left: 5px;">
-        <{$block.content}>
+    <{/if}>
+  <{/if}>
+<{/foreach}>
+
+<{assign var='selected_bid' value=0}>
+<{foreach name="blocks" item=block from=$blocks}>
+  <{if $block.wmb_visible === '2'}>
+    <{if $selected_bid === 0}>
+      <{assign var='selected_bid' value=$block.id}>
+      <div style="font-size: 0.7em; text-align: left; margin-left: 5px;">
+    <{/if}>
+    <{if $block.title|regex_replace:"/.*none/":"none" ne "none"}>
+      <div style="background-color: #dfdfdf; font-size: 0.8em; text-align: left; border-top: 1px solid #778899;">
+        <{$block.title}>
       </div>
     <{/if}>
-  <{/foreach}>
-</div>
-<hr />
+    <div style="padding-left: 5px;">
+      <{$block.content}>
+    </div>
+    <{if $selected_bid !== 0}>
+      </div>
+      <hr />
+    <{/if}>
+  <{/if}>
+<{/foreach}>
 <{* blocks area(to) *}>
 
 <{* block contents area(from) *}>
 <{if $selectBlock != ''}>
-<div style="font-size: 0.8em; text-align: left; border-top: 1px solid;">
+<div style="background-color: #dfdfdf; font-size: 0.8em; text-align: left; border-top: 1px solid #778899;">
   <{$selectBlock.title}>
 </div>
 <div style="font-size: 0.7em; text-align: left; padding-left: 1em;">
   <{$selectBlock.content}>
 </div>
+<hr />
 <{/if}>
 <{* block contents area(to) *}>
 
 <{* submenu contents area(from) *}>
 <{if $wizMobileModuleSubLinks}>
-<div style="font-size: 0.7em; text-align: left; border-top: 1px solid;">
+<div style="background-color: #dfdfdf; font-size: 0.7em; text-align: left; border-top: 1px solid #778899;">
 [<a href="<{$wizMobileModuleLink}>"><{$wizMobileModuleName}></a>]
 <{foreach name="sublinks" item=sublink from=$wizMobileModuleSubLinks}>
   <{if $smarty.foreach.sublinks.first == false}>
@@ -117,6 +127,7 @@
   <a href="<{$sublink.url}>"><{$sublink.name}></a>
 <{/foreach}>
 </div>
+<hr />
 <{/if}>
 <{* submenu contents area(to) *}>
 
@@ -126,6 +137,7 @@
   <a name="Maincontents" id="Maincontents"></a>
   <{$xoops_contents|wiz_pager:8}>
 </div>
+<hr />
 <{/if}>
 <{* xoops_contents area(to) *}>
 
