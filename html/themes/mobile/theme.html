@@ -75,17 +75,6 @@
       <{/if}>
     <{/foreach}>
   </ul>
-  <{if $selected_bid != ""}>
-    <hr />
-    <{if $blocks.$selected_bid.title|regex_replace:"/.*none/":"none" ne "none"}>
-      <div style="font-size: 0.8em; text-align: left;">
-        <{$blocks.$selected_bid.title}>
-      </div>
-    <{/if}>
-    <div style="padding-left: 5px;">
-      <{$blocks.$selected_bid.content}>
-    </div>
-  <{/if}>
 </div>
 
 <div style="font-size: 0.7em; text-align: left; margin-left: 5px;">
@@ -105,6 +94,17 @@
 </div>
 <hr />
 <{* blocks area(to) *}>
+
+<{* block contents area(from) *}>
+<{if $selectBlock != ''}>
+<div style="font-size: 0.8em; text-align: left; border-top: 1px solid;">
+  <{$selectBlock.title}>
+</div>
+<div style="font-size: 0.7em; text-align: left; padding-left: 1em;">
+  <{$selectBlock.content}>
+</div>
+<{/if}>
+<{* block contents area(to) *}>
 
 <{* submenu contents area(from) *}>
 <{if $wizMobileModuleSubLinks}>
