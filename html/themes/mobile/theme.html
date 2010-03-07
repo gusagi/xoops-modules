@@ -73,13 +73,13 @@
     <{if $block.title|regex_replace:"/.*none/":"none" ne "none"}>
       <li><a href="<{$smarty.const.WIZMOBILE_CURRENT_URI|escape}><{$smarty.const.WIZMOBILE_BID_CONNECTOR}>mobilebid=<{$block.id}>"><{$block.title}></a></li>
     <{/if}>
-    <{if $selected_bid !== 0}>
-        </ul>
-      </div>
-      <hr />
-    <{/if}>
   <{/if}>
 <{/foreach}>
+<{if $selected_bid !== 0}>
+    </ul>
+  </div>
+  <hr />
+<{/if}>
 
 <{assign var='selected_bid' value=0}>
 <{foreach name="blocks" item=block from=$blocks}>
