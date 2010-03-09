@@ -134,48 +134,47 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
             }
             // display sub menu
             $subMenuContents = '';
-            if (function_exists('b_legacy_mainmenu_show')) {
-                $xoopsModule =& $xcRoot->mContext->mXoopsModule;
-                if (isset($xoopsModule) && is_object($xoopsModule)) {
-                    if ($xoopsModule->getVar('hasmain') == 1 && $xoopsModule->getVar('weight') > 0) {
-                        $dirname = $xoopsModule->getVar('dirname');
-                        $modname = $xoopsModule->getVar('name');
-                        $this->mXoopsTpl->assign('wizMobileModuleName', $modname);
-                        $this->mXoopsTpl->assign('wizMobileModuleLink', XOOPS_URL . '/modules/' . $dirname . '/');
-                        /*
-                         * Deprecated logic block.
-                         * This block will delete...
-                         */
-                        // assign submenu(string.)
-                        $subMenuContents .= '<a href="' . XOOPS_URL . '/modules/' . htmlspecialchars($dirname, ENT_QUOTES) .
-                            '/">[' . htmlspecialchars($modname, ENT_QUOTES) . ']</a>&nbsp;';
-                        $moduleHandler =& xoops_gethandler('module');
-                        $criteria = new CriteriaCompo(new Criteria('hasmain', 1));
-                        $criteria->add(new Criteria('isactive', 1));
-                        $criteria->add(new Criteria('weight', 0, '>'));
-                        $modules =& $moduleHandler->getObjects($criteria, true);
-                        $modulepermHandler =& xoops_gethandler('groupperm');
-                        $groups = is_object($xcRoot->mContext->mXoopsUser) ?
-                            $xcRoot->mContext->mXoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
-                        $readAllowed = $modulepermHandler->getItemIds('module_read', $groups);
-                        foreach (array_keys($modules) as $moduleIndex) {
-                            if (in_array($moduleIndex, $readAllowed) === true) {
-                                if($modules[$moduleIndex]->getVar('dirname') === $xoopsModule->getVar('dirname')){
-                                    $subLinks =& $modules[$moduleIndex]->subLink();
-                                    foreach ($subLinks as $index => $subLink) {
-                                        if ($index !== 0) {
-                                            $subMenuContents .= " / ";
-                                        }
-                                        $subMenuContents .= '<a href="' . $subLink['url'] . '">' . $subLink['name'] . '</a>';
+            $xoopsModule =& $xcRoot->mContext->mXoopsModule;
+            if (isset($xoopsModule) && is_object($xoopsModule)) {
+                if ($xoopsModule->getVar('hasmain') == 1 && $xoopsModule->getVar('weight') > 0) {
+                    $dirname = $xoopsModule->getVar('dirname');
+                    $modname = $xoopsModule->getVar('name');
+                    $this->mXoopsTpl->assign('wizMobileModuleName', $modname);
+                    $this->mXoopsTpl->assign('wizMobileModuleLink', XOOPS_URL . '/modules/' . $dirname . '/');
+                    // deprecated logic >>
+                    // This block will delete...
+                    // assign submenu(string.)
+                    $subMenuContents .= '<a href="' . XOOPS_URL . '/modules/' .
+                        htmlspecialchars($dirname, ENT_QUOTES) .
+                        '/">[' . htmlspecialchars($modname, ENT_QUOTES) . ']</a>&nbsp;';
+                    // deprecated logic <<
+                    $moduleHandler =& xoops_gethandler('module');
+                    $criteria = new CriteriaCompo(new Criteria('hasmain', 1));
+                    $criteria->add(new Criteria('isactive', 1));
+                    $criteria->add(new Criteria('weight', 0, '>'));
+                    $modules =& $moduleHandler->getObjects($criteria, true);
+                    $modulepermHandler =& xoops_gethandler('groupperm');
+                    $groups = is_object($xcRoot->mContext->mXoopsUser) ?
+                        $xcRoot->mContext->mXoopsUser->getGroups() : XOOPS_GROUP_ANONYMOUS;
+                    $readAllowed = $modulepermHandler->getItemIds('module_read', $groups);
+                    foreach (array_keys($modules) as $moduleIndex) {
+                        if (in_array($moduleIndex, $readAllowed) === true) {
+                            if($modules[$moduleIndex]->getVar('dirname') === $xoopsModule->getVar('dirname')){
+                                $subLinks =& $modules[$moduleIndex]->subLink();
+                                // deprecated logic >>
+                                foreach ($subLinks as $index => $subLink) {
+                                    if ($index !== 0) {
+                                        $subMenuContents .= " / ";
                                     }
-                                    $this->mXoopsTpl->assign('wizMobileSubMenuContents', $subMenuContents);
-                                    // deprecated logic <<
-                                    // assign submenu(not string.)
-                                    if (! empty($subLinks)) {
-                                        $this->mXoopsTpl->assign('wizMobileModuleSubLinks', $subLinks);
-                                    } else {
-                                        $this->mXoopsTpl->assign('wizMobileModuleSubLinks', '');
-                                    }
+                                    $subMenuContents .= '<a href="' . $subLink['url'] . '">' . $subLink['name'] . '</a>';
+                                }
+                                $this->mXoopsTpl->assign('wizMobileSubMenuContents', $subMenuContents);
+                                // deprecated logic <<
+                                // assign submenu(not string.)
+                                if (! empty($subLinks)) {
+                                    $this->mXoopsTpl->assign('wizMobileModuleSubLinks', $subLinks);
+                                } else {
+                                    $this->mXoopsTpl->assign('wizMobileModuleSubLinks', '');
                                 }
                             }
                         }
@@ -204,7 +203,8 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
             $blockHandler =& xoops_gethandler('block');
 
             // get permitted blockid
-            $sql = "SELECT DISTINCT gperm_itemid FROM ".$db->prefix('group_permission')." WHERE gperm_name = 'block_read' AND gperm_modid = 1";
+            $sql = "SELECT DISTINCT gperm_itemid FROM ".$db->prefix('group_permission').
+                " WHERE gperm_name = 'block_read' AND gperm_modid = 1";
             if (is_array($groups)) {
                 $sql .= ' AND gperm_groupid IN ('.implode(',', array_map('intval', $groups)).')';
             } else {
