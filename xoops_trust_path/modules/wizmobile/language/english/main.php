@@ -145,6 +145,7 @@ Wizin_Util::define('WIZMOBILE_LANG_VISIBLE', 'Visible');
 Wizin_Util::define('WIZMOBILE_LANG_VISIBLE_TITLE', 'Visible only title');
 Wizin_Util::define('WIZMOBILE_LANG_VISIBLE_ALL', 'Visible all');
 Wizin_Util::define('WIZMOBILE_LANG_INVISIBLE', 'Invisible');
+Wizin_Util::define('WIZMOBILE_LANG_UNSETTING', 'Unsetting(Set same value as PC)');
 Wizin_Util::define('WIZMOBILE_LANG_WEIGHT', 'Weight');
 
 // default display block setting

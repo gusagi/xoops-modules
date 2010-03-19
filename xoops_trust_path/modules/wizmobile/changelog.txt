@@ -1,11 +1,12 @@
 ----------------------------------
-[2010-03-10 Ver 0.51 -> 0.52]
+[2010-03-20 Ver 0.51 -> 0.52]
 - modified sublik logic
 - Fixed bug about RewriteRule in .htaccess for pico.(thx takahasi)
 - Fixed bug about default display block is not displayed
 - Fixed bug about mobile only block is not displayed
 - Fixed bug about submenu is not displayed when mainmenu is not displayed
-- 'Wizin' updated from '0.61' to '0.65'
+- Fixed bug about unsetting block in 'BlockSetting' action(thx hamaco)
+- 'Wizin' updated from '0.61' to '0.69'
 ----------------------------------
 [2009-12-01 Ver 0.50 -> 0.51]
 - Modified block render process.

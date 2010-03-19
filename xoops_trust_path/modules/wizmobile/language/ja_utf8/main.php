@@ -145,6 +145,7 @@ Wizin_Util::define('WIZMOBILE_LANG_VISIBLE', '表示');
 Wizin_Util::define('WIZMOBILE_LANG_VISIBLE_TITLE', 'タイトルのみ表示');
 Wizin_Util::define('WIZMOBILE_LANG_VISIBLE_ALL', '全て表示');
 Wizin_Util::define('WIZMOBILE_LANG_INVISIBLE', '非表示');
+Wizin_Util::define('WIZMOBILE_LANG_UNSETTING', '未設定(PCと同じに設定する)');
 Wizin_Util::define('WIZMOBILE_LANG_WEIGHT', '並び順');
 
 // default display block setting
