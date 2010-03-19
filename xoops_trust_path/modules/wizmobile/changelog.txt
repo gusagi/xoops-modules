@@ -8,6 +8,7 @@
 - Fixed bug about mobile only block is not displayed
 - Fixed bug about submenu is not displayed when mainmenu is not displayed
 - Fixed bug about unsetting block in 'BlockSetting' action(thx hamaco)
+- Fixed bug about setting of module display ahead doesn't operate correctly(thx mbxoops)
 - 'Wizin' updated from '0.61' to '0.69'
 ----------------------------------
 [2009-12-01 Ver 0.50 -> 0.51]

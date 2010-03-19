@@ -214,8 +214,17 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
             }
             $result = $db->query($sql);
             $blockids = array();
+            $xoopsModule =& $xcRoot->mContext->mXoopsModule;
+            $mid = (isset($xoopsModule) && is_object($xoopsModule)) ? intval($xoopsModule->getVar('mid')) : -1;
             while ($myrow = $db->fetchArray($result)) {
-                $blockids[] = $myrow['gperm_itemid'];
+                // check block module link
+                $sql = "SELECT block_id, module_id FROM ".$db->prefix('block_module_link').
+                    " WHERE block_id = " .intval($myrow['gperm_itemid']) ." AND".
+                    " module_id IN ($mid, 0)";
+                $linkResult = $db->query($sql);
+                if ($linkResult !== false && $db->getRowsNum($linkResult) > 0) {
+                    $blockids[] = $myrow['gperm_itemid'];
+                }
             }
 
             // get loaded blocks
