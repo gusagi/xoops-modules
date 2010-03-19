@@ -1,0 +1,86 @@
+/* common style */
+h1 {
+    font-size: large;
+    font-weight: normal;
+}
+
+ul {
+    margin: 5px 0 5px 1em;
+    padding: 0;
+}
+
+/* layout */
+#header {
+    text-align: center;
+}
+
+#login {
+    text-align: right;
+    font-size: x-small;
+}
+
+#headerNavi {
+    font-size: x-small;
+    text-align: left;
+}
+
+#messageArea {
+    text-align: center;
+}
+
+.message {
+    color: #808080;
+}
+
+#menuArea {
+    text-align: left;
+    margin-left: 0.5em;
+}
+
+#menuList {
+    line-height: 120%;
+}
+
+#subMenu {
+    background-color: #dfdfdf;
+    text-align: left;
+}
+
+#mainContent {
+}
+
+#fotterNavi {
+    font-size: x-small;
+    text-align: left;
+}
+
+#footer {
+    font-size: x-small;
+    text-align: center;
+}
+
+.blockTitle {
+    background-color: #dfdfdf;
+    text-align: left;
+}
+
+.content {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+.blockContent {
+    text-align: left;
+}
+
+.naviL {
+    text-align: left;
+}
+
+.naviR {
+    text-align: right;
+}
+
+.newLine {
+    clear: both;
+}

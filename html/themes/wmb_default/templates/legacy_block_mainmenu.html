@@ -1,0 +1,17 @@
+<ul id="mainmenu">
+    <{foreach item=module from=$block.modules}>
+    <li><a href="<{$xoops_url}>/modules/<{$module.directory}>/"><{$module.name}></a>
+<{* if enable sublink, please modify theme.html
+    <{if $module.sublinks}>
+        <li class="submenu">
+        <ul>
+        <{foreach item=sublink from=$module.sublinks}>
+            <li><a href="<{$sublink.url}>"><{$sublink.name}></a></li>
+        <{/foreach}>
+        </ul>
+        </li>
+    <{/if}>
+*}>
+    <{/foreach}>
+</ul>
+

@@ -1,6 +1,7 @@
 ----------------------------------
 [2010-03-20 Ver 0.51 -> 0.52]
-- modified sublik logic
+- Modified sublink logic
+- Added mobile theme 'wmb_default'
 - Fixed bug about RewriteRule in .htaccess for pico.(thx takahasi)
 - Fixed bug about default display block is not displayed
 - Fixed bug about mobile only block is not displayed

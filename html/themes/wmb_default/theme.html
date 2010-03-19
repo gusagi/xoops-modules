@@ -1,0 +1,165 @@
+<{$wizmobile_headerTag}>
+<head>
+  <meta http-equiv="content-type" content="<{$wizmobile_contentsType}>; charset=<{$xoops_charset}>" />
+  <meta http-equiv="content-language" content="<{$xoops_langcode}>" />
+  <meta http-equiv="Pragma" content-type="no-cache" />
+  <meta http-equiv="Cache-Control" content="no-cache" />
+  <meta http-equiv="Expires" content="-1" />
+  <link rel="stylesheet" type="text/css" media="screen" href="<{$xoops_themecss}>" />
+  <title><{$xoops_sitename}> - <{if $xoops_pagetitle}><{$xoops_pagetitle}><{else}><{$xoops_slogan}><{/if}></title>
+  <!-- RMV: added module header -->
+  <{$xoops_module_header}>
+</head>
+
+<body>
+<a name="PageTop" id="PageTop"></a>
+<div id="header">
+  <img class="wiz-img-link-unnecessary" src="<{$xoops_url}>/themes/<{$xoops_theme}>/images/mobile_head.gif" alt="<{$xoops_sitename}>" />
+  <h1><marquee><{$xoops_sitename}></marquee></h1>
+</div>
+
+<{* login form(from) *}>
+<div id="messageArea">
+<{if $xoops_isuser === true}>
+  <span>Welcome <{$xoops_uname}> !</span>
+<{/if}>
+<{if $smarty.session.redirect_message}>
+  <span class="message">
+    <{$smarty.session.redirect_message}>
+  </span>
+  <{php}>
+    unset($_SESSION['redirect_message']);
+  <{/php}>
+<{/if}>
+</div>
+<div id="login">
+  <{if $xoops_isuser !== true}>
+    <{if $wizmobile_configs.login.wmc_value == 1}>
+      <a href="<{$xoops_url}>/modules/<{$wizmobile_dirname}>/index.php?act=Login" accesskey="#">[emj:123]<{"WIZMOBILE_LANG_LOGIN"|wiz_constant}></a>
+    <{/if}>
+  <{else}>
+    <a href="<{$xoops_url}>/modules/<{$wizmobile_dirname}>/index.php?act=Setting" accesskey="1">[1]<{"WIZMOBILE_LANG_SETTING"|wiz_constant}></a>
+  <{/if}>
+</div>
+<hr />
+<{* login form(to) *}>
+
+<{* page navi(from) *}>
+<div id="headerNavi">
+  <div class="naviR">
+    <a href="#PageBottom" accesskey="8">[emj:132]<{"WIZMOBILE_LANG_PAGE_BOTTOM"|wiz_constant}></a>
+  </div>
+  <div class="naviL">
+  </div>
+<hr />
+</div>
+<{* page navi(to) *}>
+
+<{* blocks area(from) *}>
+<{assign var='selected_bid' value=0}>
+<{foreach name="blocks" item=block from=$blocks}>
+  <{if $block.wmb_visible === '1'}>
+    <{if $selected_bid === 0}>
+      <{assign var='selected_bid' value=$block.id}>
+      <div id="menuArea">
+        <ul id="menuList" class="content">
+    <{/if}>
+    <{if $block.title|regex_replace:"/.*none/":"none" ne "none"}>
+      <li><a href="<{$smarty.const.WIZMOBILE_CURRENT_URI|escape}><{$smarty.const.WIZMOBILE_BID_CONNECTOR}>mobilebid=<{$block.id}>"><{$block.title}></a></li>
+    <{/if}>
+  <{/if}>
+<{/foreach}>
+<{if $selected_bid !== 0}>
+    </ul>
+  </div>
+  <hr />
+<{/if}>
+
+<{assign var='selected_bid' value=0}>
+<{foreach name="blocks" item=block from=$blocks}>
+  <{if $block.wmb_visible === '2'}>
+    <{if $selected_bid === 0}>
+      <{assign var='selected_bid' value=$block.id}>
+      <div class="blockArea">
+    <{/if}>
+    <{if $block.title|regex_replace:"/.*none/":"none" ne "none"}>
+      <div class="blockTitle">
+        <{$block.title}>
+      </div>
+    <{/if}>
+    <div class="blockContent content">
+      <{$block.content}>
+    </div>
+    <{if $selected_bid !== 0}>
+      </div>
+      <hr />
+    <{/if}>
+  <{/if}>
+<{/foreach}>
+<{* blocks area(to) *}>
+
+<{* block contents area(from) *}>
+<{if $selectBlock != ''}>
+<div class="blockTitle">
+  <{$selectBlock.title}>
+</div>
+<div class="blockContent content">
+  <{$selectBlock.content}>
+</div>
+<hr />
+<{/if}>
+<{* block contents area(to) *}>
+
+<{* submenu contents area(from) *}>
+<{if $wizMobileModuleSubLinks}>
+<div id="subMenu">
+[<a href="<{$wizMobileModuleLink}>"><{$wizMobileModuleName}></a>]
+<{foreach name="sublinks" item=sublink from=$wizMobileModuleSubLinks}>
+  <{if $smarty.foreach.sublinks.first == false}>
+    &nbsp;/&nbsp;
+  <{/if}>
+  <a href="<{$sublink.url}>"><{$sublink.name}></a>
+<{/foreach}>
+</div>
+<hr />
+<{/if}>
+<{* submenu contents area(to) *}>
+
+<{* xoops_contents area(from) *}>
+<{if $xoops_contents != ''}>
+<div id="mainContent" class="content">
+  <a name="Maincontents" id="Maincontents"></a>
+  <{$xoops_contents|wiz_pager:8}>
+</div>
+<hr />
+<{/if}>
+<{* xoops_contents area(to) *}>
+
+<{* page navi(from) *}>
+<div id="fotterNavi">
+  <div class="naviL">
+    <a href="<{$xoops_url}>/" accesskey="0">[emj:134]Home</a>
+    <{if $xoops_isuser === true}>
+      <a href="<{$xoops_url}>/modules/<{$wizmobile_dirname}>/index.php?act=Setting">[emj:125]<{"WIZMOBILE_LANG_SETTING"|wiz_constant}></a>
+    <{/if}>
+    <{if $xoops_isuser === true}>
+      <a href="<{$xoops_url}>/user.php?op=logout" accesskey="#">[emj:123]<{"WIZMOBILE_LANG_LOGOUT"|wiz_constant}></a>
+    <{/if}>
+    <{if $xoops_contents != ''}>
+      <a href="#Maincontents" accesskey="5">[emj:129]<{"WIZMOBILE_LANG_MAIN_CONTENTS"|wiz_constant}></a>
+    <{/if}>
+  </div>
+  <div class="naviR">
+    <a href="#PageTop" accesskey="2">[emj:126]<{"WIZMOBILE_LANG_PAGE_TOP"|wiz_constant}></a>
+  </div>
+</div>
+<{* page navi(to) *}>
+
+<hr />
+<div id="footer">
+<a name="PageBottom" id="PageBottom"></a>
+<{$xoops_footer}>
+</div>
+
+</body>
+</html>
