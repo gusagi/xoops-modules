@@ -32,12 +32,12 @@ ul {
     color: #808080;
 }
 
-#menuArea {
+.menuArea {
     text-align: left;
     margin-left: 0.5em;
 }
 
-#menuList {
+.menuList {
     line-height: 120%;
 }
 

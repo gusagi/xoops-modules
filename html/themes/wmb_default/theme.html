@@ -55,14 +55,14 @@
 </div>
 <{* page navi(to) *}>
 
-<{* blocks area(from) *}>
+<{* blocks area in upper row(from) *}>
 <{assign var='selected_bid' value=0}>
 <{foreach name="blocks" item=block from=$blocks}>
-  <{if $block.wmb_visible === '1'}>
+  <{if $block.wmb_visible === '1' && $block.wmb_weight < 1000}>
     <{if $selected_bid === 0}>
       <{assign var='selected_bid' value=$block.id}>
-      <div id="menuArea">
-        <ul id="menuList" class="content">
+      <div class="menuArea">
+        <ul class="menuList content">
     <{/if}>
     <{if $block.title|regex_replace:"/.*none/":"none" ne "none"}>
       <li><a href="<{$smarty.const.WIZMOBILE_CURRENT_URI|escape}><{$smarty.const.WIZMOBILE_BID_CONNECTOR}>mobilebid=<{$block.id}>"><{$block.title}></a></li>
@@ -77,7 +77,7 @@
 
 <{assign var='selected_bid' value=0}>
 <{foreach name="blocks" item=block from=$blocks}>
-  <{if $block.wmb_visible === '2'}>
+  <{if $block.wmb_visible === '2' && $block.wmb_weight < 1000}>
     <{if $selected_bid === 0}>
       <{assign var='selected_bid' value=$block.id}>
       <div class="blockArea">
@@ -96,7 +96,7 @@
     <{/if}>
   <{/if}>
 <{/foreach}>
-<{* blocks area(to) *}>
+<{* blocks area in upper row(to) *}>
 
 <{* block contents area(from) *}>
 <{if $selectBlock != ''}>
@@ -134,6 +134,49 @@
 <hr />
 <{/if}>
 <{* xoops_contents area(to) *}>
+
+<{* blocks area in lower row(from) *}>
+<{assign var='selected_bid' value=0}>
+<{foreach name="blocks" item=block from=$blocks}>
+  <{if $block.wmb_visible === '2' && $block.wmb_weight >= 1000}>
+    <{if $selected_bid === 0}>
+      <{assign var='selected_bid' value=$block.id}>
+      <div class="blockArea">
+    <{/if}>
+    <{if $block.title|regex_replace:"/.*none/":"none" ne "none"}>
+      <div class="blockTitle">
+        <{$block.title}>
+      </div>
+    <{/if}>
+    <div class="blockContent content">
+      <{$block.content}>
+    </div>
+    <{if $selected_bid !== 0}>
+      </div>
+      <hr />
+    <{/if}>
+  <{/if}>
+<{/foreach}>
+
+<{assign var='selected_bid' value=0}>
+<{foreach name="blocks" item=block from=$blocks}>
+  <{if $block.wmb_visible === '1' && $block.wmb_weight >= 1000}>
+    <{if $selected_bid === 0}>
+      <{assign var='selected_bid' value=$block.id}>
+      <div class="menuArea">
+        <ul class="menuList content">
+    <{/if}>
+    <{if $block.title|regex_replace:"/.*none/":"none" ne "none"}>
+      <li><a href="<{$smarty.const.WIZMOBILE_CURRENT_URI|escape}><{$smarty.const.WIZMOBILE_BID_CONNECTOR}>mobilebid=<{$block.id}>"><{$block.title}></a></li>
+    <{/if}>
+  <{/if}>
+<{/foreach}>
+<{if $selected_bid !== 0}>
+    </ul>
+  </div>
+  <hr />
+<{/if}>
+<{* blocks area in lower row(to) *}>
 
 <{* page navi(from) *}>
 <div id="fotterNavi">

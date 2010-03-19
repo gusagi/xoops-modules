@@ -239,6 +239,7 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
                     } else if (in_array($wmb_bid, $loadedBlockIds)) {
                         $blocks[$wmb_bid] = $loadedBlocks[$wmb_bid];
                         $blocks[$wmb_bid]['wmb_visible'] = $wizmobileBlock['wmb_visible'];
+                        $blocks[$wmb_bid]['wmb_weight'] = $wizmobileBlock['wmb_weight'];
                     } else {
                         $blockObject =& $blockHandler->get($wmb_bid);
                         if (! isset($blockObject) || ! is_object($blockObject)) {
@@ -252,6 +253,7 @@ if(! class_exists('Legacy_WizMobileRenderSystem')) {
                             if (! empty($block)) {
                                 $blocks[$wmb_bid] = $this->_getMobileBlockContents($blockProcedure);
                                 $blocks[$wmb_bid]['wmb_visible'] = $wizmobileBlock['wmb_visible'];
+                                $blocks[$wmb_bid]['wmb_weight'] = $wizmobileBlock['wmb_weight'];
                             }
                             unset($block);
                         }
